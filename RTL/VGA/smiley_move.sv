@@ -26,9 +26,9 @@ module	smiley_move	(
 
 // a module used to generate the  ball trajectory.  
 
-parameter int INITIAL_X = 280;
-parameter int INITIAL_Y = 185;
-parameter int INITIAL_X_SPEED = 40;
+parameter int INITIAL_X = 130;
+parameter int INITIAL_Y = 240;
+parameter int INITIAL_X_SPEED = 0;
 parameter int INITIAL_Y_SPEED = 20;
 parameter int Y_ACCEL = -10;
 
@@ -51,7 +51,7 @@ const int	y_FRAME_TOP		=	(SafetyMargin) * FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_BOTTOM	=	(479 -SafetyMargin - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
 
 //edges 
-	//------------
+	//------------'
 	//			 434
 	//			 1x2
 	//			 404
@@ -123,8 +123,8 @@ begin : fsm_sync_proc
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
 		// keys direction change 
-				if (Y_direction_key && (Yspeed > 0 ) )//  while moving down
-					Yspeed <= -Yspeed+1; 
+				if (Y_direction_key)//  while moving down
+					Yspeed <= -100; 
 					
 				if (toggle_x_key & !toggle_x_key_D) //rizing edge 
 					Xspeed <= -Xspeed ; // toggle direction 
@@ -191,7 +191,7 @@ begin : fsm_sync_proc
 				BOTTOM, TOP+LEFT+RIGHT :  // bottom side or cavity  
 					begin
 						if (Yspeed > 0) // doun 
-							  Yspeed <= 1-Yspeed ;
+							  Yspeed <= 0 ;
 					end
 					
 					default: ; 

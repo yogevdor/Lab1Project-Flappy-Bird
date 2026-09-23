@@ -475,13 +475,13 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"Y_ACCEL"
-		"-2"
+		"-3"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 216 160))
 	)
-	(annotation_block (parameter)(rect 552 288 809 402))
+	(annotation_block (parameter)(rect 536 288 793 402))
 )
 (connector
 	(text "clk" (rect 880 392 894 409)(font "Intel Clear" ))
