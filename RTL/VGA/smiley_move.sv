@@ -126,7 +126,7 @@ begin : fsm_sync_proc
 		//------------
 		// keys direction change 
 				if (Y_direction_key & !Y_direction_key_D)//  while moving down
-					Yspeed <= -100; 
+					Yspeed <= -352;
 					
 				if (toggle_x_key & !toggle_x_key_D) //rizing edge 
 					Xspeed <= -Xspeed ; // toggle direction 
