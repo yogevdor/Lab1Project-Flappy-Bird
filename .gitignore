@@ -38,3 +38,12 @@ output_files/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Claude Code
+.claude/
+.claude-*/
+.mcp.json
+CLAUDE.md
+CLAUDE.local.md
+**/CLAUDE.md
+**/CLAUDE.local.md

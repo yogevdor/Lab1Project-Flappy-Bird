@@ -41,8 +41,8 @@ const logic signed 	[10:0]	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n
 
 
 // movement limits 
-const int   OBJECT_WIDTH_X = 64;
-const int   OBJECT_HIGHT_Y = 32;
+const int   OBJECT_WIDTH_X = 32;
+const int   OBJECT_HIGHT_Y = 24;
 const int	SafetyMargin   =	2;
 
 const int	x_FRAME_LEFT	=	(SafetyMargin)* FIXED_POINT_MULTIPLIER; 
@@ -77,6 +77,7 @@ int Xposition ; //position
 int Yposition ;  
 
 logic toggle_x_key_D ;
+logic Y_direction_key_D ;
  
 
   logic [4:0] hit_reg = 5'b00000;
@@ -94,6 +95,7 @@ begin : fsm_sync_proc
 	Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER  ; 
 	Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER   ; 
 		toggle_x_key_D <= 0 ;
+		Y_direction_key_D <= 0 ;
 		hit_reg <= 5'b0 ;	
 	
 	end 	
@@ -101,7 +103,7 @@ begin : fsm_sync_proc
 	else begin
 	
 		toggle_x_key_D <= toggle_x_key ;  //shift register to detect edge 
-
+		Y_direction_key_D <= Y_direction_key ;
 	
 		case(SM_Motion)
 		
@@ -123,7 +125,7 @@ begin : fsm_sync_proc
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
 		// keys direction change 
-				if (Y_direction_key)//  while moving down
+				if (Y_direction_key & !Y_direction_key_D)//  while moving down
 					Yspeed <= -100; 
 					
 				if (toggle_x_key & !toggle_x_key_D) //rizing edge 
