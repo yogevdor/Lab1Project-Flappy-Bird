@@ -15,15 +15,15 @@ module	back_ground_draw	(
 					output	logic	[7:0] MIF_VGA
 );
 
-const int	xFrameSize	=	635;
-const int	yFrameSize	=	475;
-const int	bracketOffset =	32;
+const int	xFrameSize	=	640;
+const int	yFrameSize	=	480;
+const int	bracketOffset =	63;
 //const int   COLOR_MARTIX_SIZE  = 16*8 ; // 128 
 
 logic [2:0] redBits;
 logic [2:0] greenBits;
 logic [1:0] blueBits;
-logic [10:0] shift_pixelX;
+//bbologic [10:0] shift_pixelX;
 
 
 localparam logic [2:0] DARK_COLOR = 3'b111 ;// bitmap of a dark color
@@ -39,23 +39,24 @@ localparam  int BLUE_RIGHT_X  = 200 ;
 parameter  logic [10:0] COLOR_MATRIX_TOP_Y  = 100 ; 
 parameter  logic [10:0] COLOR_MATRIX_LEFT_X = 100 ;
 
- lpm_rom #(
-    .LPM_WIDTH(8),
-    .LPM_WIDTHAD(19),
-	 .LPM_NUMWORDS(307200),
-    .LPM_FILE("RTL/VGA_BG.mif"),
-	   .LPM_TYPE               ("LPM_ROM"),
-      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
-		.LPM_OUTDATA            ("UNREGISTERED"), 
-		.AUTO_CARRY_CHAINS      ("ON"),
-		.AUTO_CASCADE_BUFFERS   ("ON"),
-	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
-) rom_inst (
-    .address(address),
-	 .inclock(clk),
-	// .outclock(clk),
-    .q(MIF_VGA)
-);
+// lpm_rom #(
+//    .LPM_WIDTH(8),
+//    .LPM_WIDTHAD(19),
+//	 .LPM_NUMWORDS(307200),
+//    .LPM_FILE("RTL/VGA_BG.mif"),
+//	   .LPM_TYPE               ("LPM_ROM"),
+//      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
+//		.LPM_OUTDATA            ("UNREGISTERED"), 
+//		.AUTO_CARRY_CHAINS      ("ON"),
+//		.AUTO_CASCADE_BUFFERS   ("ON"),
+//	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
+//) rom_inst (
+//    .address(address),
+//	 .inclock(clk),
+//	// .outclock(clk),
+//    .q(MIF_VGA)
+//); technion beyahad nenazeah image
+assign MIF_VGA = 8'hFF;
 
 // this is a block to generate the background 
 //it has four sub modules : 
@@ -83,15 +84,15 @@ begin
 		
 		if (   
 		// 1. draw the yellow borders
-						((pixelX <= bracketOffset) && (pixelX >=(bracketOffset- bracketOffset/4))) ||
-						((pixelY <= bracketOffset) && (pixelY >= (bracketOffset- bracketOffset/4))) ||
+//						((pixelX <= bracketOffset) && (pixelX >=(bracketOffset- 8))) ||
+						((pixelY <= bracketOffset) && (pixelY >= (bracketOffset- 8))) ||
 						
 		// 2. draw four lines with "bracketOffset" offset from the border 
-						((pixelX >= (xFrameSize-bracketOffset))&&(pixelX <= (xFrameSize-(bracketOffset- bracketOffset/4)))) || 
-						((pixelY >= (yFrameSize-bracketOffset))&&(pixelY <= (yFrameSize-(bracketOffset- bracketOffset/4))))) 
+//						((pixelX >= (xFrameSize-bracketOffset))&&(pixelX <= (xFrameSize-(bracketOffset- bracketOffset/4)))) || 
+						((pixelY >= (yFrameSize-bracketOffset/2))&&(pixelY <= (yFrameSize-(bracketOffset/2- 8))))) 
 			begin 
-					redBits <= LIGHT_COLOR ;	
-					greenBits <= DARK_COLOR  ;	
+					redBits <= 3'b011 ;	
+					greenBits <= LIGHT_COLOR  ;	
 					blueBits <= DARK_COLOR[1:0] ;
 					 boardersDrawReq <= 	1'b1;
 					//boardersDrawReq <= 	1'b1 ; // pulse if drawing the boarders 
@@ -101,20 +102,17 @@ begin
 
 	// 3. draw a matrix of 16*16 rectangles with all the colors, each rectsangle 8*8 pixels  	
    // ---------------------------------------------------------------------------------------
-		if (( pixelY > 4 ) && (pixelY < 20 ) && (pixelX >30 )&& (pixelX <542 ))
-		 begin
-		        shift_pixelX<= pixelX-11'd29;
-
-             blueBits <= shift_pixelX[8:7] ; 
-				 greenBits <= shift_pixelX[3:1] ; 
-				 redBits <= shift_pixelX[6:4];       
-				 boardersDrawReq <= 	1'b1;
-	
-				
-		 end 
+//		if (( pixelY > 4 ) && (pixelY < 20 ) && (pixelX >30 )&& (pixelX <542 ))
+//		 begin
+//		        shift_pixelX<= pixelX-11'd29;
+//
+//             blueBits <= shift_pixelX[8:7] ; 
+//				 greenBits <= shift_pixelX[3:1] ; 
+//				 redBits <= shift_pixelX[6:4];       
+//				 boardersDrawReq <= 	1'b1;
+//		 end	
 		
-		
-	BG_RGB <=  { blueBits, redBits, greenBits } ; //collect color nibbles to an 8 bit word		
+	BG_RGB <=  { redBits, greenBits, blueBits } ; //collect color nibbles to an 8 bit word		
 
 
 	end; 	

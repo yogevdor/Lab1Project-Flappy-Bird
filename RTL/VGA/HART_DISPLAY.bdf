@@ -332,7 +332,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"OBJECT_HEIGHT_Y"
-		"512"
+		"416"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
@@ -343,7 +343,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 208 128))
 	)
-	(annotation_block (parameter)(rect 744 208 999 284))
+	(annotation_block (parameter)(rect 752 208 1007 284))
 )
 (connector
 	(text "resetN" (rect 634 360 664 377)(font "Intel Clear" ))

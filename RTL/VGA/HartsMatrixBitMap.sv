@@ -19,12 +19,13 @@ module	HartsMatrixBitMap	(
  
 
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap representing a transparent pixel 
+localparam logic [7:0] PIPES_COLOR = 8'b11100000 ; //temporary
+localparam logic [7:0] BORDER_COLOR = 8'b00011100 ; //temporary
 
-
-localparam  logic [9:0] TILE_NUMBER_OF_X_BITS = 5;  // 2^5 = 32  everu object 
+localparam  logic [9:0] TILE_NUMBER_OF_X_BITS = 6;  // 2^6 = 64  pipe width
 localparam  logic [9:0] TILE_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
 
-localparam  int MAZE_NUMBER_OF__X_BITS = 5;  // 2^5 = 32 / /the maze of the objects 
+localparam  int MAZE_NUMBER_OF__X_BITS = 4;  // 2^4 = 16 / /the maze of the objects 
 localparam  int MAZE_NUMBER_OF__Y_BITS = 4;  // 2^4 = 16 
 
 //-----
@@ -60,22 +61,25 @@ localparam  logic [10:0] MAZE_HEIGHT_Y = 11'b1 << MAZE_NUMBER_OF__Y_BITS ;
 logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]  MazeBitMapMask ;  
 
 logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]   MazeDefaultBitMapMask= // defult table to load on reset 
-{{128'h00000000000000000000000000000000},
- {128'h11111111111111111111000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h10000000000000000001000000000000},
- {128'h11111111111111111111000000000000},
- {128'h00000000000000000000000000000000},
- {128'h00000000000000000000000000000000}};
+{   // row 1
+ {64'h1111111111111111},   // row 0
+ {64'h0002020200000000},   // row 1
+ {64'h0002000200000000},   // row 2
+ {64'h0000000200000000},   // row 3
+ {64'h0000000200000000},   // row 4
+ {64'h0000000000000000},   // row 5
+ {64'h0000020000000000},   // row 6
+ {64'h0002020000000000},   // row 7
+ {64'h0002020000000000},   // row 8
+ {64'h0002020200000000},   // row 9
+ {64'h0002020200000000},   // row 10
+ {64'h0002020200000000},	// row 11
+ {64'h1111111111111111},	// row 12
+ {64'h0000000000000000},	// row 13
+ {64'h0000000000000000},   // row 14
+ {64'h0000000000000000},};	// row 15
+	// 0123456789abcdef
+	// 10 colums in total (index 9)
  
 //{{64'h1001110000011100},
 // {64'h0010001101100010},
@@ -141,8 +145,8 @@ begin
 			begin 
 		   	case (MazeBitMapMask[offsetY_MSB][offsetX_MSB])
 					 4'h0 : RGBout <= TRANSPARENT_ENCODING ;
-			   	 4'h1 : RGBout <= color[random_hart]; 
-					 4'h2 : RGBout <= color[1] ; 
+			   	 4'h1 : RGBout <= BORDER_COLOR ; 
+					 4'h2 : RGBout <= PIPES_COLOR ; 
 					 default:  RGBout <= TRANSPARENT_ENCODING ; 
 				endcase
 			end 
