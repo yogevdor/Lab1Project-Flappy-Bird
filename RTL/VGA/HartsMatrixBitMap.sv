@@ -61,7 +61,7 @@ localparam  logic [10:0] MAZE_HEIGHT_Y = 11'b1 << MAZE_NUMBER_OF__Y_BITS ;
 logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]  MazeBitMapMask ;  
 
 logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]   MazeDefaultBitMapMask= // defult table to load on reset 
-{   // row 1
+{   
  {64'h1111111111111111},   // row 0
  {64'h0002020200000000},   // row 1
  {64'h0002000200000000},   // row 2
@@ -90,42 +90,42 @@ logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]   MazeDefaultBitMapMask= /
 // {64'h0000000101000000},
 // {64'h0000000010000000}};
 
-lpm_rom #(
-    .LPM_WIDTH(8),
-    .LPM_WIDTHAD(10),
-	 .LPM_NUMWORDS(1024),
-    .LPM_FILE("RTL/heart1.mif"),
-	   .LPM_TYPE               ("LPM_ROM"),
-      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
-		.LPM_OUTDATA            ("UNREGISTERED"), 
-		.AUTO_CARRY_CHAINS      ("ON"),
-		.AUTO_CASCADE_BUFFERS   ("ON"),
-	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
-) rom_inst (
-    .address(address),
-	 .inclock(clk),
-	// .outclock(clk),
-    .q(color[0])
-);
-
- 
-lpm_rom #(
-    .LPM_WIDTH(8),
-    .LPM_WIDTHAD(10),
-	 .LPM_NUMWORDS(1024),
-    .LPM_FILE("RTL/heart2.mif"),
-	   .LPM_TYPE               ("LPM_ROM"),
-      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
-		.LPM_OUTDATA            ("UNREGISTERED"), 
-		.AUTO_CARRY_CHAINS      ("ON"),
-		.AUTO_CASCADE_BUFFERS   ("ON"),
-	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
-) rom_inst2 (
-    .address(address),
-	 .inclock(clk),
-	// .outclock(clk),
-    .q(color[1])
-); 
+//lpm_rom #(
+//    .LPM_WIDTH(8),
+//    .LPM_WIDTHAD(10),
+//	 .LPM_NUMWORDS(1024),
+//    .LPM_FILE("RTL/heart1.mif"),
+//	   .LPM_TYPE               ("LPM_ROM"),
+//      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
+//		.LPM_OUTDATA            ("UNREGISTERED"), 
+//		.AUTO_CARRY_CHAINS      ("ON"),
+//		.AUTO_CASCADE_BUFFERS   ("ON"),
+//	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
+//) rom_inst (
+//    .address(address),
+//	 .inclock(clk),
+//	// .outclock(clk),
+//    .q(color[0])
+//);
+//
+// 
+//lpm_rom #(
+//    .LPM_WIDTH(8),
+//    .LPM_WIDTHAD(10),
+//	 .LPM_NUMWORDS(1024),
+//    .LPM_FILE("RTL/heart2.mif"),
+//	   .LPM_TYPE               ("LPM_ROM"),
+//      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
+//		.LPM_OUTDATA            ("UNREGISTERED"), 
+//		.AUTO_CARRY_CHAINS      ("ON"),
+//		.AUTO_CASCADE_BUFFERS   ("ON"),
+//	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
+//) rom_inst2 (
+//    .address(address),
+//	 .inclock(clk),
+//	// .outclock(clk),
+//    .q(color[1])
+//); 
 
  
 
@@ -138,8 +138,8 @@ begin
 	end
 	else begin
 		RGBout <= TRANSPARENT_ENCODING ; // default 
-		if (collision_Smiley_Hart)
-			MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 4'h00;  // clear entry 
+//		if (collision_Smiley_Hart)
+//			MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 4'h00;  // clear entry 
 		
 		if (InsideRectangle == 1'b1 )	
 			begin 
