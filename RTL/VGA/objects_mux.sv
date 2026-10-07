@@ -14,7 +14,12 @@ module	objects_mux	(
 		   // smiley 
 					input		logic	smileyDrawingRequest, // two set of inputs per unit
 					input		logic	[7:0] smileyRGB, 
-					     
+			
+			// single pipe
+					input		logic	singlePipeDrawingRequest, // two set of inputs per unit
+					input		logic	[7:0] singlePipeRGB, 
+			
+			
 		  // add the box here 
 					input		logic sqrDrawingRequest,
 					input		logic [7:0] SQR_RGB,
@@ -40,13 +45,13 @@ begin
 		if (smileyDrawingRequest == 1'b1 )   
 			RGBOut <= smileyRGB;  //first priority 
 		 
-//--- add logic for box here ------------------------------------------------------		
+		else if (singlePipeDrawingRequest == 1'b1 )
+			RGBOut <= singlePipeRGB;
+		 
 		else if (sqrDrawingRequest == 1'b1 )
 			RGBOut <= SQR_RGB;
 
 
-				
-//---------------------------------------------------------------------------------		
  		else if (HartDrawingRequest == 1'b1)
 				RGBOut <= hartRGB;
 		else if (BGDrawingRequest == 1'b1)
