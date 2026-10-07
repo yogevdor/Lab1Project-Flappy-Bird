@@ -118,6 +118,22 @@ agreement for further details.
 	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
 )
 (pin
+	(input)
+	(rect -1168 680 -1000 696)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "1" (rect 5 0 11 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
 	(output)
 	(rect 1496 864 1672 880)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
@@ -1406,7 +1422,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect 584 16 778 111))
 )
 (symbol
-	(rect -648 768 -488 848)
+	(rect -1136 768 -976 848)
 	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
 	(text "inst21" (rect 8 64 36 81)(font "Intel Clear" ))
 	(port
@@ -1429,10 +1445,10 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 144 64))
 	)
-	(annotation_block (parameter)(rect -840 760 -658 817))
+	(annotation_block (parameter)(rect -1328 760 -1146 817))
 )
 (symbol
-	(rect -648 656 -488 736)
+	(rect -728 -80 -568 0)
 	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
 	(text "inst20" (rect 8 64 36 81)(font "Intel Clear" ))
 	(port
@@ -1455,7 +1471,43 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 144 64))
 	)
-	(annotation_block (parameter)(rect -856 584 -664 640))
+	(annotation_block (parameter)(rect -936 -152 -744 -96))
+)
+(symbol
+	(rect -944 624 -768 736)
+	(text "MazeTopXLocationCounter" (rect 5 0 133 12)(font "Arial" ))
+	(text "inst25" (rect 8 96 36 113)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "resetN" (rect 0 0 33 12)(font "Arial" ))
+		(text "resetN" (rect 21 43 54 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "enable" (rect 0 0 31 12)(font "Arial" ))
+		(text "enable" (rect 21 59 52 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 176 32)
+		(output)
+		(text "result[10..0]" (rect 0 0 59 12)(font "Arial" ))
+		(text "result[10..0]" (rect 106 27 165 39)(font "Arial" ))
+		(line (pt 176 32)(pt 160 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 160 96))
+	)
 )
 (connector
 	(text "resetN" (rect -134 176 -104 193)(font "Intel Clear" ))
@@ -1758,11 +1810,6 @@ agreement for further details.
 (connector
 	(pt -464 784)
 	(pt -248 784)
-	(bus)
-)
-(connector
-	(pt -248 800)
-	(pt -488 800)
 	(bus)
 )
 (connector
@@ -2108,13 +2155,32 @@ agreement for further details.
 	(pt 568 256)
 )
 (connector
-	(pt -464 688)
-	(pt -488 688)
+	(pt -976 800)
+	(pt -248 800)
 	(bus)
 )
 (connector
+	(text "clk" (rect -1016 640 -1002 657)(font "Intel Clear" ))
+	(pt -944 656)
+	(pt -1064 656)
+)
+(connector
+	(text "resetN" (rect -1024 656 -991 668)(font "Arial" ))
+	(pt -944 672)
+	(pt -1064 672)
+)
+(connector
+	(pt -1000 688)
+	(pt -944 688)
+)
+(connector
 	(pt -464 784)
-	(pt -464 688)
+	(pt -464 656)
+	(bus)
+)
+(connector
+	(pt -464 656)
+	(pt -768 656)
 	(bus)
 )
 (junction (pt 552 968))
@@ -2134,8 +2200,10 @@ agreement for further details.
 (text "Sound Unit" (rect 432 768 513 788)(font "Intel Clear" (font_size 10)(bold)))
 (text "The Background and Hearts" (rect -536 424 -341 444)(font "Intel Clear" (font_size 10)(bold)))
 (text "Numbers display bitmaps" (rect 312 1048 494 1068)(font "Intel Clear" (font_size 10)(bold)))
+(text "clk" (rect -1016 640 -1002 657)(font "Intel Clear" ))
+(text "resetN" (rect -1000 656 -967 668)(font "Arial" ))
 (rectangle (rect 384 752 1728 1008)(color 0 0 0)(line_width 3))
 (rectangle (rect 448 -16 984 328)(color 0 0 0)(line_width 3))
 (rectangle (rect -376 136 280 376)(color 0 0 0)(line_width 3))
-(rectangle (rect -888 400 288 928)(color 0 0 0)(line_width 3))
+(rectangle (rect -1560 400 288 936)(color 0 0 0)(line_width 3))
 (rectangle (rect -904 1024 888 1576)(color 0 0 0)(line_width 3))

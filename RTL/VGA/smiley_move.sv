@@ -116,8 +116,8 @@ begin : fsm_sync_proc
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
 
-				if (startOfFrame) 
-					SM_Motion <= MOVE_ST ;
+				if (startOfFrame)
+						SM_Motion <= MOVE_ST ;
  	
 			end
 	
@@ -125,23 +125,25 @@ begin : fsm_sync_proc
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
 		// keys direction change 
-				if (Y_direction_key & !Y_direction_key_D)//  while moving down
-					Yspeed <= -352;
-					
-				if (toggle_x_key & !toggle_x_key_D) //rizing edge 
-					Xspeed <= -Xspeed ; // toggle direction 
-	
-       // collcting collisions 	
-				if (collision) begin
-					hit_reg[HitEdgeCode]<=1'b1;
+				if(toggle_x_key) begin
 
-				end
-				
+					if (Y_direction_key & !Y_direction_key_D)//  while moving down
+						Yspeed <= -352;
+						
+					if (toggle_x_key & !toggle_x_key_D) //rizing edge 
+						Xspeed <= -Xspeed ; // toggle direction 
+		
+			 // collcting collisions 	
+					if (collision) begin
+						hit_reg[HitEdgeCode]<=1'b1;
 
-				if (startOfFrame )
-					SM_Motion <= START_OF_FRAME_ST ; 
+					end
 					
-					
+
+					if (startOfFrame )
+						SM_Motion <= START_OF_FRAME_ST ; 
+							
+			end		
 				
 		end 
 		
@@ -150,51 +152,52 @@ begin : fsm_sync_proc
 		//------------
 
 	
-			if (hit_reg == CORNER)   // pure corner 
-					begin
+			if (hit_reg == CORNER) begin
 //							Yspeed <= 0-Xspeed ;
 //							Xspeed <= 0-Yspeed ;
-       if ( Yspeed > 0)
-              Yspeed <= 1-Yspeed ;
-			else 	 
-		         Yspeed <= -(1+Yspeed );	
+				if ( Yspeed > 0)
+              Yspeed <= 0 ;
+				else 	 
+		        Yspeed <= 0 ;	
 				  Xspeed <= 0-Xspeed ;
-					end
+			end
 			else begin 
 				case (hit_reg[3:0] )  // test sides 
 	
 					TOP+RIGHT, LEFT+BOTTOM, TOP+LEFT, BOTTOM+RIGHT :  // two sides - corner 
+					
 					begin
 							 //Yspeed <= 0-Yspeed ;
-		 if ( Yspeed > 0)
-              Yspeed <= 1-Yspeed ;
-			else 	 
-		         Yspeed <= -(1+Yspeed );	
-				          Xspeed <= 0-Xspeed ;
+						if ( Yspeed > 0)
+							Yspeed <= 0 ;
+						else 	 
+							Yspeed <= 0 ;	
+				         Xspeed <= 0-Xspeed ;
 					end
+					
 					LEFT, TOP+RIGHT+BOTTOM : // left side or cavity  
 					begin
 						if (Xspeed < 0) // left 
-							  Xspeed <= 0-Xspeed ;
+							Xspeed <= 0-Xspeed ;
 					end
 	
 					RIGHT, LEFT+BOTTOM +TOP :   // right side or cavity  
 					begin
 						if (Xspeed > 0) // right 
-							  Xspeed <= 0-Xspeed ;
+							Xspeed <= 0-Xspeed ;
 					end
 					
 					TOP, RIGHT+LEFT+BOTTOM :  // top side or cavity  
 					begin
 						if (Yspeed < 0) // up 
-							  Yspeed <= -1-Yspeed ;
-					end
-				
-				BOTTOM, TOP+LEFT+RIGHT :  // bottom side or cavity  
-					begin
-						if (Yspeed > 0) // doun 
 							  Yspeed <= 0 ;
 					end
+				
+					BOTTOM, TOP+LEFT+RIGHT :  // bottom side or cavity  
+						begin
+							if (Yspeed > 0) // doun 
+								  Yspeed <= 0 ;
+						end
 					
 					default: ; 
 	
