@@ -6,12 +6,14 @@ module	back_ground_draw	(
 
 					input	logic	clk,
 					input	logic	resetN,
-					input 	logic	[10:0]	pixelX,
-					input 	logic	[10:0]	pixelY,
-					input 	logic	[18:0]	address,
+					input logic	[10:0]	pixelX,
+					input logic	[10:0]	pixelY,
+					input logic	[18:0]	address,
+					input logic startOfFrame,
+					input logic game_on,
 
 					output	logic	[7:0]	BG_RGB,
-					output	logic		boardersDrawReq, 
+					output	logic	boardersDrawReq, 
 					output	logic	[7:0] MIF_VGA
 );
 
@@ -39,24 +41,52 @@ localparam  int BLUE_RIGHT_X  = 200 ;
 parameter  logic [10:0] COLOR_MATRIX_TOP_Y  = 100 ; 
 parameter  logic [10:0] COLOR_MATRIX_LEFT_X = 100 ;
 
-// lpm_rom #(
-//    .LPM_WIDTH(8),
-//    .LPM_WIDTHAD(19),
-//	 .LPM_NUMWORDS(307200),
-//    .LPM_FILE("RTL/VGA_BG.mif"),
-//	   .LPM_TYPE               ("LPM_ROM"),
-//      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
-//		.LPM_OUTDATA            ("UNREGISTERED"), 
-//		.AUTO_CARRY_CHAINS      ("ON"),
-//		.AUTO_CASCADE_BUFFERS   ("ON"),
-//	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
-//) rom_inst (
-//    .address(address),
-//	 .inclock(clk),
-//	// .outclock(clk),
-//    .q(MIF_VGA)
-//); technion beyahad nenazeah image
-assign MIF_VGA = 8'hFF;
+// for scrolling the backgorund/////////////////////////////////////
+localparam int BG_W = 640;
+parameter  int BG_SPEED = 1;
+
+logic [9:0]  bgOffset;
+logic [10:0] sumX;
+logic [10:0] shiftedX;
+logic [18:0] bgAddress;
+
+always_ff @(posedge clk or negedge resetN) begin
+    if (!resetN)
+        bgOffset <= 10'd0;
+//    else if (startOfFrame && game_on) begin
+	 else if (startOfFrame) begin
+        if (bgOffset + BG_SPEED >= BG_W)
+            bgOffset <= bgOffset + BG_SPEED - BG_W;
+        else
+            bgOffset <= bgOffset + BG_SPEED;
+    end
+end
+
+assign sumX = pixelX + bgOffset;
+assign shiftedX = (sumX >= BG_W) ? (sumX - BG_W) : sumX;
+assign bgAddress = pixelY * BG_W + shiftedX;
+/////////////////////////////////////////////////////////////////////
+
+
+
+ lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(19),
+	 .LPM_NUMWORDS(307200),
+    .LPM_FILE("RTL/reef_seamless_640x480.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
+		.LPM_OUTDATA            ("UNREGISTERED"), 
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
+) rom_inst (
+    .address(bgAddress),
+	 .inclock(clk),
+	// .outclock(clk),
+    .q(MIF_VGA)
+); // background
+
 
 // this is a block to generate the background 
 //it has four sub modules : 
@@ -82,21 +112,21 @@ begin
 		blueBits <= 2'b11;//LIGHT_COLOR;
 		boardersDrawReq <= 	1'b0 ; 
 		
-		if (   
-		// 1. draw the yellow borders
-//						((pixelX <= bracketOffset) && (pixelX >=(bracketOffset- 8))) ||
-						((pixelY <= bracketOffset) && (pixelY >= (bracketOffset- 8))) ||
-						
-		// 2. draw four lines with "bracketOffset" offset from the border 
-//						((pixelX >= (xFrameSize-bracketOffset))&&(pixelX <= (xFrameSize-(bracketOffset- bracketOffset/4)))) || 
-						((pixelY >= (yFrameSize-bracketOffset/2))&&(pixelY <= (yFrameSize-(bracketOffset/2- 8))))) 
-			begin 
-					redBits <= 3'b011 ;	
-					greenBits <= LIGHT_COLOR  ;	
-					blueBits <= DARK_COLOR[1:0] ;
-					 boardersDrawReq <= 	1'b1;
-					//boardersDrawReq <= 	1'b1 ; // pulse if drawing the boarders 
-			end
+//		if (   
+//		// 1. draw the yellow borders
+////						((pixelX <= bracketOffset) && (pixelX >=(bracketOffset- 8))) ||
+//						((pixelY <= bracketOffset) && (pixelY >= (bracketOffset- 8))) ||
+//						
+//		// 2. draw four lines with "bracketOffset" offset from the border 
+////						((pixelX >= (xFrameSize-bracketOffset))&&(pixelX <= (xFrameSize-(bracketOffset- bracketOffset/4)))) || 
+//						((pixelY >= (yFrameSize-bracketOffset/2))&&(pixelY <= (yFrameSize-(bracketOffset/2- 8))))) 
+//			begin 
+//					redBits <= 3'b011 ;	
+//					greenBits <= LIGHT_COLOR  ;	
+//					blueBits <= DARK_COLOR[1:0] ;
+//					 boardersDrawReq <= 	1'b1;
+//					//boardersDrawReq <= 	1'b1 ; // pulse if drawing the boarders 
+//			end
 	
 				
 
