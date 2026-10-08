@@ -32,8 +32,8 @@ const logic signed 	[10:0]	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n
 
 
 // movement limits 
-const int   OBJECT_WIDTH_X = 64;
-const int   OBJECT_HIGHT_Y = 512;
+const int   OBJECT_WIDTH_X = 52;
+const int   OBJECT_HIGHT_Y = 480;
 // left border of a full cycle of the maze = -1024
 const int X_MIN_LIMIT = -OBJECT_WIDTH_X * FIXED_POINT_MULTIPLIER;
 
@@ -227,7 +227,7 @@ begin : fsm_sync_proc
 			POSITION_LIMITS_ST : begin  //check if still inside the frame 
 		//------------------------
 				if (Xposition <= X_MIN_LIMIT)
-						Xposition <= 0 ;
+						Xposition <= 640 * FIXED_POINT_MULTIPLIER ;
 		// if (Xposition < x_FRAME_LEFT) 
 		// 				Xposition <= x_FRAME_LEFT ; 
 		// if (Xposition > x_FRAME_RIGHT)

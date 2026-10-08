@@ -1773,6 +1773,40 @@ agreement for further details.
 	)
 	(annotation_block (parameter)(rect -336 472 -93 529))
 )
+(symbol
+	(rect 416 696 448 728)
+	(text "GND" (rect 8 16 29 26)(font "Arial" (font_size 6)))
+	(text "inst11" (rect 3 21 31 38)(font "Intel Clear" )(invisible))
+	(port
+		(pt 16 0)
+		(output)
+		(text "1" (rect 18 0 23 12)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 18 0 23 12)(font "Courier New" (bold))(invisible))
+		(line (pt 16 8)(pt 16 0))
+	)
+	(drawing
+		(line (pt 8 8)(pt 16 16))
+		(line (pt 16 16)(pt 24 8))
+		(line (pt 8 8)(pt 24 8))
+	)
+)
+(symbol
+	(rect 1336 536 1368 568)
+	(text "GND" (rect 8 16 29 26)(font "Arial" (font_size 6)))
+	(text "inst13" (rect 3 21 31 38)(font "Intel Clear" )(invisible))
+	(port
+		(pt 16 0)
+		(output)
+		(text "1" (rect 18 0 23 12)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 18 0 23 12)(font "Courier New" (bold))(invisible))
+		(line (pt 16 8)(pt 16 0))
+	)
+	(drawing
+		(line (pt 8 8)(pt 16 16))
+		(line (pt 16 16)(pt 24 8))
+		(line (pt 8 8)(pt 24 8))
+	)
+)
 (connector
 	(text "clk" (rect 1882 432 1896 449)(font "Intel Clear" ))
 	(pt 1872 448)
@@ -2113,11 +2147,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "HartDrawingRequest" (rect 1434 520 1531 537)(font "Intel Clear" ))
-	(pt 1416 536)
-	(pt 1536 536)
-)
-(connector
 	(text "hartRGB[7..0]" (rect 1434 536 1497 553)(font "Intel Clear" ))
 	(pt 1416 552)
 	(pt 1536 552)
@@ -2190,11 +2219,6 @@ agreement for further details.
 	(text "singleHit" (rect 855 600 896 617)(font "Intel Clear" ))
 	(pt 824 616)
 	(pt 936 616)
-)
-(connector
-	(text "HartDrawingRequest" (rect 434 680 531 697)(font "Intel Clear" ))
-	(pt 424 696)
-	(pt 528 696)
 )
 (connector
 	(text "collision_Smiley_Hart " (rect 832 616 938 633)(font "Intel Clear" ))
@@ -2560,9 +2584,19 @@ agreement for further details.
 	(pt 1536 472)
 )
 (connector
-	(text "startOfFrame" (rect -416 648 -353 665)(font "Intel Clear" ))
-	(pt -432 664)
+	(text "startOfFrame" (rect -386 648 -323 665)(font "Intel Clear" ))
 	(pt -312 664)
+	(pt -408 664)
+)
+(connector
+	(text "gndd" (rect 489 680 512 697)(font "Intel Clear" ))
+	(pt 528 696)
+	(pt 432 696)
+)
+(connector
+	(text "gggnd" (rect 1483 520 1512 537)(font "Intel Clear" ))
+	(pt 1352 536)
+	(pt 1536 536)
 )
 (junction (pt 552 968))
 (junction (pt 1776 960))
