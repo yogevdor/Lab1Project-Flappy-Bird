@@ -42,7 +42,7 @@ const logic signed 	[10:0]	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n
 
 // movement limits 
 const int   OBJECT_WIDTH_X = 32;
-const int   OBJECT_HIGHT_Y = 24;
+const int   OBJECT_HIGHT_Y = 32;
 const int	SafetyMargin   =	2;
 
 const int	x_FRAME_LEFT	=	(SafetyMargin)* FIXED_POINT_MULTIPLIER; 

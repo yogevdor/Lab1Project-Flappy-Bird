@@ -18,7 +18,7 @@ module	smileyBitMap	(
 
 // this is the devider used to acess the right pixel 
 localparam  int OBJECT_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
-localparam  int OBJECT_NUMBER_OF_X_BITS = 6;  // 2^6 = 64 
+localparam  int OBJECT_NUMBER_OF_X_BITS = 5;  // 2^5 = 32 
 logic	[10:0] address;
 
 localparam  logic	[10:0] OBJECT_HEIGHT_Y = 11'b1 <<  OBJECT_NUMBER_OF_Y_BITS ;
@@ -28,8 +28,7 @@ localparam  logic	[10:0] OBJECT_WIDTH_X = 11'b1 <<  OBJECT_NUMBER_OF_X_BITS;
  logic	[10:0] HitCodeY ; 
 assign HitCodeX = offsetX >> ( OBJECT_NUMBER_OF_X_BITS - 4 );	//hitedge code MSB of the offset
 assign HitCodeY = offsetY >> ( OBJECT_NUMBER_OF_Y_BITS - 4 );	 	 
-//assign address = ((OBJECT_HEIGHT_Y-offsetY)*OBJECT_WIDTH_X + offsetX);
-assign address = ((OBJECT_HEIGHT_Y - offsetY)*OBJECT_WIDTH_X + offsetX);
+assign address = (offsetY*OBJECT_WIDTH_X + offsetX);
 
 // generating a smiley bitmap from a MIF file
 
@@ -37,9 +36,9 @@ logic	[7:0] color;
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap representing a transparent pixel 
 lpm_rom #(
     .LPM_WIDTH(8),
-    .LPM_WIDTHAD(11),
-	 .LPM_NUMWORDS(2048),
-    .LPM_FILE("RTL/smiely.mif"),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fish.mif"),
 	   .LPM_TYPE               ("LPM_ROM"),
       .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
 		.LPM_OUTDATA            ("UNREGISTERED"), 
