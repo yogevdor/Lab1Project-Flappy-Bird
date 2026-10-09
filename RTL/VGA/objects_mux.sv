@@ -44,18 +44,19 @@ begin
 	else begin
 		if (smileyDrawingRequest == 1'b1 )   
 			RGBOut <= smileyRGB;  //first priority 
+			
+		else if (sqrDrawingRequest == 1'b1 )
+			RGBOut <= SQR_RGB;
 		 
 		else if (singlePipeDrawingRequest == 1'b1 )
 			RGBOut <= singlePipeRGB;
-		 
-		else if (sqrDrawingRequest == 1'b1 )
-			RGBOut <= SQR_RGB;
-
 
  		else if (HartDrawingRequest == 1'b1)
 				RGBOut <= hartRGB;
+				
 		else if (BGDrawingRequest == 1'b1)
 				RGBOut <= backGroundRGB ;
+				
 		else RGBOut <= RGB_MIF ;// last priority 
 		end ; 
 	end
