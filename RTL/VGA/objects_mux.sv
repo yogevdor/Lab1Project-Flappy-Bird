@@ -11,9 +11,9 @@ module	objects_mux	(
 //		--------	Clock Input	 	
 					input		logic	clk,
 					input		logic	resetN,
-		   // smiley 
-					input		logic	smileyDrawingRequest, // two set of inputs per unit
-					input		logic	[7:0] smileyRGB, 
+		   // fish
+					input		logic	fishDrawingRequest, // two set of inputs per unit
+					input		logic	[7:0] fishRGB, 
 			
 			// single pipes:
 					input		logic	singlePipe1DrawingRequest, // two set of inputs per unit
@@ -48,8 +48,8 @@ begin
 	end
 	
 	else begin
-		if (smileyDrawingRequest == 1'b1 )   
-			RGBOut <= smileyRGB;  //first priority 
+		if (fishDrawingRequest == 1'b1 )   
+			RGBOut <= fishRGB;  //first priority 
 			
 		else if (sqrDrawingRequest == 1'b1 )
 			RGBOut <= SQR_RGB;

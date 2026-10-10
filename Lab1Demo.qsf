@@ -274,6 +274,10 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/fishBitMap.sv
+set_global_assignment -name SOURCE_FILE CLK_31P5.cmp
+set_global_assignment -name BDF_FILE RTL/VGA/Fish_Block_T.bdf
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/Fish_move.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/single_pipe_move.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/pipeBrickBitMap.sv
 set_global_assignment -name BDF_FILE RTL/VGA/Pipes_Block_T.bdf
@@ -289,14 +293,11 @@ set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/melody_player_1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/JukeBox1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/addr_counter.sv
 set_global_assignment -name QXP_FILE KBDINTF.qxp
-set_global_assignment -name BDF_FILE RTL/VGA/Smiley_Block_T.bdf
-set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/smileyBitMap.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/square_object.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/back_ground_draw.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/square_Hart_object.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/HartsMatrixBitMap.sv
 set_global_assignment -name BDF_FILE RTL/VGA/HART_DISPLAY.bdf
-set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/smiley_move.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/objects_mux.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/VGA_Controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/NumbersBitMap.sv
@@ -313,7 +314,6 @@ set_global_assignment -name SIP_FILE CLK_31P5.sip
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/MyConstant.sv
 set_global_assignment -name CDF_FILE output_files/Chain2.cdf
 set_global_assignment -name BDF_FILE ALL_HEXSS.bdf
-set_global_assignment -name BDF_FILE RTL/VGA/TOP_VGA_DEMO.bdf
 set_global_assignment -name SIGNALTAP_FILE output_files/stp2.stp
 set_global_assignment -name BDF_FILE RTL/VGA/TOP_VGA_DEMO_2.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/MazeTopXLocationCounter.sv
