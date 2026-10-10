@@ -184,7 +184,7 @@ agreement for further details.
 	(input)
 	(rect 224 400 392 416)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "gapTop[10..0]" (rect 5 0 70 17)(font "Intel Clear" ))
+	(text "gapTop[10..0]" (rect 5 0 69 17)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -200,7 +200,7 @@ agreement for further details.
 	(input)
 	(rect 224 440 392 456)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "pixelY[10..0]" (rect 5 0 65 17)(font "Intel Clear" ))
+	(text "pixelY[10..0]" (rect 5 0 64 17)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -404,21 +404,21 @@ agreement for further details.
 		(pt 240 32)
 		(output)
 		(text "drawingRequest" (rect 0 0 77 12)(font "Arial" ))
-		(text "drawingRequest" (rect 154 27 219 39)(font "Arial" ))
+		(text "drawingRequest" (rect 154 27 231 39)(font "Arial" ))
 		(line (pt 240 32)(pt 224 32))
 	)
 	(port
 		(pt 240 48)
 		(output)
 		(text "RGBout[7..0]" (rect 0 0 64 12)(font "Arial" ))
-		(text "RGBout[7..0]" (rect 165 43 219 55)(font "Arial" ))
+		(text "RGBout[7..0]" (rect 165 43 229 55)(font "Arial" ))
 		(line (pt 240 48)(pt 224 48)(line_width 3))
 	)
 	(port
 		(pt 240 64)
 		(output)
 		(text "HitEdgeCode[2..0]" (rect 0 0 90 12)(font "Arial" ))
-		(text "HitEdgeCode[2..0]" (rect 143 59 219 71)(font "Arial" ))
+		(text "HitEdgeCode[2..0]" (rect 143 59 233 71)(font "Arial" ))
 		(line (pt 240 64)(pt 224 64)(line_width 3))
 	)
 	(parameter
