@@ -10,8 +10,8 @@ module random
 // Generating a random number by latching a fast counter with the rising edge of an input ( e.g. key pressed )
   
 parameter SIZE_BITS = 8;
-parameter unsigned [SIZE_BITS-1:0] MIN_VAL = 0;  //set the min and max values 
-parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 255;
+parameter unsigned [SIZE_BITS-1:0] MIN_VAL = 32;  //set the min and max values 
+parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 308;
 
 	logic unsigned  [SIZE_BITS-1:0] counter/* synthesis keep = 1 */;
 	logic rise_d /* synthesis keep = 1 */;
