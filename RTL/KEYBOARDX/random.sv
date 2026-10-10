@@ -9,7 +9,7 @@ module random
 
 // Generating a random number by latching a fast counter with the rising edge of an input ( e.g. key pressed )
   
-parameter SIZE_BITS = 8;
+parameter SIZE_BITS = 9;
 parameter unsigned [SIZE_BITS-1:0] MIN_VAL = 32;  //set the min and max values 
 parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 308;
 
@@ -25,7 +25,7 @@ always_ff @(posedge clk or negedge resetN) begin
 		end
 		
 		else begin
-			counter <= counter+SIZE_BITS'(1);
+			counter <= counter+SIZE_BITS'(41);
 			if ( counter >= MAX_VAL ) // the +1 is done on the next clock 
 				counter <=  MIN_VAL ; // set min and max mvalues 
 			rise_d <= rise;

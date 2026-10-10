@@ -105,6 +105,7 @@ begin : fsm_sync_proc
 		toggle_x_key_D <= toggle_x_key ;  //shift register to detect edge 
 		Y_direction_key_D <= Y_direction_key ;
 		startOfFrame_D <= startOfFrame ;
+		regenerate <= 0;
 	
 		case(SM_Motion)
 		

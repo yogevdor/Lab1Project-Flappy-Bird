@@ -2025,7 +2025,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 248 176))
 	)
-	(annotation_block (parameter)(rect 1552 32 1752 128))
+	(annotation_block (parameter)(rect 1304 24 1504 120))
 )
 (connector
 	(text "clk" (rect 1882 432 1896 449)(font "Intel Clear" ))
@@ -2931,6 +2931,6 @@ agreement for further details.
 (rectangle (rect 384 752 1728 1008)(color 0 0 0)(line_width 3))
 (rectangle (rect -904 1024 1288 1344)(color 0 0 0)(line_width 3))
 (rectangle (rect -1544 432 304 968)(color 0 0 0)(line_width 3))
-(rectangle (rect 1168 -16 1704 328)(color 0 0 0)(line_width 3))
+(rectangle (rect 1168 -16 2560 328)(color 0 0 0)(line_width 3))
 (rectangle (rect 432 -64 968 280)(color 0 0 0)(line_width 3))
 (rectangle (rect -392 88 264 328)(color 0 0 0)(line_width 3))
