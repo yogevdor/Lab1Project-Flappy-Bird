@@ -7,7 +7,9 @@ module	single_pipe_move	(
 					input	 logic Y_direction_key,   //move Y Up   
 					input	 logic toggle_x_key,      //toggle X   
 					input  logic collision,         //collision if smiley hits an object
-					input  logic [2:0] HitEdgeCode, 
+					input  logic [2:0] HitEdgeCode,
+					input	 logic gameOn,
+					input  logic objectsResetN,
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
 					output logic signed	[10:0] topLeftY,  // can be negative , if the object is partliy outside
 					output logic regenerate
@@ -76,7 +78,7 @@ int Yposition ;
 logic toggle_x_key_D ;
 logic Y_direction_key_D ;
 logic startOfFrame_D ;
- 
+logic gameOn_D ;
 
   logic [4:0] hit_reg = 5'b00000;
  //---------
@@ -105,20 +107,26 @@ begin : fsm_sync_proc
 		toggle_x_key_D <= toggle_x_key ;  //shift register to detect edge 
 		Y_direction_key_D <= Y_direction_key ;
 		startOfFrame_D <= startOfFrame ;
+		gameOn_D <= gameOn ;
 		regenerate <= 0;
+		
+		if (!objectsResetN) begin
+			Xposition <= INITIAL_X * FIXED_POINT_MULTIPLIER  ; 
+			Yposition <= INITIAL_Y * FIXED_POINT_MULTIPLIER   ; 
+		end
 	
 		case(SM_Motion)
 		
 		//------------
 			IDLE_ST: begin
 		//------------
-		
+				
 				Xspeed  <= INITIAL_X_SPEED ; 
 				Yspeed  <= INITIAL_Y_SPEED  ; 
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
 
-				if (startOfFrame && !startOfFrame_D)
+				if (gameOn && startOfFrame && !startOfFrame_D)
 						SM_Motion <= MOVE_ST ;
  	
 			end
@@ -142,7 +150,7 @@ begin : fsm_sync_proc
 					// end
 					
 
-					if (startOfFrame && !startOfFrame_D)
+					if (gameOn && startOfFrame && !startOfFrame_D)
 						SM_Motion <= START_OF_FRAME_ST ; 
 							
 //			end		
@@ -152,78 +160,34 @@ begin : fsm_sync_proc
 		//------------
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
 		//------------
-
-	
-// 			if (hit_reg == CORNER) begin
-// //							Yspeed <= 0-Xspeed ;
-// //							Xspeed <= 0-Yspeed ;
-// 				if ( Yspeed > 0)
-//               Yspeed <= 0 ;
-// 				else 	 
-// 		        Yspeed <= 0 ;	
-// 				  Xspeed <= 0-Xspeed ;
-// 			end
-// 			else begin 
-// 				case (hit_reg[3:0] )  // test sides 
-	
-// 					TOP+RIGHT, LEFT+BOTTOM, TOP+LEFT, BOTTOM+RIGHT :  // two sides - corner 
-					
-// 					begin
-// 							 //Yspeed <= 0-Yspeed ;
-// 						if ( Yspeed > 0)
-// 							Yspeed <= 0 ;
-// 						else 	 
-// 							Yspeed <= 0 ;	
-// 				         Xspeed <= 0-Xspeed ;
-// 					end
-					
-// 					LEFT, TOP+RIGHT+BOTTOM : // left side or cavity  
-// 					begin
-// 						if (Xspeed < 0) // left 
-// 							Xspeed <= 0-Xspeed ;
-// 					end
-	
-// 					RIGHT, LEFT+BOTTOM +TOP :   // right side or cavity  
-// 					begin
-// 						if (Xspeed > 0) // right 
-// 							Xspeed <= 0-Xspeed ;
-// 					end
-					
-// 					TOP, RIGHT+LEFT+BOTTOM :  // top side or cavity  
-// 					begin
-// 						if (Yspeed < 0) // up 
-// 							  Yspeed <= 0 ;
-// 					end
+//				hit_reg <= 5'b00000;						
 				
-// 					BOTTOM, TOP+LEFT+RIGHT :  // bottom side or cavity  
-// 						begin
-// 							if (Yspeed > 0) // doun 
-// 								  Yspeed <= 0 ;
-// 						end
-					
-// 					default: ; 
-	
-// 			  endcase
-// 			end // else 
-	
-			hit_reg <= 5'b00000;						
-			SM_Motion <= POSITION_CHANGE_ST ; 
+				SM_Motion <= POSITION_CHANGE_ST ; 
 		end 
 
 		//------------------------
 			POSITION_CHANGE_ST : begin  // position interpolate 
 		//------------------------
-	
-				Xposition <= Xposition + Xspeed ; 
-				Yposition <= Yposition + Yspeed ;
-			 
+				if (!gameOn) begin
+					Xspeed <= 0;
+					Yspeed <= 0;
+				end
+				else if (gameOn && gameOn_D) begin
+					Xposition <= Xposition + Xspeed ; 
+					Yposition <= Yposition + Yspeed ;
+				end
+				else if (gameOn && !gameOn_D) begin
+					Xspeed  <= INITIAL_X_SPEED ; 
+					Yspeed  <= INITIAL_Y_SPEED  ; 
+				end
+				else
 				// accelerate 
 			
 				// if (Yspeed < MAX_Y_SPEED ) //  limit the speed while going down 
    			// 	Yspeed <= Yspeed - Y_ACCEL ; // deAccelerate : slow the speed down every clock tick 
 	
 				
-				SM_Motion <= POSITION_LIMITS_ST ; 
+					SM_Motion <= POSITION_LIMITS_ST ; 
 			end
 		
 		//------------------------

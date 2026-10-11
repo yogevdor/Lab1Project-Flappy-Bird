@@ -21,18 +21,6 @@ agreement for further details.
 */
 (header "graphic" (version "1.4"))
 (global
-	(rect 568 16 856 56)
-	(parameter)
-	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
-	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "INITIAL_X" (rect 3 16 57 30)(font "Arial" (font_size 8)))
-	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
-	(text "D\"280\"" (rect 141 16 162 30)(font "Arial" (font_size 8)))
-	(drawing
-		(line (pt 138 40)(pt 138 0))
-	)
-)
-(global
 	(rect 568 56 856 96)
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
@@ -64,6 +52,18 @@ agreement for further details.
 	(text "INITIAL_Y_SPEED" (rect 3 16 103 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
 	(text "D\"0\"" (rect 141 16 148 30)(font "Arial" (font_size 8)))
+	(drawing
+		(line (pt 138 40)(pt 138 0))
+	)
+)
+(global
+	(rect 568 16 856 56)
+	(parameter)
+	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
+	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
+	(text "INITIAL_X" (rect 3 16 57 30)(font "Arial" (font_size 8)))
+	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
+	(text "D\"281\"" (rect 141 16 162 30)(font "Arial" (font_size 8)))
 	(drawing
 		(line (pt 138 40)(pt 138 0))
 	)
