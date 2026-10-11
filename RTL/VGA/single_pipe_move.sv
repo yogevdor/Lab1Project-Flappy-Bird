@@ -11,7 +11,8 @@ module	single_pipe_move	(
 					input	 logic gameOn,
 					input  logic objectsResetN,
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
-					output logic signed	[10:0] topLeftY,  // can be negative , if the object is partliy outside
+					output logic signed	[10:0] topLeftY,		// can be negative , if the object is partliy outside
+					output logic passed,
 					output logic regenerate
 					
 );
@@ -24,6 +25,13 @@ parameter int INITIAL_X = 280;
 parameter int INITIAL_Y = 0;
 parameter int INITIAL_X_SPEED = -64;
 parameter int INITIAL_Y_SPEED = 0;
+
+
+parameter int FISH_X = 130; //fish X cordianate
+localparam int PIPE_W = 52;
+
+logic scored;
+
 // parameter int Y_ACCEL = -10;
 
 // const int MAX_Y_SPEED = 500;
@@ -37,30 +45,8 @@ const logic signed 	[10:0]	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n
 // movement limits 
 const int   OBJECT_WIDTH_X = 64;
 const int   OBJECT_HIGHT_Y = 480;
-// left border of a full cycle of the maze = -1024
+
 const int X_MIN_LIMIT = -OBJECT_WIDTH_X * FIXED_POINT_MULTIPLIER;
-
-
-// const int	SafetyMargin   =	2;
-
-// const int	x_FRAME_LEFT	=	(SafetyMargin) * FIXED_POINT_MULTIPLIER; 
-// const int	x_FRAME_RIGHT	=	(639 - SafetyMargin - OBJECT_WIDTH_X) * FIXED_POINT_MULTIPLIER; 
-// const int	y_FRAME_TOP		=	(SafetyMargin) * FIXED_POINT_MULTIPLIER;
-// const int	y_FRAME_BOTTOM	=	(479 - SafetyMargin - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
-
-
-//edges 
-	//------------'
-	//			 434
-	//			 1x2
-	//			 404
-	//
-
-// const logic [4:0] CORNER =	5'b10000; 
-// const logic [3:0] TOP =		 4'b1000; 
-// const logic [3:0] RIGHT =   4'b0100; 
-// const logic [3:0] LEFT =	 4'b0010; 
-// const logic [3:0] BOTTOM =  4'b0001; 
 
 
 enum  logic [2:0] {IDLE_ST,         	// initial state
@@ -134,60 +120,37 @@ begin : fsm_sync_proc
 		//------------
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
-		// keys direction change 
-				// if(toggle_x_key) begin
 
-				// 	if (Y_direction_key & !Y_direction_key_D)//  while moving down
-				// 		Yspeed <= 0;
-						
-				// 	if (toggle_x_key & !toggle_x_key_D) //rizing edge 
-				// 		Xspeed <= -Xspeed ; // toggle direction 
-		
-			 // collcting collisions 	
-					// if (collision) begin
-					// 	hit_reg[HitEdgeCode]<=1'b1;
-
-					// end
-					
-
-					if (gameOn && startOfFrame && !startOfFrame_D)
-						SM_Motion <= START_OF_FRAME_ST ; 
-							
-//			end		
+				if (gameOn && startOfFrame && !startOfFrame_D)
+					SM_Motion <= START_OF_FRAME_ST ; 
+								
 				
-		end 
+			end 
 		
 		//------------
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
-		//------------
-//				hit_reg <= 5'b00000;						
+		//------------				
 				
 				SM_Motion <= POSITION_CHANGE_ST ; 
 		end 
 
 		//------------------------
-			POSITION_CHANGE_ST : begin  // position interpolate 
+			POSITION_CHANGE_ST : begin
 		//------------------------
 				if (!gameOn) begin
 					Xspeed <= 0;
 					Yspeed <= 0;
 				end
-				else if (gameOn && gameOn_D) begin
-					Xposition <= Xposition + Xspeed ; 
+				else if (gameOn_D) begin
+					Xposition <= Xposition + Xspeed ;
 					Yposition <= Yposition + Yspeed ;
 				end
-				else if (gameOn && !gameOn_D) begin
-					Xspeed  <= INITIAL_X_SPEED ; 
-					Yspeed  <= INITIAL_Y_SPEED  ; 
+				else begin
+					Xspeed  <= INITIAL_X_SPEED ;
+					Yspeed  <= INITIAL_Y_SPEED  ;
 				end
-				else
-				// accelerate 
-			
-				// if (Yspeed < MAX_Y_SPEED ) //  limit the speed while going down 
-   			// 	Yspeed <= Yspeed - Y_ACCEL ; // deAccelerate : slow the speed down every clock tick 
-	
-				
-					SM_Motion <= POSITION_LIMITS_ST ; 
+
+				SM_Motion <= POSITION_LIMITS_ST ;
 			end
 		
 		//------------------------
@@ -224,8 +187,31 @@ assign 	topLeftX_tmp = Xposition / FIXED_POINT_MULTIPLIER ;   // note it must be
 assign 	topLeftY_tmp = Yposition / FIXED_POINT_MULTIPLIER ;    
 
 assign 	topLeftX = {topLeftX_tmp[10:0]} ;   // note it must be 2^n 
-assign 	topLeftY = {topLeftY_tmp[10:0]} ;    	
+assign 	topLeftY = {topLeftY_tmp[10:0]} ;  
 
-endmodule	
-//---------------
- 
+
+
+///////////////////// For score counting /////////////////
+
+always_ff @(posedge clk or negedge resetN) begin
+    if (!resetN) begin
+        scored <= 1'b0;
+        passed <= 1'b0;
+    end
+	 
+    else begin
+        passed <= 1'b0;
+        if (!objectsResetN)
+            scored <= 1'b0;
+        else if (topLeftX > FISH_X)
+            scored <= 1'b0;
+        else if (!scored && gameOn && (topLeftX + PIPE_W < FISH_X)) begin
+            scored <= 1'b1;
+            passed <= 1'b1;
+        end
+    end
+end
+
+//////////////////////////////////////////////////////////  	
+
+endmodule

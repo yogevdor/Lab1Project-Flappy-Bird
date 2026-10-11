@@ -32,7 +32,7 @@ module	Fish_move	(
 parameter int INITIAL_X = 130;
 parameter int INITIAL_Y = 240;
 parameter int INITIAL_X_SPEED = 0;
-parameter int INITIAL_Y_SPEED = 20;
+parameter int INITIAL_Y_SPEED = 0;
 parameter int Y_ACCEL = -10;
 
 const int MAX_Y_SPEED = 500;
@@ -101,6 +101,7 @@ begin : fsm_sync_proc
 		toggle_x_key_D <= 0 ;
 		Y_direction_key_D <= 0 ;
 		hit_reg <= 5'b0 ;	
+		gameOn_D <= 0 ;
 	
 	end 	
 	
@@ -108,11 +109,12 @@ begin : fsm_sync_proc
 	
 		toggle_x_key_D <= toggle_x_key ;  //shift register to detect edge 
 		Y_direction_key_D <= Y_direction_key ;
+		gameOn_D          <= gameOn ;
 	
 	
 		if (!objectsResetN) begin
 			Xposition <= INITIAL_X * FIXED_POINT_MULTIPLIER  ; 
-			Yposition <= INITIAL_Y * FIXED_POINT_MULTIPLIER   ; 
+			Yposition <= INITIAL_Y * FIXED_POINT_MULTIPLIER  ; 
 		end
 		 
 		case(SM_Motion)
@@ -135,24 +137,12 @@ begin : fsm_sync_proc
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
 		// keys direction change 
-				if(toggle_x_key) begin
 
-					if (Y_direction_key & !Y_direction_key_D)//  while moving down
+					if (Y_direction_key & !Y_direction_key_D)
 						Yspeed <= -352;
-						
-					if (toggle_x_key & !toggle_x_key_D) //rizing edge 
-						Xspeed <= -Xspeed ; // toggle direction 
-		
-			 // collcting collisions 	
-					if (collision) begin
-						hit_reg[HitEdgeCode]<=1'b1;
-					end
 					
-
 					if (gameOn && startOfFrame )
-						SM_Motion <= START_OF_FRAME_ST ; 
-							
-			end		
+						SM_Motion <= START_OF_FRAME_ST ; 						
 				
 		end 
 		
@@ -226,21 +216,18 @@ begin : fsm_sync_proc
 						Xspeed <= 0;
 						Yspeed <= 0;
 				end				
-				else if(gameOn && gameOn_D) begin
+				else if(gameOn_D) begin
 					Xposition <= Xposition + Xspeed ; 
 					Yposition <= Yposition + Yspeed ;
+					if (Yspeed < MAX_Y_SPEED)
+						Yspeed <= Yspeed - Y_ACCEL;
 				end
-				else if(gameOn && !gameOn_D) begin
-					Xspeed  <= INITIAL_X_SPEED ; 
-					Yspeed  <= INITIAL_Y_SPEED  ;
-				end
-				else begin
-					// accelerate 
 				
-					if (Yspeed < MAX_Y_SPEED ) //  limit the speed while going down 
-						Yspeed <= Yspeed - Y_ACCEL ; // deAccelerate : slow the speed down every clock tick 
-		
+				else begin
+					Xspeed <= INITIAL_X_SPEED;
+					Yspeed <= INITIAL_Y_SPEED;
 				end
+				
 				SM_Motion <= POSITION_LIMITS_ST ; 
 			end
 		

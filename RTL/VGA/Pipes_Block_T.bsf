@@ -118,9 +118,16 @@ agreement for further details.
 	(port
 		(pt 264 64)
 		(output)
-		(text "regenerate" (rect 0 0 63 19)(font "Intel Clear" (font_size 8)))
-		(text "regenerate" (rect 180 59 243 78)(font "Intel Clear" (font_size 8)))
+		(text "passed" (rect 0 0 42 19)(font "Intel Clear" (font_size 8)))
+		(text "passed" (rect 201 59 243 78)(font "Intel Clear" (font_size 8)))
 		(line (pt 264 64)(pt 248 64))
+	)
+	(port
+		(pt 264 80)
+		(output)
+		(text "regenerate" (rect 0 0 63 19)(font "Intel Clear" (font_size 8)))
+		(text "regenerate" (rect 180 75 243 94)(font "Intel Clear" (font_size 8)))
+		(line (pt 264 80)(pt 248 80))
 	)
 	(parameter
 		"INITIAL_Y"

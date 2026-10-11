@@ -104,9 +104,16 @@ agreement for further details.
 	(port
 		(pt 232 64)
 		(output)
-		(text "regenerate" (rect 0 0 42 12)(font "Arial" ))
-		(text "regenerate" (rect 169 59 211 71)(font "Arial" ))
+		(text "passed" (rect 0 0 28 12)(font "Arial" ))
+		(text "passed" (rect 183 59 211 71)(font "Arial" ))
 		(line (pt 232 64)(pt 216 64)(line_width 1))
+	)
+	(port
+		(pt 232 80)
+		(output)
+		(text "regenerate" (rect 0 0 42 12)(font "Arial" ))
+		(text "regenerate" (rect 169 75 211 87)(font "Arial" ))
+		(line (pt 232 80)(pt 216 80)(line_width 1))
 	)
 	(parameter
 		"INITIAL_X"
@@ -126,6 +133,11 @@ agreement for further details.
 	(parameter
 		"INITIAL_Y_SPEED"
 		"0"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"FISH_X"
+		"130"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
