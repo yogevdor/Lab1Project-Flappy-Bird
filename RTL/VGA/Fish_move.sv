@@ -19,6 +19,7 @@ module	Fish_move	(
 					input  logic [2:0] HitEdgeCode, 
 					input	 logic gameOn,
 					input  logic objectsResetN,
+					
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
 					output logic signed	[10:0] topLeftY  // can be negative , if the object is partliy outside 
 					
@@ -139,7 +140,6 @@ begin : fsm_sync_proc
 			 // collcting collisions 	
 					if (collision) begin
 						hit_reg[HitEdgeCode]<=1'b1;
-						test_collision <= 1'b1;
 					end
 					
 

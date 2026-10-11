@@ -213,6 +213,38 @@ agreement for further details.
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
 )
 (pin
+	(input)
+	(rect 256 576 424 592)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "gameOn" (rect 5 0 46 17)(font "Intel Clear" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 256 592 424 608)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "objectsResetN" (rect 5 0 72 17)(font "Intel Clear" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
 	(output)
 	(rect 1600 368 1776 384)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
@@ -432,9 +464,9 @@ agreement for further details.
 	(annotation_block (parameter)(rect 1256 232 1440 272))
 )
 (symbol
-	(rect 576 440 808 616)
+	(rect 576 440 808 648)
 	(text "single_pipe_move" (rect 5 0 93 12)(font "Arial" ))
-	(text "inst" (rect 8 160 25 172)(font "Arial" ))
+	(text "inst" (rect 8 192 25 204)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -485,24 +517,38 @@ agreement for further details.
 		(line (pt 0 128)(pt 16 128)(line_width 3))
 	)
 	(port
+		(pt 0 144)
+		(input)
+		(text "gameOn" (rect 0 0 41 12)(font "Arial" ))
+		(text "gameOn" (rect 21 139 62 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "objectsResetN" (rect 0 0 73 12)(font "Arial" ))
+		(text "objectsResetN" (rect 21 155 94 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160))
+	)
+	(port
 		(pt 232 32)
 		(output)
 		(text "topLeftX[10..0]" (rect 0 0 73 12)(font "Arial" ))
-		(text "topLeftX[10..0]" (rect 150 27 223 39)(font "Arial" ))
+		(text "topLeftX[10..0]" (rect 150 27 211 39)(font "Arial" ))
 		(line (pt 232 32)(pt 216 32)(line_width 3))
 	)
 	(port
 		(pt 232 48)
 		(output)
 		(text "topLeftY[10..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "topLeftY[10..0]" (rect 148 43 223 55)(font "Arial" ))
+		(text "topLeftY[10..0]" (rect 148 43 211 55)(font "Arial" ))
 		(line (pt 232 48)(pt 216 48)(line_width 3))
 	)
 	(port
 		(pt 232 64)
 		(output)
 		(text "regenerate" (rect 0 0 51 12)(font "Arial" ))
-		(text "regenerate" (rect 168 59 219 71)(font "Arial" ))
+		(text "regenerate" (rect 168 59 211 71)(font "Arial" ))
 		(line (pt 232 64)(pt 216 64))
 	)
 	(parameter
@@ -526,7 +572,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 216 160))
+		(rectangle (rect 16 16 216 192))
 	)
 	(annotation_block (parameter)(rect 592 312 800 407))
 )
@@ -556,12 +602,6 @@ agreement for further details.
 	(text "pixelX[10..0]" (rect 402 344 461 361)(font "Intel Clear" ))
 	(pt 392 360)
 	(pt 488 360)
-	(bus)
-)
-(connector
-	(text "HitEdgeCode[2..0]" (rect 909 640 993 657)(font "Intel Clear" ))
-	(pt 1576 656)
-	(pt 504 656)
 	(bus)
 )
 (connector
@@ -641,11 +681,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt 504 656)
-	(pt 504 568)
-	(bus)
-)
-(connector
 	(text "singlePipeTLY[10..0]" (rect 818 472 915 489)(font "Intel Clear" ))
 	(pt 936 488)
 	(pt 808 488)
@@ -684,6 +719,27 @@ agreement for further details.
 	(pt 576 552)
 )
 (connector
+	(text "gameOn" (rect 513 568 554 585)(font "Intel Clear" ))
+	(pt 424 584)
+	(pt 576 584)
+)
+(connector
+	(text "objectsResetN" (rect 513 584 580 601)(font "Intel Clear" ))
+	(pt 424 600)
+	(pt 576 600)
+)
+(connector
+	(pt 504 568)
+	(pt 504 656)
+	(bus)
+)
+(connector
+	(text "HitEdgeCode[2..0]" (rect 909 640 993 657)(font "Intel Clear" ))
+	(pt 504 656)
+	(pt 1576 656)
+	(bus)
+)
+(connector
 	(pt 504 568)
 	(pt 576 568)
 	(bus)
@@ -693,3 +749,5 @@ agreement for further details.
 (text "            " (rect 504 608 546 627)(font "Intel Clear" (font_size 8)))
 (text " " (rect 440 520 442 537)(font "Intel Clear" ))
 (text "// (c) Technion IIT, Department of Electrical Engineering 2025" (rect 168 16 527 35)(font "Intel Clear" (font_size 8)))
+(text "gameOn" (rect 513 568 554 585)(font "Intel Clear" ))
+(text "objectsResetN" (rect 513 584 580 601)(font "Intel Clear" ))
