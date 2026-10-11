@@ -55,7 +55,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -224 -8 -48 8)
+	(rect -232 -104 -56 -88)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
 	(text "CLOCK_50" (rect 9 0 64 12)(font "Arial" ))
 	(pt 176 8)
@@ -103,7 +103,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -224 40 -48 56)
+	(rect -232 -56 -56 -40)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
 	(text "resetN_pin" (rect 9 0 62 12)(font "Arial" ))
 	(pt 176 8)
@@ -622,7 +622,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect -936 -152 -744 -96))
 )
 (symbol
-	(rect 1024 528 1312 704)
+	(rect 520 352 808 528)
 	(text "game_controller" (rect 5 0 82 12)(font "Arial" ))
 	(text "inst27" (rect 8 160 36 177)(font "Intel Clear" ))
 	(port
@@ -910,7 +910,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect -824 496 -616 591))
 )
 (symbol
-	(rect 48 -64 208 80)
+	(rect 40 -160 200 -16)
 	(text "CLK_31P5" (rect 49 -1 122 15)(font "Arial" (font_size 10)))
 	(text "inst7" (rect 8 128 30 145)(font "Intel Clear" ))
 	(port
@@ -1083,7 +1083,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -40 32 8 64)
+	(rect -48 -64 0 -32)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst3" (rect 3 21 26 33)(font "Arial" ))
 	(port
@@ -1202,7 +1202,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect -336 472 -93 529))
 )
 (symbol
-	(rect 1336 600 1368 632)
+	(rect 1376 600 1408 632)
 	(text "GND" (rect 8 16 29 26)(font "Arial" (font_size 6)))
 	(text "inst13" (rect 3 21 31 38)(font "Intel Clear" )(invisible))
 	(port
@@ -2283,8 +2283,8 @@ agreement for further details.
 	(port
 		(pt 0 192)
 		(input)
-		(text "sqrDrawingRequest" (rect 0 0 95 12)(font "Arial" ))
-		(text "sqrDrawingRequest" (rect 21 187 116 199)(font "Arial" ))
+		(text "scoreDrawingRequest" (rect 0 0 107 12)(font "Arial" ))
+		(text "scoreDrawingRequest" (rect 21 187 128 199)(font "Arial" ))
 		(line (pt 0 192)(pt 16 192))
 	)
 	(port
@@ -2564,11 +2564,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "numberDrawingRequest" (rect 1434 552 1548 569)(font "Intel Clear" ))
-	(pt 1432 568)
-	(pt 1536 568)
-)
-(connector
 	(text "RGBNum[7..0]" (rect 1442 568 1509 585)(font "Intel Clear" ))
 	(pt 1432 584)
 	(pt 1536 584)
@@ -2790,25 +2785,6 @@ agreement for further details.
 	(pt -120 144)
 )
 (connector
-	(pt 104 144)
-	(pt 112 144)
-)
-(connector
-	(pt 104 160)
-	(pt 128 160)
-)
-(connector
-	(text "keyPad[3..0]" (rect 122 256 182 273)(font "Intel Clear" ))
-	(pt 104 272)
-	(pt 208 272)
-	(bus)
-)
-(connector
-	(text "keypadValid" (rect 122 272 182 289)(font "Intel Clear" ))
-	(pt 104 288)
-	(pt 208 288)
-)
-(connector
 	(text "keyIsPressed[9..0]" (rect 114 112 200 129)(font "Intel Clear" ))
 	(pt 104 128)
 	(pt 200 128)
@@ -2820,46 +2796,12 @@ agreement for further details.
 	(pt -160 128)
 )
 (connector
-	(pt 48 48)
-	(pt 8 48)
-)
-(connector
-	(text "resetN" (rect 218 32 248 49)(font "Intel Clear" ))
-	(pt 208 48)
-	(pt 320 48)
-)
-(connector
-	(text "clk" (rect 232 -8 246 9)(font "Intel Clear" ))
-	(pt 208 8)
-	(pt 320 8)
-)
-(connector
 	(pt -120 160)
 	(pt -168 160)
 )
 (connector
 	(pt -120 176)
 	(pt -168 176)
-)
-(connector
-	(pt -40 48)
-	(pt -48 48)
-)
-(connector
-	(pt 48 8)
-	(pt 40 8)
-)
-(connector
-	(pt 40 8)
-	(pt 40 0)
-)
-(connector
-	(pt 40 0)
-	(pt -48 0)
-)
-(connector
-	(pt 104 192)
-	(pt 112 192)
 )
 (connector
 	(text "pixelX[10..0]" (rect 482 96 542 108)(font "Arial" ))
@@ -2899,11 +2841,6 @@ agreement for further details.
 	(pt 552 224)
 )
 (connector
-	(text "enter" (rect 146 192 170 209)(font "Intel Clear" ))
-	(pt 104 208)
-	(pt 216 208)
-)
-(connector
 	(text "enter" (rect 482 192 506 209)(font "Intel Clear" ))
 	(pt 440 208)
 	(pt 552 208)
@@ -2918,11 +2855,6 @@ agreement for further details.
 	(text "startOfFrame" (rect -386 648 -323 665)(font "Intel Clear" ))
 	(pt -312 664)
 	(pt -408 664)
-)
-(connector
-	(text "gggnd" (rect 1483 584 1512 601)(font "Intel Clear" ))
-	(pt 1352 600)
-	(pt 1536 600)
 )
 (connector
 	(text "SCORE_topLeftY[10..0]" (rect -406 1184 -296 1201)(font "Intel Clear" ))
@@ -3002,11 +2934,6 @@ agreement for further details.
 	(pt -240 1272)
 	(pt -120 1272)
 	(bus)
-)
-(connector
-	(text "numberDrawingRequest" (rect 1170 1136 1284 1153)(font "Intel Clear" ))
-	(pt 1168 1152)
-	(pt 1272 1152)
 )
 (connector
 	(text "RGBNum[7..0]" (rect 1178 1152 1245 1169)(font "Intel Clear" ))
@@ -3385,29 +3312,135 @@ agreement for further details.
 	(pt 528 664)
 )
 (connector
-	(text "clk" (rect 976 544 990 561)(font "Intel Clear" ))
-	(pt 928 560)
-	(pt 1024 560)
-)
-(connector
-	(text "resetN" (rect 968 560 1001 572)(font "Arial" ))
-	(pt 928 576)
-	(pt 1024 576)
-)
-(connector
-	(text "startOfFrame" (rect 954 576 1017 593)(font "Intel Clear" ))
-	(pt 928 592)
-	(pt 1024 592)
-)
-(connector
 	(text "collision" (rect 776 584 814 601)(font "Intel Clear" ))
 	(pt 744 600)
 	(pt 856 600)
 )
 (connector
-	(text "collision" (rect 944 592 982 609)(font "Intel Clear" ))
-	(pt 928 608)
-	(pt 1024 608)
+	(text "scoreDrawingRequest" (rect 1170 1136 1272 1153)(font "Intel Clear" ))
+	(pt 1168 1152)
+	(pt 1272 1152)
+)
+(connector
+	(text "scoreDrawingRequest" (rect 1434 552 1536 569)(font "Intel Clear" ))
+	(pt 1432 568)
+	(pt 1536 568)
+)
+(connector
+	(text "gggnd" (rect 1443 584 1472 601)(font "Intel Clear" ))
+	(pt 1536 600)
+	(pt 1392 600)
+)
+(connector
+	(text "enter" (rect 146 192 170 209)(font "Intel Clear" ))
+	(pt 200 208)
+	(pt 104 208)
+)
+(connector
+	(text "numLCK" (rect 112 240 153 257)(font "Intel Clear" ))
+	(pt 200 256)
+	(pt 104 256)
+)
+(connector
+	(text "keyPad[3..0]" (rect 122 256 182 273)(font "Intel Clear" ))
+	(pt 200 272)
+	(pt 104 272)
+	(bus)
+)
+(connector
+	(text "keypadValid" (rect 122 272 182 289)(font "Intel Clear" ))
+	(pt 200 288)
+	(pt 104 288)
+)
+(connector
+	(pt 40 -48)
+	(pt 0 -48)
+)
+(connector
+	(text "resetN" (rect 210 -64 240 -47)(font "Intel Clear" ))
+	(pt 200 -48)
+	(pt 312 -48)
+)
+(connector
+	(text "clk" (rect 224 -104 238 -87)(font "Intel Clear" ))
+	(pt 200 -88)
+	(pt 312 -88)
+)
+(connector
+	(pt -48 -48)
+	(pt -56 -48)
+)
+(connector
+	(pt 40 -88)
+	(pt 32 -88)
+)
+(connector
+	(pt 32 -88)
+	(pt 32 -96)
+)
+(connector
+	(pt 32 -96)
+	(pt -56 -96)
+)
+(connector
+	(text "clk" (rect 472 368 486 385)(font "Intel Clear" ))
+	(pt 424 384)
+	(pt 520 384)
+)
+(connector
+	(text "resetN" (rect 464 384 497 396)(font "Arial" ))
+	(pt 424 400)
+	(pt 520 400)
+)
+(connector
+	(text "startOfFrame" (rect 450 400 513 417)(font "Intel Clear" ))
+	(pt 424 416)
+	(pt 520 416)
+)
+(connector
+	(text "collision" (rect 440 416 478 433)(font "Intel Clear" ))
+	(pt 424 432)
+	(pt 520 432)
+)
+(connector
+	(text "keyIsPressed[8]" (rect 428 432 503 449)(font "Intel Clear" ))
+	(pt 424 448)
+	(pt 520 448)
+)
+(connector
+	(text "keyIsPressed[0]" (rect 428 448 503 465)(font "Intel Clear" ))
+	(pt 424 464)
+	(pt 520 464)
+)
+(connector
+	(text "numLCK" (rect 448 464 489 481)(font "Intel Clear" ))
+	(pt 424 480)
+	(pt 520 480)
+)
+(connector
+	(text "startDrawingReq" (rect 819 368 898 385)(font "Intel Clear" ))
+	(pt 808 384)
+	(pt 872 384)
+)
+(connector
+	(text "gameOverDrawingReq" (rect 818 384 926 401)(font "Intel Clear" ))
+	(pt 808 400)
+	(pt 872 400)
+)
+(connector
+	(text "pauseDrawingReq" (rect 816 400 902 417)(font "Intel Clear" ))
+	(pt 808 416)
+	(pt 872 416)
+)
+(connector
+	(text "objectsResetN" (rect 829 416 896 433)(font "Intel Clear" ))
+	(pt 808 432)
+	(pt 872 432)
+)
+(connector
+	(text "game_on" (rect 826 432 870 449)(font "Intel Clear" ))
+	(pt 808 448)
+	(pt 872 448)
 )
 (junction (pt 552 968))
 (junction (pt 1776 960))
@@ -3429,7 +3462,7 @@ agreement for further details.
 (text "\"Enter\"  is toggleX" (rect 296 208 421 228)(font "Intel Clear" (font_size 10)))
 (text "KEY \"8\"  is Y_direction" (rect 296 176 449 196)(font "Intel Clear" (font_size 10)))
 (text "Smileyface moving and drawing" (rect 448 -56 643 -37)(font "Intel Clear" (font_size 8)(bold)))
-(text "31.5 MHz Clock genrtaor" (rect 72 -88 217 -69)(font "Intel Clear" (font_size 8)))
+(text "31.5 MHz Clock genrtaor" (rect 64 -184 209 -165)(font "Intel Clear" (font_size 8)))
 (text "The keyboard interface" (rect -344 96 -179 116)(font "Intel Clear" (font_size 10)(bold)))
 (text "pipe1" (rect 1392 0 1427 19)(font "Intel Clear" (font_size 8)))
 (text "pipe2" (rect 2048 56 2083 75)(font "Intel Clear" (font_size 8)))
