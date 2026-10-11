@@ -97,8 +97,8 @@ agreement for further details.
 	(port
 		(pt 0 192)
 		(input)
-		(text "sqrDrawingRequest" (rect 0 0 79 12)(font "Arial" ))
-		(text "sqrDrawingRequest" (rect 21 187 100 199)(font "Arial" ))
+		(text "scoreDrawingRequest" (rect 0 0 88 12)(font "Arial" ))
+		(text "scoreDrawingRequest" (rect 21 187 109 199)(font "Arial" ))
 		(line (pt 0 192)(pt 16 192)(line_width 1))
 	)
 	(port

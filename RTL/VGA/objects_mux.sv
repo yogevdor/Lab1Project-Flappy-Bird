@@ -27,7 +27,7 @@ module	objects_mux	(
 			
 			
 		  // add the box here 
-					input		logic sqrDrawingRequest,
+					input		logic scoreDrawingRequest,
 					input		logic [7:0] SQR_RGB,
 			  
 		  ////////////////////////
@@ -51,7 +51,7 @@ begin
 		if (fishDrawingRequest == 1'b1 )   
 			RGBOut <= fishRGB;  //first priority 
 			
-		else if (sqrDrawingRequest == 1'b1 )
+		else if (scoreDrawingRequest == 1'b1 )
 			RGBOut <= SQR_RGB;
 		 
 		else if (singlePipe1DrawingRequest == 1'b1 )
