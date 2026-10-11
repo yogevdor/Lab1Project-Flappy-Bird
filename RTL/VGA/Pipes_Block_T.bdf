@@ -25,7 +25,7 @@ agreement for further details.
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
 	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "initial_x" (rect 3 16 44 30)(font "Arial" (font_size 8)))
+	(text "INITIAL_X" (rect 3 16 57 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
 	(text "D\"280\"" (rect 141 16 162 30)(font "Arial" (font_size 8)))
 	(drawing
@@ -37,7 +37,7 @@ agreement for further details.
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
 	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "initial_y" (rect 3 16 44 30)(font "Arial" (font_size 8)))
+	(text "INITIAL_Y" (rect 3 16 58 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
 	(text "D\"64\"" (rect 141 16 155 30)(font "Arial" (font_size 8)))
 	(drawing
@@ -49,7 +49,7 @@ agreement for further details.
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
 	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "initial_x_speed" (rect 3 16 86 30)(font "Arial" (font_size 8)))
+	(text "INITIAL_X_SPEED" (rect 3 16 102 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
 	(text "D\"-64\"" (rect 141 16 159 30)(font "Arial" (font_size 8)))
 	(drawing
@@ -61,7 +61,7 @@ agreement for further details.
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
 	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "initial_y_speed" (rect 3 16 86 30)(font "Arial" (font_size 8)))
+	(text "INITIAL_Y_SPEED" (rect 3 16 103 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
 	(text "D\"0\"" (rect 141 16 148 30)(font "Arial" (font_size 8)))
 	(drawing
@@ -432,7 +432,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect 1256 232 1440 272))
 )
 (symbol
-	(rect 552 440 784 616)
+	(rect 576 440 808 616)
 	(text "single_pipe_move" (rect 5 0 93 12)(font "Arial" ))
 	(text "inst" (rect 8 160 25 172)(font "Arial" ))
 	(port
@@ -528,7 +528,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 216 160))
 	)
-	(annotation_block (parameter)(rect 568 312 776 407))
+	(annotation_block (parameter)(rect 592 312 800 407))
 )
 (connector
 	(text "clk" (rect 880 392 894 409)(font "Intel Clear" ))
@@ -563,44 +563,6 @@ agreement for further details.
 	(pt 1576 656)
 	(pt 504 656)
 	(bus)
-)
-(connector
-	(pt 392 488)
-	(pt 552 488)
-)
-(connector
-	(pt 392 472)
-	(pt 552 472)
-)
-(connector
-	(pt 504 568)
-	(pt 552 568)
-	(bus)
-)
-(connector
-	(pt 504 656)
-	(pt 504 568)
-	(bus)
-)
-(connector
-	(text "startOfFrame" (rect 472 488 535 505)(font "Intel Clear" ))
-	(pt 392 504)
-	(pt 552 504)
-)
-(connector
-	(text "Y_direction_key" (rect 461 504 537 521)(font "Intel Clear" ))
-	(pt 400 520)
-	(pt 552 520)
-)
-(connector
-	(text "toggle_x_key" (rect 472 520 536 537)(font "Intel Clear" ))
-	(pt 392 536)
-	(pt 552 536)
-)
-(connector
-	(text "collision " (rect 481 536 522 553)(font "Intel Clear" ))
-	(pt 392 552)
-	(pt 552 552)
 )
 (connector
 	(text "clk" (rect 1200 360 1214 377)(font "Intel Clear" ))
@@ -651,18 +613,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "singlePipeTLX[10..0]" (rect 796 456 893 473)(font "Intel Clear" ))
-	(pt 784 472)
-	(pt 936 472)
-	(bus)
-)
-(connector
-	(text "singlePipeTLY[10..0]" (rect 794 472 891 489)(font "Intel Clear" ))
-	(pt 784 488)
-	(pt 936 488)
-	(bus)
-)
-(connector
 	(text "gapTop[10..0]" (rect 1182 440 1246 457)(font "Intel Clear" ))
 	(pt 1248 456)
 	(pt 1176 456)
@@ -681,17 +631,62 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "regenerate" (rect 792 488 843 505)(font "Intel Clear" ))
-	(pt 808 504)
-	(pt 784 504)
-)
-(connector
-	(pt 808 528)
-	(pt 808 504)
-)
-(connector
 	(pt 808 528)
 	(pt 824 528)
+)
+(connector
+	(text "singlePipeTLX[10..0]" (rect 820 456 917 473)(font "Intel Clear" ))
+	(pt 936 472)
+	(pt 808 472)
+	(bus)
+)
+(connector
+	(pt 504 656)
+	(pt 504 568)
+	(bus)
+)
+(connector
+	(text "singlePipeTLY[10..0]" (rect 818 472 915 489)(font "Intel Clear" ))
+	(pt 936 488)
+	(pt 808 488)
+	(bus)
+)
+(connector
+	(pt 808 528)
+	(pt 808 504)
+)
+(connector
+	(pt 392 472)
+	(pt 576 472)
+)
+(connector
+	(pt 392 488)
+	(pt 576 488)
+)
+(connector
+	(text "startOfFrame" (rect 496 488 559 505)(font "Intel Clear" ))
+	(pt 392 504)
+	(pt 576 504)
+)
+(connector
+	(text "Y_direction_key" (rect 485 504 561 521)(font "Intel Clear" ))
+	(pt 400 520)
+	(pt 576 520)
+)
+(connector
+	(text "toggle_x_key" (rect 496 520 560 537)(font "Intel Clear" ))
+	(pt 392 536)
+	(pt 576 536)
+)
+(connector
+	(text "collision " (rect 505 536 546 553)(font "Intel Clear" ))
+	(pt 392 552)
+	(pt 576 552)
+)
+(connector
+	(pt 504 568)
+	(pt 576 568)
+	(bus)
 )
 (text "  " (rect 24 624 31 643)(font "Intel Clear" (font_size 8)))
 (text "   " (rect 144 664 154 683)(font "Intel Clear" (font_size 8)))

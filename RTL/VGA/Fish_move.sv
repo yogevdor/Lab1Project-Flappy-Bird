@@ -78,7 +78,7 @@ int Yposition ;
 
 logic toggle_x_key_D ;
 logic Y_direction_key_D ;
- 
+logic test_collision;
 
   logic [4:0] hit_reg = 5'b00000;
  //---------
@@ -96,6 +96,7 @@ begin : fsm_sync_proc
 	Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER   ; 
 		toggle_x_key_D <= 0 ;
 		Y_direction_key_D <= 0 ;
+		test_collision <= 0;
 		hit_reg <= 5'b0 ;	
 	
 	end 	
@@ -104,6 +105,7 @@ begin : fsm_sync_proc
 	
 		toggle_x_key_D <= toggle_x_key ;  //shift register to detect edge 
 		Y_direction_key_D <= Y_direction_key ;
+		test_collision <= 0;
 	
 		case(SM_Motion)
 		
@@ -136,7 +138,7 @@ begin : fsm_sync_proc
 			 // collcting collisions 	
 					if (collision) begin
 						hit_reg[HitEdgeCode]<=1'b1;
-
+						test_collision <= 1'b1;
 					end
 					
 
@@ -178,12 +180,14 @@ begin : fsm_sync_proc
 					LEFT, TOP+RIGHT+BOTTOM : // left side or cavity  
 					begin
 						if (Xspeed < 0) // left 
+							Yspeed <= 0 ;							
 							Xspeed <= 0-Xspeed ;
 					end
 	
 					RIGHT, LEFT+BOTTOM +TOP :   // right side or cavity  
 					begin
 						if (Xspeed > 0) // right 
+							Yspeed <= 0 ;							
 							Xspeed <= 0-Xspeed ;
 					end
 					

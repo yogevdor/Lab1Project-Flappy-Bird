@@ -18,10 +18,10 @@ module	single_pipe_move	(
 
 // a module used to generate the  ball trajectory.  
 
-parameter int INITIAL_X = initial_x;
-parameter int INITIAL_Y = initial_y;
-parameter int INITIAL_X_SPEED = initial_x_speed;
-parameter int INITIAL_Y_SPEED = initial_y_speed;
+parameter int INITIAL_X = 280;
+parameter int INITIAL_Y = 0;
+parameter int INITIAL_X_SPEED = -64;
+parameter int INITIAL_Y_SPEED = 0;
 // parameter int Y_ACCEL = -10;
 
 // const int MAX_Y_SPEED = 500;

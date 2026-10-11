@@ -26,28 +26,23 @@ assign collision = (drawing_request_fish && drawing_request_pipe);
 
 
 
-always_ff@(posedge clk or negedge resetN)
-begin
-	if(!resetN)
-	begin 
+always_ff@(posedge clk or negedge resetN) begin
+
+	if(!resetN) begin 
 		flag	<= 1'b0;
-		SingleHitPulse <= 1'b0 ; 
-		
+		SingleHitPulse <= 1'b0; 	
 	end 
 	else begin 
-	
 			SingleHitPulse <= 1'b0 ; // default 
 			if(startOfFrame) 
-				flag <= 1'b0 ; // reset for next time 
+				flag <= 1'b0 ; // reset for next time
 				
-//	----#7 - change the collision condition below to collision_smiley_number ---------
-
-if ( collision_fish_pipe  && (flag == 1'b0)) begin 
-			flag	<= 1'b1; // to enter only once 
-			SingleHitPulse <= 1'b1 ; 
-		end ; 
- 
+			if ( collision_fish_pipe) begin 
+//				flag	<= 1'b1; // to enter only once 
+				SingleHitPulse <= 1'b1 ; 
+			end
 	end 
+
 end
 
 endmodule
