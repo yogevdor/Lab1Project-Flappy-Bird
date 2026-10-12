@@ -11,7 +11,8 @@ module random
   
 parameter SIZE_BITS = 9;
 parameter unsigned [SIZE_BITS-1:0] MIN_VAL = 32;  //set the min and max values 
-parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 308;
+parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 276;
+parameter int START_COUNTER = 55;
 
 	logic unsigned  [SIZE_BITS-1:0] counter/* synthesis keep = 1 */;
 	logic rise_d /* synthesis keep = 1 */;
@@ -19,13 +20,13 @@ parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 308;
 	
 always_ff @(posedge clk or negedge resetN) begin
 		if (!resetN) begin
-			dout <= (MAX_VAL+MIN_VAL)>>1;  //  divide by 2
-			counter <= MIN_VAL;
+			dout <= START_COUNTER;  //  divide by 2
+			counter <= START_COUNTER;
 			rise_d <= 1'b0;
 		end
 		
 		else begin
-			counter <= counter+SIZE_BITS'(41);
+			counter <= counter+SIZE_BITS'(START_COUNTER);
 			if ( counter >= MAX_VAL ) // the +1 is done on the next clock 
 				counter <=  MIN_VAL ; // set min and max mvalues 
 			rise_d <= rise;
