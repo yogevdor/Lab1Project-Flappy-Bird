@@ -3663,6 +3663,11 @@ agreement for further details.
 	(pt 6688 3800)
 	(pt 6576 3800)
 )
+(connector
+	(text "gameOn" (rect 5823 3976 5864 3993)(font "Intel Clear" ))
+	(pt 5888 3992)
+	(pt 5792 3992)
+)
 (junction (pt 6752 4280))
 (junction (pt 7976 4272))
 (junction (pt 7976 4288))

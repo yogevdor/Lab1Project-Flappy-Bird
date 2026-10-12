@@ -53,8 +53,7 @@ logic [18:0] bgAddress;
 always_ff @(posedge clk or negedge resetN) begin
     if (!resetN)
         bgOffset <= 10'd0;
-//    else if (startOfFrame && game_on) begin
-	 else if (startOfFrame) begin
+    else if (startOfFrame && game_on) begin
         if (bgOffset + BG_SPEED >= BG_W)
             bgOffset <= bgOffset + BG_SPEED - BG_W;
         else
