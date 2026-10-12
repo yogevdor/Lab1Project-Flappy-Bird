@@ -21,10 +21,10 @@ module	single_pipe_move	(
 
 // a module used to generate the  ball trajectory.  
 
-parameter int INITIAL_X = 280;
-parameter int INITIAL_Y = 0;
-parameter int INITIAL_X_SPEED = -64;
-parameter int INITIAL_Y_SPEED = 0;
+parameter int INITIAL_X = INITIAL_X;
+parameter int INITIAL_Y = INITIAL_Y;
+parameter int INITIAL_X_SPEED = INITIAL_X_SPEED;
+parameter int INITIAL_Y_SPEED = INITIAL_Y_SPEED;
 
 
 parameter int FISH_X = 130; //fish X cordianate

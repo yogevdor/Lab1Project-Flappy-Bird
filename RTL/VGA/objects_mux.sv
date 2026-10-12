@@ -52,14 +52,14 @@ begin
 	end
 	
 	else begin
-		if (fishDrawingRequest == 1'b1 )   
-			RGBOut <= fishRGB;  //first priority 
-			
-		else if (startScreenDrawingRequest == 1'b1)
-				RGBOut <= startScreenRGB;
-				
+		if (startScreenDrawingRequest == 1'b1)
+			RGBOut <= startScreenRGB;  //first priority
+
 		else if (gameOverScreenDrawingRequest == 1'b1)
-				RGBOut <= gameOverScreenRGB;
+			RGBOut <= gameOverScreenRGB;
+
+		else if (fishDrawingRequest == 1'b1 )
+			RGBOut <= fishRGB;
 			
 		else if (scoreDrawingRequest == 1'b1 )
 			RGBOut <= SQR_RGB;

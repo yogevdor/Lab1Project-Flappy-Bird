@@ -75,19 +75,9 @@ agreement for further details.
 	)
 	(parameter
 		"MIF_FILE"
-		"RTL/startscreen.mif"
+		"RTL/start_screen320x240.mif"
 		""
 		(type "PARAMETER_STRING")	)
-	(parameter
-		"TOP_X"
-		"192"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"TOP_Y"
-		"112"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 200 128)(line_width 1))
 	)
