@@ -32,8 +32,12 @@ module	objects_mux	(
 			  
 		  ////////////////////////
 		  // background 
-					input    logic HartDrawingRequest, // box of numbers
-					input		logic	[7:0] hartRGB,   
+					input    logic startScreenDrawingRequest,
+					input		logic	[7:0] startScreenRGB,
+		
+					input    logic gameOverScreenDrawingRequest,
+					input		logic	[7:0] gameOverScreenRGB,  
+					
 					input		logic	[7:0] backGroundRGB, 
 					input		logic	BGDrawingRequest, 
 					input		logic	[7:0] RGB_MIF, 
@@ -51,6 +55,12 @@ begin
 		if (fishDrawingRequest == 1'b1 )   
 			RGBOut <= fishRGB;  //first priority 
 			
+		else if (startScreenDrawingRequest == 1'b1)
+				RGBOut <= startScreenRGB;
+				
+		else if (gameOverScreenDrawingRequest == 1'b1)
+				RGBOut <= gameOverScreenRGB;
+			
 		else if (scoreDrawingRequest == 1'b1 )
 			RGBOut <= SQR_RGB;
 		 
@@ -62,9 +72,6 @@ begin
 
 		else if (singlePipe3DrawingRequest == 1'b1 )
 			RGBOut <= singlePipe3RGB;
-
- 		else if (HartDrawingRequest == 1'b1)
-				RGBOut <= hartRGB;
 				
 		else if (BGDrawingRequest == 1'b1)
 				RGBOut <= backGroundRGB ;
