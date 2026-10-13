@@ -2468,63 +2468,6 @@ agreement for further details.
 	(annotation_block (parameter)(rect 5040 4400 5223 4476))
 )
 (symbol
-	(rect 8560 3120 8776 3232)
-	(text "random" (rect 5 0 41 12)(font "Arial" ))
-	(text "inst25" (rect 8 96 37 108)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "resetN" (rect 0 0 33 12)(font "Arial" ))
-		(text "resetN" (rect 21 43 54 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "rise" (rect 0 0 17 12)(font "Arial" ))
-		(text "rise" (rect 21 59 38 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 216 32)
-		(output)
-		(text "dout[SIZE_BITS-1..0]" (rect 0 0 105 12)(font "Arial" ))
-		(text "dout[SIZE_BITS-1..0]" (rect 107 27 195 39)(font "Arial" ))
-		(line (pt 216 32)(pt 200 32)(line_width 3))
-	)
-	(parameter
-		"SIZE_BITS"
-		"11"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"MIN_VAL"
-		"32"
-		""
-		(type "PARAMETER_UNSIGNED_DEC")	)
-	(parameter
-		"MAX_VAL"
-		"276"
-		""
-		(type "PARAMETER_UNSIGNED_DEC")	)
-	(parameter
-		"START_COUNTER"
-		"199"
-		""
-		(type "PARAMETER_UNSIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 200 96))
-	)
-	(annotation_block (parameter)(rect 8560 3008 8782 3103))
-)
-(symbol
 	(rect 8000 3128 8216 3240)
 	(text "random" (rect 5 0 41 12)(font "Arial" ))
 	(text "inst24" (rect 8 96 37 108)(font "Arial" ))
@@ -2637,6 +2580,63 @@ agreement for further details.
 		(rectangle (rect 16 16 200 96))
 	)
 	(annotation_block (parameter)(rect 7456 3032 7678 3127))
+)
+(symbol
+	(rect 8560 3120 8776 3232)
+	(text "random" (rect 5 0 41 12)(font "Arial" ))
+	(text "inst25" (rect 8 96 37 108)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "resetN" (rect 0 0 33 12)(font "Arial" ))
+		(text "resetN" (rect 21 43 54 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "rise" (rect 0 0 17 12)(font "Arial" ))
+		(text "rise" (rect 21 59 38 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 216 32)
+		(output)
+		(text "dout[SIZE_BITS-1..0]" (rect 0 0 105 12)(font "Arial" ))
+		(text "dout[SIZE_BITS-1..0]" (rect 107 27 212 39)(font "Arial" ))
+		(line (pt 216 32)(pt 200 32)(line_width 3))
+	)
+	(parameter
+		"SIZE_BITS"
+		"11"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"MIN_VAL"
+		"32"
+		""
+		(type "PARAMETER_UNSIGNED_DEC")	)
+	(parameter
+		"MAX_VAL"
+		"276"
+		""
+		(type "PARAMETER_UNSIGNED_DEC")	)
+	(parameter
+		"START_COUNTER"
+		"117"
+		""
+		(type "PARAMETER_UNSIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 200 96))
+	)
+	(annotation_block (parameter)(rect 8560 3008 8782 3103))
 )
 (connector
 	(text "clk" (rect 8266 3744 8280 3761)(font "Intel Clear" ))
@@ -3642,11 +3642,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt 8184 3720)
-	(pt 8216 3720)
-	(bus)
-)
-(connector
 	(text "RGB[7..0]" (rect 8196 3704 8240 3721)(font "Intel Clear" ))
 	(pt 8216 3720)
 	(pt 8296 3720)
@@ -3961,7 +3956,6 @@ agreement for further details.
 (junction (pt 7976 4272))
 (junction (pt 7976 4288))
 (junction (pt 6952 4208))
-(junction (pt 8216 3720))
 (text "Output to 7Seg" (rect 7336 4240 7426 4259)(font "Intel Clear" (font_size 8)))
 (text "// (c) Technion IIT, Department of Electrical Engineering 2025" (rect 5624 3200 5983 3219)(font "Intel Clear" (font_size 8)))
 (text "Sound Unit" (rect 6632 4080 6713 4100)(font "Intel Clear" (font_size 10)(bold)))

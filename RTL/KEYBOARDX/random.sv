@@ -12,7 +12,7 @@ module random
 parameter SIZE_BITS = 9;
 parameter unsigned [SIZE_BITS-1:0] MIN_VAL = 32;  //set the min and max values 
 parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 276;
-parameter int START_COUNTER = 55;
+parameter int START_COUNTER = 53;
 
 	logic unsigned  [SIZE_BITS-1:0] counter/* synthesis keep = 1 */;
 	logic rise_d /* synthesis keep = 1 */;
@@ -27,7 +27,7 @@ always_ff @(posedge clk or negedge resetN) begin
 		
 		else begin
 			counter <= counter+SIZE_BITS'(START_COUNTER);
-			if ( counter >= MAX_VAL ) // the +1 is done on the next clock 
+			if ( counter >= MAX_VAL || counter + SIZE_BITS'(START_COUNTER) >= MAX_VAL) // the +1 is done on the next clock 
 				counter <=  MIN_VAL ; // set min and max mvalues 
 			rise_d <= rise;
 			if (rise && !rise_d) // rising edge 
