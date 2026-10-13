@@ -46,6 +46,13 @@ agreement for further details.
 		(line (pt 0 64)(pt 16 64)(line_width 1))
 	)
 	(port
+		(pt 0 80)
+		(input)
+		(text "flap" (rect 0 0 14 12)(font "Arial" ))
+		(text "flap" (rect 21 75 35 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
 		(pt 216 32)
 		(output)
 		(text "dout[SIZE_BITS-1..0]" (rect 0 0 86 12)(font "Arial" ))
@@ -69,7 +76,7 @@ agreement for further details.
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(parameter
 		"START_COUNTER"
-		"55"
+		"53"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
