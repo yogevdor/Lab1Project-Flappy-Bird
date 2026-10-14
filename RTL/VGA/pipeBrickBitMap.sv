@@ -140,12 +140,12 @@ begin
 				else if (offsetY <= gapBottom + PIPE_TOP_HEIGHT) begin
 					// top part of floor pillar
 					RGBout <= top_color;
-					local_y <= (offsetY - gapBottom);	
+					local_y <= (offsetY - gapBottom - 1);	
 				end
-				else if (offsetY <= SCREEN_HEIGHT - PIPE_BOTTOM_HEIGHT) begin
+				else if (offsetY < SCREEN_HEIGHT - PIPE_BOTTOM_HEIGHT) begin
 					// mid part of floor pillar
 					RGBout <= mid_color;
-					local_y <= offsetY - (gapBottom + PIPE_TOP_HEIGHT);
+					local_y <= offsetY - (gapBottom + PIPE_TOP_HEIGHT) - 1;
 				end
 				else begin
 					// bottom part of floor pillar
@@ -160,12 +160,12 @@ begin
 				if (offsetY >= gapTop - PIPE_TOP_HEIGHT) begin
 					// top part of ceiling pillar
 					RGBout <= top_color;
-					local_y <= (gapTop - offsetY);	
+					local_y <= (gapTop - offsetY - 1);	
 				end
 				else if (offsetY < gapTop - PIPE_TOP_HEIGHT && offsetY >= 0) begin
 					// mid part of floor pillar
 					RGBout <= mid_color;
-					local_y <= (gapTop - PIPE_TOP_HEIGHT - offsetY);
+					local_y <= (gapTop - PIPE_TOP_HEIGHT - offsetY - 1);
 				end
 			end
 //			HitEdgeCode <= hit_colors[HitCodeY][HitCodeX];	//get hit edge code from the colors table  
