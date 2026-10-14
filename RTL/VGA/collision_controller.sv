@@ -12,17 +12,21 @@ module	collision_controller	(
 			input logic drawing_request_pipe1,
 			input logic drawing_request_pipe2,
 			input logic drawing_request_pipe3,
+			input logic signed [10:0] fishTopY,
 
 			output logic collision		
 );
 
+localparam int Y_TOP_LIMIT    = 2;    // = SafetyMargin in Fish_move
+localparam int Y_BOTTOM_LIMIT = 445;  // = 479 - SafetyMargin - 32 in Fish_move
 
-
-//assign collision_fish_pipe = (drawing_request_fish && drawing_request_pipe);
+logic hit_frame_edge;
+assign hit_frame_edge = (fishTopY <= Y_TOP_LIMIT) || (fishTopY >= Y_BOTTOM_LIMIT);
 
 assign collision = (drawing_request_fish && drawing_request_pipe1) ||
 						 (drawing_request_fish && drawing_request_pipe2) ||
-						 (drawing_request_fish && drawing_request_pipe3); 
+						 (drawing_request_fish && drawing_request_pipe3) ||
+						 hit_frame_edge;
 
 
 endmodule
