@@ -55,7 +55,7 @@ module	objects_mux	(
 );
 
 localparam logic [7:0] DARK_MODE_COLOR = 8'h04;
-localparam int DARK_MODE_RADIUS = 180; 
+localparam int DARK_MODE_RADIUS = 200; 
 localparam int DARK_MODE_RADIUS_SQUARED = DARK_MODE_RADIUS * DARK_MODE_RADIUS;
 
 int dx, dy, squared_distance;
