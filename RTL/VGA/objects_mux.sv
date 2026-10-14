@@ -9,41 +9,63 @@
 
 module	objects_mux	(	
 //		--------	Clock Input	 	
-					input		logic	clk,
-					input		logic	resetN,
+					input logic	clk,
+					input logic	resetN,
 		   // fish
-					input		logic	fishDrawingRequest, // two set of inputs per unit
-					input		logic	[7:0] fishRGB, 
+					input logic	fishDrawingRequest, // two set of inputs per unit
+					input logic	[7:0] fishRGB, 
 			
 			// single pipes:
-					input		logic	singlePipe1DrawingRequest, // two set of inputs per unit
-					input		logic	[7:0] singlePipe1RGB, 
+					input logic	singlePipe1DrawingRequest, // two set of inputs per unit
+					input logic	[7:0] singlePipe1RGB, 
 
-					input		logic	singlePipe2DrawingRequest, // two set of inputs per unit
-					input		logic	[7:0] singlePipe2RGB, 
+					input logic	singlePipe2DrawingRequest, // two set of inputs per unit
+					input logic	[7:0] singlePipe2RGB, 
 
-					input		logic	singlePipe3DrawingRequest, // two set of inputs per unit
-					input		logic	[7:0] singlePipe3RGB, 
+					input logic	singlePipe3DrawingRequest, // two set of inputs per unit
+					input logic	[7:0] singlePipe3RGB, 
 			
 			
 		  // add the box here 
-					input		logic scoreDrawingRequest,
-					input		logic [7:0] SQR_RGB,
+					input logic scoreDrawingRequest,
+					input logic [7:0] SQR_RGB,
 			  
 		  ////////////////////////
 		  // background 
-					input    logic startScreenDrawingRequest,
-					input		logic	[7:0] startScreenRGB,
+					input logic startScreenDrawingRequest,
+					input logic	[7:0] startScreenRGB,
 		
-					input    logic gameOverScreenDrawingRequest,
-					input		logic	[7:0] gameOverScreenRGB,  
+					input logic gameOverScreenDrawingRequest,
+					input logic	[7:0] gameOverScreenRGB,  
 					
-					input		logic	[7:0] backGroundRGB, 
-					input		logic	BGDrawingRequest, 
-					input		logic	[7:0] RGB_MIF, 
+					input logic	[7:0] backGroundRGB, 
+					input logic	BGDrawingRequest, 
+					
+					input logic	[7:0] RGB_MIF, 
+					
+			// DARK-MODE
+					input logic darkModeOn,
+					input logic [10:0] fishTopLeftX,
+					input logic [10:0] fishTopLeftY,
+					input logic [10:0] pixelX,
+					input logic [10:0] pixelY,
+
 			  
-				   output	logic	[7:0] RGBOut
+				   output logic	[7:0] RGBOut
 );
+
+localparam logic [7:0] DARK_MODE_COLOR = 8'h04;
+localparam int DARK_MODE_RADIUS = 180; 
+localparam int DARK_MODE_RADIUS_SQUARED = DARK_MODE_RADIUS * DARK_MODE_RADIUS;
+
+int dx, dy, squared_distance;
+
+// dark-mode distance from fish calculation
+always_comb begin
+	dx = pixelX - (fishTopLeftX + 16);
+	dy = pixelY - (fishTopLeftY + 16);
+	squared_distance = (dx * dx) + (dy * dy);
+end
 
 always_ff@(posedge clk or negedge resetN)
 begin
@@ -58,12 +80,15 @@ begin
 		else if (gameOverScreenDrawingRequest == 1'b1)
 			RGBOut <= gameOverScreenRGB;
 
-		else if (fishDrawingRequest == 1'b1 )
-			RGBOut <= fishRGB;
-			
 		else if (scoreDrawingRequest == 1'b1 )
 			RGBOut <= SQR_RGB;
 		 
+		else if (darkModeOn && (squared_distance > DARK_MODE_RADIUS_SQUARED))
+			RGBOut <= DARK_MODE_COLOR;
+			
+		else if (fishDrawingRequest == 1'b1 )
+			RGBOut <= fishRGB;
+
 		else if (singlePipe1DrawingRequest == 1'b1 )
 			RGBOut <= singlePipe1RGB;
 		

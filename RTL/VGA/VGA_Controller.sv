@@ -8,26 +8,29 @@
 //-- dudy clock 32.5. fixed colors bug                    
 
 
-module	VGA_Controller	(	//	Host Side
+module	VGA_Controller	(	
+				//	Host Side
+					input logic		[7:0]	RGBIn,
+					output logic	[10:0]	PixelX,
+					output logic	[10:0]	PixelY,
+					output logic			startOfFrame,
 				
-					input		logic	[7:0]		RGBIn,
-					output	logic	[10:0]	PixelX,
-					output	logic	[10:0]	PixelY,
-					output	logic			startOfFrame,
-						//	VGA Side
-						output logic [28:0] oVGA,
-						output logic [18:0] address ,
+				//	Control Signal
+					input logic	clk,
+					input logic	resetN,
+				
+				//	VGA Side
+					output logic [28:0] oVGA,
+					output logic [18:0] address
+);
 					
-						//	Control Signal
-					input		logic	clk,
-					input		logic	resetN	);
 
 //	Internal Registers
-logic			[10:0]	H_Cont;
-logic			[10:0]	V_Cont;
-logic      oVGA_HS;
-logic      oVGA_HS_d;
-logic      oVGA_VS;
+logic [10:0]	H_Cont;
+logic [10:0]	V_Cont;
+logic	oVGA_HS;
+logic	oVGA_HS_d;
+logic	oVGA_VS;
 
 
 ////////////////////////////////////////////////////////////
@@ -35,7 +38,7 @@ logic      oVGA_VS;
 const logic [10:0]	H_FRONT	=	24;
 const logic [10:0]	H_SYNC	=	40;
 const logic [10:0]	H_BACK	=	128;
-const logic [10:0]	H_ACT	=	640;
+const logic [10:0]	H_ACT		=	640;
 const logic [10:0]	H_BLANK	=	H_FRONT+H_SYNC+H_BACK;
 const logic [10:0]	H_TOTAL	=	H_FRONT+H_SYNC+H_BACK+H_ACT;
 ////////////////////////////////////////////////////////////
@@ -43,14 +46,14 @@ const logic [10:0]	H_TOTAL	=	H_FRONT+H_SYNC+H_BACK+H_ACT;
 const logic [10:0]	V_FRONT	=	9;
 const logic [10:0]	V_SYNC	=	3;
 const logic [10:0]	V_BACK	=	28;
-const logic [10:0]	V_ACT	=	480;
+const logic [10:0]	V_ACT		=	480;
 const logic [10:0]	V_BLANK	=	V_FRONT+V_SYNC+V_BACK;
 const logic [10:0]	V_TOTAL	=	V_FRONT+V_SYNC+V_BACK+V_ACT;
 
-logic VGA_VS_pulse;
-logic VGA_VS_d;
-int VGA_VS_pulse_cnt;
-logic			timer_done;
+logic 	VGA_VS_pulse;
+logic 	VGA_VS_d;
+int		VGA_VS_pulse_cnt;
+logic		timer_done;
 
 // // 28 bits VGA OUTPUT [CLOCK,      BLANK                           , SYNC ,     VS   , HS
 assign	oVGA		=   	{{~clk},{~((H_Cont<H_BLANK)||(V_Cont<V_BLANK))},{oVGA_VS},{oVGA_VS},{oVGA_HS},
@@ -70,22 +73,22 @@ begin
 	if(!resetN)
 	begin
 		H_Cont		<=	11'b0;
-		 oVGA_HS		<=	1'b1;
-		oVGA_HS_d		<=	1'b1;
+		oVGA_HS		<=	1'b1;
+		oVGA_HS_d	<=	1'b1;
 
 	end
 	else
 	begin
 		if(H_Cont<H_TOTAL) 			
-					H_Cont	<=	H_Cont+1'b1;
+					H_Cont	<=	H_Cont + 1'b1;
 		
 		else
 		H_Cont	<=	11'b0;
 		
 		//	Horizontal Sync
-		if(H_Cont==H_FRONT-1'b1)			//	Front porch end
+		if(H_Cont == H_FRONT - 1'b1)			//	Front porch end
 			oVGA_HS	<=	1'b0;
-		if(H_Cont==H_FRONT+H_SYNC-1'b1)	//	Sync pulse end
+		if(H_Cont == H_FRONT + H_SYNC - 1'b1)	//	Sync pulse end
 			oVGA_HS	<=	1'b1;
 		
 		
@@ -109,21 +112,21 @@ begin
 		
 		if (!oVGA_HS_d && oVGA_HS)    // positive edge of OVGA_HS
 	   begin
-			if(V_Cont<V_TOTAL)
+			if(V_Cont < V_TOTAL)
 				V_Cont	<=	V_Cont+1'b1;
 			else
 				V_Cont	<=	11'b0;
 
 			//	Vertical Sync
-			if(V_Cont==V_FRONT-1'b1)			//	Front porch end
+			if(V_Cont == V_FRONT - 1'b1)			//	Front porch end
 				oVGA_VS	<=	1'b0;
-			if(V_Cont==V_FRONT+V_SYNC-1'b1)	//	Sync pulse end
+			if(V_Cont == V_FRONT + V_SYNC - 1'b1)	//	Sync pulse end
 				oVGA_VS	<=	1'b1;
 	   end
 		
 		
 	//---- delayed signal -------
-		VGA_VS_d	<= oVGA_VS;
+		VGA_VS_d	<=	 oVGA_VS;
 		
 	end
 end

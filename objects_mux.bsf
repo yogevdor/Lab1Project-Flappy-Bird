@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 312 384)
+	(rect 16 16 312 448)
 	(text "objects_mux" (rect 5 0 55 12)(font "Arial" ))
-	(text "inst" (rect 8 352 20 364)(font "Arial" ))
+	(text "inst" (rect 8 416 20 428)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -158,6 +158,41 @@ agreement for further details.
 		(line (pt 0 320)(pt 16 320)(line_width 3))
 	)
 	(port
+		(pt 0 336)
+		(input)
+		(text "darkModeOn" (rect 0 0 51 12)(font "Arial" ))
+		(text "darkModeOn" (rect 21 331 72 343)(font "Arial" ))
+		(line (pt 0 336)(pt 16 336)(line_width 1))
+	)
+	(port
+		(pt 0 352)
+		(input)
+		(text "fishTopLeftX[10..0]" (rect 0 0 75 12)(font "Arial" ))
+		(text "fishTopLeftX[10..0]" (rect 21 347 96 359)(font "Arial" ))
+		(line (pt 0 352)(pt 16 352)(line_width 3))
+	)
+	(port
+		(pt 0 368)
+		(input)
+		(text "fishTopLeftY[10..0]" (rect 0 0 76 12)(font "Arial" ))
+		(text "fishTopLeftY[10..0]" (rect 21 363 97 375)(font "Arial" ))
+		(line (pt 0 368)(pt 16 368)(line_width 3))
+	)
+	(port
+		(pt 0 384)
+		(input)
+		(text "pixelX[10..0]" (rect 0 0 46 12)(font "Arial" ))
+		(text "pixelX[10..0]" (rect 21 379 67 391)(font "Arial" ))
+		(line (pt 0 384)(pt 16 384)(line_width 3))
+	)
+	(port
+		(pt 0 400)
+		(input)
+		(text "pixelY[10..0]" (rect 0 0 47 12)(font "Arial" ))
+		(text "pixelY[10..0]" (rect 21 395 68 407)(font "Arial" ))
+		(line (pt 0 400)(pt 16 400)(line_width 3))
+	)
+	(port
 		(pt 296 32)
 		(output)
 		(text "RGBOut[7..0]" (rect 0 0 55 12)(font "Arial" ))
@@ -165,6 +200,6 @@ agreement for further details.
 		(line (pt 296 32)(pt 280 32)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 280 352)(line_width 1))
+		(rectangle (rect 16 16 280 416)(line_width 1))
 	)
 )

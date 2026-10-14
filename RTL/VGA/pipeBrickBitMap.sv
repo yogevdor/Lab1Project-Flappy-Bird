@@ -117,7 +117,7 @@ lpm_rom #(
 always_ff@(posedge clk or negedge resetN)
 begin
 	if(!resetN) begin
-		RGBout <=	8'h00;
+		RGBout <= TRANSPARENT_ENCODING;
 		HitEdgeCode <= 3'h0;
 
 	end
