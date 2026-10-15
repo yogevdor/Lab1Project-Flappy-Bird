@@ -6,7 +6,7 @@ module	game_controller	(
 					input logic collision,
 					input logic keyIsPressed8, //key: 8
 					input logic keyIsPressed0, //key: 0
-					input logic keyIsPressedNUMLK, //key: num Lk
+					input logic keyIsPressedNUMLK, //key: num Lk for godMode
 					
 					output logic startDrawingReq,
 					output logic gameOverDrawingReq,
@@ -18,6 +18,7 @@ module	game_controller	(
 
 logic key8_D, key0_D, keyNUMLK_D;
 logic key8_pulse, key0_pulse, keyNUMLK_pulse;
+logic godMode;  
 
 assign key8_pulse = keyIsPressed8 && !key8_D;
 assign key0_pulse = keyIsPressed0 && !key0_D;
@@ -42,6 +43,7 @@ always_ff @(posedge clk or negedge resetN)
 			key8_D <= 1'b0;
 			key0_D <= 1'b0;
 			keyNUMLK_D <= 1'b0;
+			godMode <= 1'b0;
 			objectsResetN <= 1'b0;
 		end
 		
@@ -54,6 +56,9 @@ always_ff @(posedge clk or negedge resetN)
 			key0_D <= keyIsPressed0;
 			keyNUMLK_D <= keyIsPressedNUMLK;
 			objectsResetN <= 1'b1;
+
+			if (keyNUMLK_pulse)
+				godMode <= ~godMode;
 			
 			case(SM_GAME)
 			
@@ -62,6 +67,7 @@ always_ff @(posedge clk or negedge resetN)
 					darkModeOn <= 1'b0;
 					startDrawingReq <= 1'b1;
 					objectsResetN <= 1'b0;
+					godMode <= 1'b0;          // every new game starts in normal mode
 					if (key8_pulse) begin
 						SM_GAME <= GAME_ON_ST;
 					end
@@ -73,7 +79,7 @@ always_ff @(posedge clk or negedge resetN)
 					if (key0_pulse) begin
 						SM_GAME <= PAUSE_ST;
 					end
-					else if (collision) begin
+					else if (collision && !godMode) begin
 						SM_GAME <= GAMEOVER_ST;
 					end
 					else begin
