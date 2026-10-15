@@ -8,9 +8,9 @@ module speed_controller (
 	output logic [7:0] speedBoost
 );
 
-parameter int PIPES_PER_STEP = 3;     // speed up every 3 pipes
-parameter int SPEED_STEP     = 16;    
-parameter int MAX_BOOST      = 192;   // cap: +3 px/frame
+parameter int PIPES_PER_STEP = 7;
+parameter int SPEED_STEP     = 8;     // +0.125 px/frame
+parameter int MAX_BOOST      = 128;   // cap: +2 px/frame
 
 logic [3:0] cnt;
 
