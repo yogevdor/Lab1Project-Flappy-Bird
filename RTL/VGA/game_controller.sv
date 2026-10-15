@@ -69,7 +69,7 @@ always_ff @(posedge clk or negedge resetN)
 				
 				GAME_ON_ST: begin
 					game_on <= 1'b1;
-					darkModeOn <= 1'b1;
+					darkModeOn <= 1'b0;
 					if (key0_pulse) begin
 						SM_GAME <= PAUSE_ST;
 					end

@@ -68,6 +68,18 @@ agreement for further details.
 		(line (pt 138 40)(pt 138 0))
 	)
 )
+(global
+	(rect 568 200 856 240)
+	(parameter)
+	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
+	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
+	(text "INITIAL_PIPE_TYPE" (rect 3 16 110 30)(font "Arial" (font_size 8)))
+	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
+	(text "D\"0\"" (rect 141 16 148 30)(font "Arial" (font_size 8)))
+	(drawing
+		(line (pt 138 40)(pt 138 0))
+	)
+)
 (pin
 	(input)
 	(rect 224 464 392 480)
@@ -400,7 +412,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 208 128))
 	)
-	(annotation_block (parameter)(rect 1064 536 1292 612))
+	(annotation_block (parameter)(rect 1048 536 1276 612))
 )
 (symbol
 	(rect 576 440 808 648)
@@ -528,9 +540,9 @@ agreement for further details.
 	(annotation_block (parameter)(rect 592 312 863 426))
 )
 (symbol
-	(rect 1248 344 1488 488)
+	(rect 1248 344 1488 520)
 	(text "pipeBrickBitMap" (rect 5 0 82 12)(font "Arial" ))
-	(text "inst3" (rect 8 128 31 140)(font "Arial" ))
+	(text "inst3" (rect 8 160 31 172)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -574,6 +586,13 @@ agreement for further details.
 		(line (pt 0 112)(pt 16 112)(line_width 3))
 	)
 	(port
+		(pt 0 128)
+		(input)
+		(text "regenerate" (rect 0 0 51 12)(font "Arial" ))
+		(text "regenerate" (rect 21 123 72 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
 		(pt 240 32)
 		(output)
 		(text "drawingRequest" (rect 0 0 77 12)(font "Arial" ))
@@ -599,10 +618,15 @@ agreement for further details.
 		"140"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"INITIAL_PILLAR_TYPE"
+		"INITIAL_PIPE_TYPE"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing
-		(rectangle (rect 16 16 224 128))
+		(rectangle (rect 16 16 224 160))
 	)
-	(annotation_block (parameter)(rect 1256 232 1437 270))
+	(annotation_block (parameter)(rect 1256 248 1567 305))
 )
 (connector
 	(text "clk" (rect 880 392 894 409)(font "Intel Clear" ))
@@ -765,10 +789,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt 864 568)
-	(pt 824 568)
-)
-(connector
 	(pt 808 520)
 	(pt 824 520)
 )
@@ -788,6 +808,31 @@ agreement for further details.
 	(pt 840 544)
 	(pt 864 544)
 )
+(connector
+	(pt 1248 472)
+	(pt 1192 472)
+)
+(connector
+	(pt 1192 472)
+	(pt 1192 624)
+)
+(connector
+	(pt 1192 624)
+	(pt 848 624)
+)
+(connector
+	(pt 848 624)
+	(pt 848 568)
+)
+(connector
+	(pt 864 568)
+	(pt 848 568)
+)
+(connector
+	(pt 848 568)
+	(pt 824 568)
+)
+(junction (pt 848 568))
 (text "  " (rect 24 624 31 643)(font "Intel Clear" (font_size 8)))
 (text "   " (rect 144 664 154 683)(font "Intel Clear" (font_size 8)))
 (text "            " (rect 504 608 546 627)(font "Intel Clear" (font_size 8)))

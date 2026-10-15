@@ -149,6 +149,11 @@ agreement for further details.
 		"281"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"INITIAL_PIPE_TYPE"
+		"0"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 248 208))
 	)
