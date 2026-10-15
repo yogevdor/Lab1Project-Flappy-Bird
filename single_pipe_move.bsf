@@ -88,6 +88,13 @@ agreement for further details.
 		(line (pt 0 160)(pt 16 160)(line_width 1))
 	)
 	(port
+		(pt 0 176)
+		(input)
+		(text "speedBoost[7..0]" (rect 0 0 66 12)(font "Arial" ))
+		(text "speedBoost[7..0]" (rect 21 171 87 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 3))
+	)
+	(port
 		(pt 232 32)
 		(output)
 		(text "topLeftX[10..0]" (rect 0 0 57 12)(font "Arial" ))
@@ -117,7 +124,7 @@ agreement for further details.
 	)
 	(parameter
 		"INITIAL_X"
-		"280"
+		"0"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
@@ -127,7 +134,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"INITIAL_X_SPEED"
-		"-64"
+		"0"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter

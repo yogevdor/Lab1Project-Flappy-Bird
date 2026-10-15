@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 280 240)
+	(rect 16 16 296 272)
 	(text "Pipes_Block_T" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
-	(text "inst" (rect 8 203 24 220)(font "Intel Clear" ))
+	(text "inst" (rect 8 235 24 252)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -102,32 +102,39 @@ agreement for further details.
 		(line (pt 0 192)(pt 16 192))
 	)
 	(port
-		(pt 264 32)
+		(pt 0 208)
+		(input)
+		(text "speedBooost[7..0]" (rect 0 0 107 19)(font "Intel Clear" (font_size 8)))
+		(text "speedBooost[7..0]" (rect 21 203 128 222)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 208)(pt 16 208)(line_width 3))
+	)
+	(port
+		(pt 280 32)
 		(output)
 		(text "singlePipeDR" (rect 0 0 79 19)(font "Intel Clear" (font_size 8)))
-		(text "singlePipeDR" (rect 164 27 243 46)(font "Intel Clear" (font_size 8)))
-		(line (pt 264 32)(pt 248 32))
+		(text "singlePipeDR" (rect 180 27 259 46)(font "Intel Clear" (font_size 8)))
+		(line (pt 280 32)(pt 264 32))
 	)
 	(port
-		(pt 264 48)
+		(pt 280 48)
 		(output)
 		(text "singlePipeRGB[7..0]" (rect 0 0 118 19)(font "Intel Clear" (font_size 8)))
-		(text "singlePipeRGB[7..0]" (rect 125 43 243 62)(font "Intel Clear" (font_size 8)))
-		(line (pt 264 48)(pt 248 48)(line_width 3))
+		(text "singlePipeRGB[7..0]" (rect 141 43 259 62)(font "Intel Clear" (font_size 8)))
+		(line (pt 280 48)(pt 264 48)(line_width 3))
 	)
 	(port
-		(pt 264 64)
+		(pt 280 64)
 		(output)
 		(text "passed" (rect 0 0 42 19)(font "Intel Clear" (font_size 8)))
-		(text "passed" (rect 201 59 243 78)(font "Intel Clear" (font_size 8)))
-		(line (pt 264 64)(pt 248 64))
+		(text "passed" (rect 217 59 259 78)(font "Intel Clear" (font_size 8)))
+		(line (pt 280 64)(pt 264 64))
 	)
 	(port
-		(pt 264 80)
+		(pt 280 80)
 		(output)
 		(text "regenerate" (rect 0 0 63 19)(font "Intel Clear" (font_size 8)))
-		(text "regenerate" (rect 180 75 243 94)(font "Intel Clear" (font_size 8)))
-		(line (pt 264 80)(pt 248 80))
+		(text "regenerate" (rect 196 75 259 94)(font "Intel Clear" (font_size 8)))
+		(line (pt 280 80)(pt 264 80))
 	)
 	(parameter
 		"INITIAL_Y"
@@ -155,7 +162,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 248 208))
+		(rectangle (rect 16 16 264 240))
 	)
-	(annotation_block (parameter)(rect 280 -64 380 16))
+	(annotation_block (parameter)(rect 296 -64 396 16))
 )

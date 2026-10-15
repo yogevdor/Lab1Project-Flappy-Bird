@@ -10,6 +10,8 @@ module	single_pipe_move	(
 					input  logic [2:0] HitEdgeCode,
 					input	 logic gameOn,
 					input  logic objectsResetN,
+					input  logic [7:0] speedBoost,
+					
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
 					output logic signed	[10:0] topLeftY,		// can be negative , if the object is partliy outside
 					output logic passed,
@@ -21,10 +23,10 @@ module	single_pipe_move	(
 
 // a module used to generate the  ball trajectory.  
 
-parameter int INITIAL_X = INITIAL_X;
-parameter int INITIAL_Y = INITIAL_Y;
-parameter int INITIAL_X_SPEED = INITIAL_X_SPEED;
-parameter int INITIAL_Y_SPEED = INITIAL_Y_SPEED;
+parameter int INITIAL_X = 0;
+parameter int INITIAL_Y = 0;
+parameter int INITIAL_X_SPEED = 0;
+parameter int INITIAL_Y_SPEED = 0;
 
 
 parameter int FISH_X = 130; //fish X cordianate
@@ -142,7 +144,7 @@ begin : fsm_sync_proc
 					Yspeed <= 0;
 				end
 				else if (gameOn_D) begin
-					Xposition <= Xposition + Xspeed ;
+					Xposition <= Xposition + Xspeed - int'(speedBoost) ;
 					Yposition <= Yposition + Yspeed ;
 				end
 				else begin

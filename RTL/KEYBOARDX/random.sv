@@ -19,6 +19,11 @@ parameter int START_COUNTER = 53;
 	logic rise_d /* synthesis keep = 1 */;
 	logic flap_d;
 	logic [2:0] flap_cnt;
+
+	localparam int RANGE = MAX_VAL - MIN_VAL + 1;      
+
+	logic [SIZE_BITS:0] next_counter;                  // extra bit for overflow
+	assign next_counter = counter + SIZE_BITS'(START_COUNTER) + SIZE_BITS'(flap_cnt);
 	
 	
 always_ff @(posedge clk or negedge resetN) begin
@@ -31,10 +36,10 @@ always_ff @(posedge clk or negedge resetN) begin
 		end
 		
 		else begin
-			counter <= counter + SIZE_BITS'(START_COUNTER) + SIZE_BITS'(flap_cnt);
-			if ( counter >= MAX_VAL || counter + SIZE_BITS'(START_COUNTER) + SIZE_BITS'(flap_cnt) >= MAX_VAL) begin // the +1 is done on the next clock 
-				counter <=  MIN_VAL ;
-			end
+			if (next_counter > MAX_VAL)
+				counter <= next_counter - RANGE;    // = MIN_VAL + (next - MAX_VAL - 1)
+			else
+				counter <= next_counter;
 			rise_d <= rise;
 			flap_d <= flap;
 				

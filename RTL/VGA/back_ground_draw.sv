@@ -11,6 +11,7 @@ module	back_ground_draw	(
 					input logic	[18:0]	address,
 					input logic startOfFrame,
 					input logic game_on,
+					input logic [7:0] speedBoost,
 
 					output	logic	[7:0]	BG_RGB,
 					output	logic	boardersDrawReq, 
@@ -43,21 +44,26 @@ parameter  logic [10:0] COLOR_MATRIX_LEFT_X = 100 ;
 
 // for scrolling the backgorund/////////////////////////////////////
 localparam int BG_W = 640;
-parameter  int BG_SPEED = 1;
+parameter  int BG_SPEED = 1;                         // starting speed, px/frame
 
+logic [15:0] bgPos;                                  // fixed point: [15:6] = pixel, [5:0] = 1/64 px
+logic [15:0] bgStep;
 logic [9:0]  bgOffset;
 logic [10:0] sumX;
 logic [10:0] shiftedX;
 logic [18:0] bgAddress;
 
+assign bgStep   = BG_SPEED * 64 + (speedBoost >> 1); // half of the pipes boost
+assign bgOffset = bgPos[15:6];
+
 always_ff @(posedge clk or negedge resetN) begin
     if (!resetN)
-        bgOffset <= 10'd0;
+        bgPos <= 16'd0;
     else if (startOfFrame && game_on) begin
-        if (bgOffset + BG_SPEED >= BG_W)
-            bgOffset <= bgOffset + BG_SPEED - BG_W;
+        if (bgPos + bgStep >= BG_W * 64)
+            bgPos <= bgPos + bgStep - BG_W * 64;
         else
-            bgOffset <= bgOffset + BG_SPEED;
+            bgPos <= bgPos + bgStep;
     end
 end
 

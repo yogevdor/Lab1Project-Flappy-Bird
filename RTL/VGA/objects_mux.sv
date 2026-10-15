@@ -77,11 +77,11 @@ begin
 		if (startScreenDrawingRequest == 1'b1)
 			RGBOut <= startScreenRGB;  //first priority
 
+		else if (scoreDrawingRequest == 1'b1 )   // score above the game over screen, so it shows in its panel
+			RGBOut <= SQR_RGB;
+
 		else if (gameOverScreenDrawingRequest == 1'b1)
 			RGBOut <= gameOverScreenRGB;
-
-		else if (scoreDrawingRequest == 1'b1 )
-			RGBOut <= SQR_RGB;
 		 
 		else if (darkModeOn && (squared_distance > DARK_MODE_RADIUS_SQUARED))
 			RGBOut <= DARK_MODE_COLOR;
