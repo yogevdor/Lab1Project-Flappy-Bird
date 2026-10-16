@@ -104,8 +104,8 @@ agreement for further details.
 	(port
 		(pt 0 208)
 		(input)
-		(text "speedBooost[7..0]" (rect 0 0 107 19)(font "Intel Clear" (font_size 8)))
-		(text "speedBooost[7..0]" (rect 21 203 128 222)(font "Intel Clear" (font_size 8)))
+		(text "speedBooost[9..0]" (rect 0 0 107 19)(font "Intel Clear" (font_size 8)))
+		(text "speedBooost[9..0]" (rect 21 203 128 222)(font "Intel Clear" (font_size 8)))
 		(line (pt 0 208)(pt 16 208)(line_width 3))
 	)
 	(port
