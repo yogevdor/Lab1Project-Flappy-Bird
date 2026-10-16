@@ -21,18 +21,6 @@ agreement for further details.
 */
 (header "graphic" (version "1.4"))
 (global
-	(rect 1264 112 1552 152)
-	(parameter)
-	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
-	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "INITIAL_Y" (rect 3 16 58 30)(font "Arial" (font_size 8)))
-	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
-	(text "D\"64\"" (rect 141 16 155 30)(font "Arial" (font_size 8)))
-	(drawing
-		(line (pt 138 40)(pt 138 0))
-	)
-)
-(global
 	(rect 1264 160 1552 200)
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
@@ -73,19 +61,7 @@ agreement for further details.
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
 	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "INITIAL_PIPE_TYPE" (rect 3 16 110 30)(font "Arial" (font_size 8)))
-	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
-	(text "D\"0\"" (rect 141 16 148 30)(font "Arial" (font_size 8)))
-	(drawing
-		(line (pt 138 40)(pt 138 0))
-	)
-)
-(global
-	(rect 1264 304 1552 344)
-	(parameter)
-	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
-	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "OBJECT_WIDTH_X" (rect 3 16 109 30)(font "Arial" (font_size 8)))
+	(text "OBJECT_WIDTH_X_" (rect 3 16 116 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
 	(text "D\"64\"" (rect 141 16 155 30)(font "Arial" (font_size 8)))
 	(drawing
@@ -93,13 +69,25 @@ agreement for further details.
 	)
 )
 (global
-	(rect 1264 344 1552 384)
+	(rect 1264 296 1552 336)
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
 	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "OBJECT_HEIGHT_Y" (rect 3 16 115 30)(font "Arial" (font_size 8)))
+	(text "OBJECT_HEIGHT_Y_" (rect 3 16 122 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
-	(text "D\"64\"" (rect 141 16 155 30)(font "Arial" (font_size 8)))
+	(text "D\"32\"" (rect 141 16 155 30)(font "Arial" (font_size 8)))
+	(drawing
+		(line (pt 138 40)(pt 138 0))
+	)
+)
+(global
+	(rect 1264 112 1552 152)
+	(parameter)
+	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
+	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
+	(text "INITIAL_Y" (rect 3 16 58 30)(font "Arial" (font_size 8)))
+	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
+	(text "D\"110\"" (rect 141 16 162 30)(font "Arial" (font_size 8)))
 	(drawing
 		(line (pt 138 40)(pt 138 0))
 	)
@@ -268,7 +256,7 @@ agreement for further details.
 	(output)
 	(rect 2280 480 2456 496)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "singlePipeDR" (rect 90 0 153 17)(font "Intel Clear" ))
+	(text "backObjDR" (rect 90 0 143 17)(font "Intel Clear" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -282,9 +270,9 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect 2280 496 2470 512)
+	(rect 2280 496 2459 512)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "singlePipeRGB[7..0]" (rect 90 0 184 17)(font "Intel Clear" ))
+	(text "backObjRGB[7..0]" (rect 90 0 173 17)(font "Intel Clear" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -424,21 +412,21 @@ agreement for further details.
 		(pt 224 32)
 		(output)
 		(text "topLeftX[10..0]" (rect 0 0 73 12)(font "Arial" ))
-		(text "topLeftX[10..0]" (rect 142 27 203 39)(font "Arial" ))
+		(text "topLeftX[10..0]" (rect 142 27 215 39)(font "Arial" ))
 		(line (pt 224 32)(pt 208 32)(line_width 3))
 	)
 	(port
 		(pt 224 48)
 		(output)
 		(text "topLeftY[10..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "topLeftY[10..0]" (rect 140 43 203 55)(font "Arial" ))
+		(text "topLeftY[10..0]" (rect 140 43 215 55)(font "Arial" ))
 		(line (pt 224 48)(pt 208 48)(line_width 3))
 	)
 	(port
 		(pt 224 64)
 		(output)
 		(text "regenerate" (rect 0 0 51 12)(font "Arial" ))
-		(text "regenerate" (rect 160 59 203 71)(font "Arial" ))
+		(text "regenerate" (rect 160 59 211 71)(font "Arial" ))
 		(line (pt 224 64)(pt 208 64))
 	)
 	(parameter
@@ -542,12 +530,12 @@ agreement for further details.
 	)
 	(parameter
 		"OBJECT_WIDTH_X"
-		"OBJECT_WIDTH_X"
+		"OBJECT_WIDTH_X_"
 		"OBJECT_WIDTH_X"
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"OBJECT_HEIGHT_Y"
-		"OBJECT_HEIGHT_Y"
+		"OBJECT_HEIGHT_Y_"
 		"OBJECT_HEIGHT_Y"
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
@@ -558,7 +546,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 208 128))
 	)
-	(annotation_block (parameter)(rect 1616 672 1917 748))
+	(annotation_block (parameter)(rect 1616 672 1923 748))
 )
 (connector
 	(text "pixelX[10..0]" (rect 1098 520 1157 537)(font "Intel Clear" ))
@@ -575,17 +563,6 @@ agreement for further details.
 	(text "resetN" (rect 1888 488 1921 500)(font "Arial" ))
 	(pt 1936 504)
 	(pt 1872 504)
-)
-(connector
-	(text "singlePipeDR" (rect 2178 472 2241 489)(font "Intel Clear" ))
-	(pt 2168 488)
-	(pt 2280 488)
-)
-(connector
-	(text "singlePipeRGB[7..0]" (rect 2177 488 2271 505)(font "Intel Clear" ))
-	(pt 2168 504)
-	(pt 2280 504)
-	(bus)
 )
 (connector
 	(text "pixelY[10..0]" (rect 1098 552 1157 569)(font "Intel Clear" ))
@@ -766,6 +743,17 @@ agreement for further details.
 	(text "backObjTLY[10..0]" (rect 1514 584 1601 601)(font "Intel Clear" ))
 	(pt 1496 600)
 	(pt 1624 600)
+	(bus)
+)
+(connector
+	(text "backObjDR" (rect 2178 472 2231 489)(font "Intel Clear" ))
+	(pt 2168 488)
+	(pt 2280 488)
+)
+(connector
+	(text "backObjRGB[7..0]" (rect 2177 488 2260 505)(font "Intel Clear" ))
+	(pt 2168 504)
+	(pt 2280 504)
 	(bus)
 )
 (text "  " (rect 720 744 727 763)(font "Intel Clear" (font_size 8)))

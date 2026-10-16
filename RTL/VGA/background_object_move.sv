@@ -149,7 +149,7 @@ begin : fsm_sync_proc
 		//------------------------
 				if (Xposition <= X_MIN_LIMIT) begin
 						Xposition <= 640 * FIXED_POINT_MULTIPLIER ;
-						regenerate <= ~regenerate;
+						regenerate <= 1'b1;
 				end
 
 				SM_Motion <= MOVE_ST ; 

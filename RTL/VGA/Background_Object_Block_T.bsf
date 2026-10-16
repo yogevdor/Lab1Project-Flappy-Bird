@@ -21,7 +21,7 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 296 240)
+	(rect 16 16 280 240)
 	(text "Background_Object_Block_T" (rect 5 0 174 19)(font "Intel Clear" (font_size 8)))
 	(text "inst" (rect 8 203 24 220)(font "Intel Clear" ))
 	(port
@@ -95,24 +95,19 @@ agreement for further details.
 		(line (pt 0 176)(pt 16 176)(line_width 3))
 	)
 	(port
-		(pt 280 32)
+		(pt 264 32)
 		(output)
-		(text "singlePipeDR" (rect 0 0 79 19)(font "Intel Clear" (font_size 8)))
-		(text "singlePipeDR" (rect 180 27 259 46)(font "Intel Clear" (font_size 8)))
-		(line (pt 280 32)(pt 264 32))
+		(text "backObjDR" (rect 0 0 67 19)(font "Intel Clear" (font_size 8)))
+		(text "backObjDR" (rect 176 27 243 46)(font "Intel Clear" (font_size 8)))
+		(line (pt 264 32)(pt 248 32))
 	)
 	(port
-		(pt 280 48)
+		(pt 264 48)
 		(output)
-		(text "singlePipeRGB[7..0]" (rect 0 0 118 19)(font "Intel Clear" (font_size 8)))
-		(text "singlePipeRGB[7..0]" (rect 141 43 259 62)(font "Intel Clear" (font_size 8)))
-		(line (pt 280 48)(pt 264 48)(line_width 3))
+		(text "backObjRGB[7..0]" (rect 0 0 106 19)(font "Intel Clear" (font_size 8)))
+		(text "backObjRGB[7..0]" (rect 137 43 243 62)(font "Intel Clear" (font_size 8)))
+		(line (pt 264 48)(pt 248 48)(line_width 3))
 	)
-	(parameter
-		"INITIAL_Y"
-		"64"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"INITIAL_X_SPEED"
 		"-64"
@@ -129,22 +124,22 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
-		"INITIAL_PIPE_TYPE"
-		"0"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"OBJECT_WIDTH_X"
+		"OBJECT_WIDTH_X_"
 		"64"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
-		"OBJECT_HEIGHT_Y"
-		"64"
+		"OBJECT_HEIGHT_Y_"
+		"32"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"INITIAL_Y"
+		"110"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 264 208))
+		(rectangle (rect 16 16 248 208))
 	)
-	(annotation_block (parameter)(rect 296 -64 396 16))
+	(annotation_block (parameter)(rect 280 -64 380 16))
 )
