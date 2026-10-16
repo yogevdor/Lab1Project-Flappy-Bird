@@ -10,7 +10,7 @@ module	single_pipe_move	(
 					input  logic [2:0] HitEdgeCode,
 					input	 logic gameOn,
 					input  logic objectsResetN,
-					input  logic [7:0] speedBoost,
+					input  logic [9:0] speedBoost,
 					
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
 					output logic signed	[10:0] topLeftY,		// can be negative , if the object is partliy outside

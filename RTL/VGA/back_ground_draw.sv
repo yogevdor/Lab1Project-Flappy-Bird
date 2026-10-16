@@ -11,7 +11,7 @@ module	back_ground_draw	(
 					input logic	[18:0]	address,
 					input logic startOfFrame,
 					input logic game_on,
-					input logic [7:0] speedBoost,
+					input logic [9:0] speedBoost,
 
 					output	logic	[7:0]	BG_RGB,
 					output	logic	boardersDrawReq, 
