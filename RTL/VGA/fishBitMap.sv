@@ -10,6 +10,7 @@ module	fishBitMap	(
 					input logic	[10:0] offsetX,// offset from top left  position 
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket 
+					input logic darkModeOn,
 
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
 					output	logic	[7:0] RGBout,  //rgb value from the bitmap 
@@ -32,8 +33,31 @@ assign address = (offsetY*OBJECT_WIDTH_X + offsetX);
 
 // generating a smiley bitmap from a MIF file
 
+
 logic	[7:0] color;
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap representing a transparent pixel 
+
+logic [7:0] default_fish_color;
+lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fish.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
+		.LPM_OUTDATA            ("UNREGISTERED"), 
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
+) rom_default_inst (
+    .address(address),
+	 .inclock(clk),
+	// .outclock(clk),
+    .q(default_fish_color)
+);
+
+
+logic [7:0] dark_mode_fish_color;
 lpm_rom #(
     .LPM_WIDTH(8),
     .LPM_WIDTHAD(10),
@@ -45,12 +69,14 @@ lpm_rom #(
 		.AUTO_CARRY_CHAINS      ("ON"),
 		.AUTO_CASCADE_BUFFERS   ("ON"),
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
-) rom_inst (
+) rom_dark_mode_inst (
     .address(address),
 	 .inclock(clk),
 	// .outclock(clk),
-    .q(color)
+    .q(dark_mode_fish_color)
 );
+
+assign color = (darkModeOn) ? dark_mode_fish_color : default_fish_color;
 
  logic [0:15] [0:15] [2:0] hit_colors = 
 		  {48'o4433333333333344,     
