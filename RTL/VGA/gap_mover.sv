@@ -16,7 +16,7 @@ parameter int GAP_MAX   = 276;
 parameter int GAP_SPEED = 1;              // px per frame
 
 logic [10:0] gapIn_D;
-logic        sof_D;
+logic        sof_D; // startOfFrame_D
 logic        goingDown;
 
 always_ff @(posedge clk or negedge resetN) begin

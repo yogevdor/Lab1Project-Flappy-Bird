@@ -12,8 +12,8 @@ module	game_controller	(
 					output logic gameOverDrawingReq,
 					output logic pauseDrawingReq,
 					output logic objectsResetN,
-					output logic game_on,
-					output logic darkModeOn
+					output logic game_on
+//					output logic darkModeOn
 );
 
 logic key8_D, key0_D, keyNUMLK_D;
@@ -36,7 +36,7 @@ always_ff @(posedge clk or negedge resetN)
 		if (resetN == 1'b0) begin 
 			SM_GAME <= START_SCREEN_ST ;
 			game_on <= 1'b0;
-			darkModeOn <= 1'b0;
+//			darkModeOn <= 1'b0;
 			startDrawingReq <= 1'b0;
 			pauseDrawingReq <= 1'b0;
 			gameOverDrawingReq <= 1'b0;
@@ -64,7 +64,7 @@ always_ff @(posedge clk or negedge resetN)
 			
 				START_SCREEN_ST: begin
 					game_on <= 1'b0;
-					darkModeOn <= 1'b0;
+//					darkModeOn <= 1'b0;
 					startDrawingReq <= 1'b1;
 					objectsResetN <= 1'b0;
 					godMode <= 1'b0;          // every new game starts in normal mode
@@ -75,7 +75,7 @@ always_ff @(posedge clk or negedge resetN)
 				
 				GAME_ON_ST: begin
 					game_on <= 1'b1;
-					darkModeOn <= 1'b0;
+//					darkModeOn <= 1'b0;
 					if (key0_pulse) begin
 						SM_GAME <= PAUSE_ST;
 					end
@@ -97,7 +97,7 @@ always_ff @(posedge clk or negedge resetN)
 				
 				GAMEOVER_ST: begin
 					game_on <= 1'b0;
-					darkModeOn <= 1'b0;
+//					darkModeOn <= 1'b0;
 					gameOverDrawingReq <= 1'b1;
 					if (key0_pulse) begin
 						SM_GAME <= START_SCREEN_ST;

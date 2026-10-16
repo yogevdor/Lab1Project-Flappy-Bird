@@ -45,6 +45,13 @@ agreement for further details.
 		(text "bossActive" (rect 141 27 187 39)(font "Arial" ))
 		(line (pt 208 32)(pt 192 32)(line_width 1))
 	)
+	(port
+		(pt 208 48)
+		(output)
+		(text "darkModeOn" (rect 0 0 51 12)(font "Arial" ))
+		(text "darkModeOn" (rect 136 43 187 55)(font "Arial" ))
+		(line (pt 208 48)(pt 192 48)(line_width 1))
+	)
 	(drawing
 		(rectangle (rect 16 16 192 64)(line_width 1))
 	)
