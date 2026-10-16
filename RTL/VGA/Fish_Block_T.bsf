@@ -95,6 +95,13 @@ agreement for further details.
 		(line (pt 0 176)(pt 16 176))
 	)
 	(port
+		(pt 0 192)
+		(input)
+		(text "darkModeOn" (rect 0 0 76 19)(font "Intel Clear" (font_size 8)))
+		(text "darkModeOn" (rect 21 187 97 206)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 192)(pt 16 192))
+	)
+	(port
 		(pt 264 32)
 		(output)
 		(text "fishTopLeftX[10..0]" (rect 0 0 115 19)(font "Intel Clear" (font_size 8)))
