@@ -78,7 +78,7 @@ assign bgAddress = pixelY * BG_W + shiftedX;
     .LPM_WIDTH(8),
     .LPM_WIDTHAD(19),
 	 .LPM_NUMWORDS(307200),
-    .LPM_FILE("RTL/reef_seamless_640x480.mif"),
+    .LPM_FILE("RTL/reef_seamless_fixed_640x480.mif"),
 	   .LPM_TYPE               ("LPM_ROM"),
       .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
 		.LPM_OUTDATA            ("UNREGISTERED"), 
