@@ -327,6 +327,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/boss_detect.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/gap_mover.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/speed_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/score_position.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/best_score_display.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/PrintScreenBitMap.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/background_object_move.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/backgroundObjectBitMap.sv

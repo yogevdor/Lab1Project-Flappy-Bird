@@ -25,8 +25,8 @@ always_ff @(posedge clk or negedge resetN) begin
 		t3_s       <= 2'b00;
 	end
 	else begin
-//		t2_s <= {t2_s[0], turbo2};
-//		t3_s <= {t3_s[0], turbo3};
+		t2_s <= {t2_s[0], turbo2};
+		t3_s <= {t3_s[0], turbo3};
 
 		if (point) begin
 			if (cnt == PIPES_PER_STEP - 1) begin
