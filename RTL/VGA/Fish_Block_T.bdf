@@ -514,9 +514,9 @@ agreement for further details.
 	(annotation_block (parameter)(rect 576 304 784 418))
 )
 (symbol
-	(rect 1280 344 1520 488)
+	(rect 1280 344 1520 520)
 	(text "fishBitMap" (rect 5 0 56 12)(font "Arial" ))
-	(text "inst1" (rect 8 128 31 140)(font "Arial" ))
+	(text "inst1" (rect 8 160 31 172)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -560,6 +560,20 @@ agreement for further details.
 		(line (pt 0 112)(pt 16 112))
 	)
 	(port
+		(pt 0 128)
+		(input)
+		(text "Y_direction_key" (rect 0 0 80 12)(font "Arial" ))
+		(text "Y_direction_key" (rect 21 123 101 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "startOfFrame" (rect 0 0 67 12)(font "Arial" ))
+		(text "startOfFrame" (rect 21 139 88 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
 		(pt 240 32)
 		(output)
 		(text "drawingRequest" (rect 0 0 77 12)(font "Arial" ))
@@ -581,7 +595,7 @@ agreement for further details.
 		(line (pt 240 64)(pt 224 64)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 224 128))
+		(rectangle (rect 16 16 224 160))
 	)
 )
 (connector
@@ -771,6 +785,16 @@ agreement for further details.
 	(text "darkModeOn" (rect 414 608 476 625)(font "Intel Clear" ))
 	(pt 392 624)
 	(pt 480 624)
+)
+(connector
+	(text "startOfFrame" (rect 1200 472 1263 489)(font "Intel Clear" ))
+	(pt 1192 488)
+	(pt 1280 488)
+)
+(connector
+	(text "Y_direction_key" (rect 1189 456 1265 473)(font "Intel Clear" ))
+	(pt 1176 472)
+	(pt 1280 472)
 )
 (junction (pt 792 472))
 (junction (pt 792 488))

@@ -11,6 +11,8 @@ module	fishBitMap	(
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket 
 					input logic darkModeOn,
+					input logic Y_direction_key,   // jump key, starts the flap animation
+					input logic startOfFrame,
 
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
 					output	logic	[7:0] RGBout,  //rgb value from the bitmap 
@@ -22,7 +24,6 @@ localparam  int OBJECT_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32
 localparam  int OBJECT_NUMBER_OF_X_BITS = 5;  // 2^5 = 32 
 logic	[10:0] address;
 
-localparam  logic	[10:0] OBJECT_HEIGHT_Y = 11'b1 <<  OBJECT_NUMBER_OF_Y_BITS ;
 localparam  logic	[10:0] OBJECT_WIDTH_X = 11'b1 <<  OBJECT_NUMBER_OF_X_BITS;
 
  logic	[10:0] HitCodeX ;// offset of Hitcode 
@@ -30,9 +31,6 @@ localparam  logic	[10:0] OBJECT_WIDTH_X = 11'b1 <<  OBJECT_NUMBER_OF_X_BITS;
 assign HitCodeX = offsetX >> ( OBJECT_NUMBER_OF_X_BITS - 4 );	//hitedge code MSB of the offset
 assign HitCodeY = offsetY >> ( OBJECT_NUMBER_OF_Y_BITS - 4 );	 	 
 assign address = (offsetY*OBJECT_WIDTH_X + offsetX);
-
-// generating a smiley bitmap from a MIF file
-
 
 logic	[7:0] color;
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap representing a transparent pixel 
@@ -52,7 +50,6 @@ lpm_rom #(
 ) rom_default_inst (
     .address(address),
 	 .inclock(clk),
-	// .outclock(clk),
     .q(default_fish_color)
 );
 
@@ -62,7 +59,7 @@ lpm_rom #(
     .LPM_WIDTH(8),
     .LPM_WIDTHAD(10),
 	 .LPM_NUMWORDS(1024),
-    .LPM_FILE("RTL/bulbFish_fixed_size.mif"),
+    .LPM_FILE("RTL/fishWithBulb.mif"),
 	   .LPM_TYPE               ("LPM_ROM"),
       .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
 		.LPM_OUTDATA            ("UNREGISTERED"), 
@@ -72,11 +69,155 @@ lpm_rom #(
 ) rom_dark_mode_inst (
     .address(address),
 	 .inclock(clk),
-	// .outclock(clk),
     .q(dark_mode_fish_color)
 );
 
-assign color = (darkModeOn) ? dark_mode_fish_color : default_fish_color;
+// flap animation
+logic [7:0] anim1_color, anim2_color, anim3_color;
+
+lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fishAnimation1.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"),
+		.LPM_OUTDATA            ("UNREGISTERED"),
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")
+) rom_anim1_inst (
+    .address(address),
+	 .inclock(clk),
+    .q(anim1_color)
+);
+
+lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fishAnimation2.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"),
+		.LPM_OUTDATA            ("UNREGISTERED"),
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")
+) rom_anim2_inst (
+    .address(address),
+	 .inclock(clk),
+    .q(anim2_color)
+);
+
+lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fishAnimation3.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"),
+		.LPM_OUTDATA            ("UNREGISTERED"),
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")
+) rom_anim3_inst (
+    .address(address),
+	 .inclock(clk),
+    .q(anim3_color)
+);
+
+// flap animation in dark mode (fish with bulb)
+logic [7:0] bulb_anim1_color, bulb_anim2_color, bulb_anim3_color;
+
+lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fishBulbAnimation1.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"),
+		.LPM_OUTDATA            ("UNREGISTERED"),
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")
+) rom_bulb_anim1_inst (
+    .address(address),
+	 .inclock(clk),
+    .q(bulb_anim1_color)
+);
+
+lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fishBulbAnimation2.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"),
+		.LPM_OUTDATA            ("UNREGISTERED"),
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")
+) rom_bulb_anim2_inst (
+    .address(address),
+	 .inclock(clk),
+    .q(bulb_anim2_color)
+);
+
+lpm_rom #(
+    .LPM_WIDTH(8),
+    .LPM_WIDTHAD(10),
+	 .LPM_NUMWORDS(1024),
+    .LPM_FILE("RTL/fishBulbAnimation3.mif"),
+	   .LPM_TYPE               ("LPM_ROM"),
+      .LPM_ADDRESS_CONTROL    ("REGISTERED"),
+		.LPM_OUTDATA            ("UNREGISTERED"),
+		.AUTO_CARRY_CHAINS      ("ON"),
+		.AUTO_CASCADE_BUFFERS   ("ON"),
+	   .INTENDED_DEVICE_FAMILY ("Cyclone V")
+) rom_bulb_anim3_inst (
+    .address(address),
+	 .inclock(clk),
+    .q(bulb_anim3_color)
+);
+
+localparam int FRAMES_PER_STEP = 8;   // video frames each animation picture 
+
+logic [1:0] animStep;                 // 0 = normal fish and 1..3 = animtain pictures
+logic [2:0] frameCnt;
+logic Y_direction_key_D;
+
+always_ff @(posedge clk or negedge resetN) begin
+	if (!resetN) begin
+		animStep <= 2'd0;
+		frameCnt <= 3'd0;
+		Y_direction_key_D <= 1'b0;
+	end
+	else begin
+		Y_direction_key_D <= Y_direction_key;
+
+		if (Y_direction_key && !Y_direction_key_D) begin   // start animation
+			animStep <= 2'd1;
+			frameCnt <= 3'd0;
+		end
+		else if (animStep != 2'd0 && startOfFrame) begin
+			if (frameCnt == FRAMES_PER_STEP - 1) begin
+				frameCnt <= 3'd0;
+				animStep <= (animStep == 2'd3) ? 2'd0 : animStep + 2'd1;
+			end
+			else
+				frameCnt <= frameCnt + 3'd1;
+		end
+	end
+end
+
+always_comb begin
+	case (animStep)
+		2'd1:    color = (darkModeOn) ? bulb_anim1_color : anim1_color;
+		2'd2:    color = (darkModeOn) ? bulb_anim2_color : anim2_color;
+		2'd3:    color = (darkModeOn) ? bulb_anim3_color : anim3_color;
+		default: color = (darkModeOn) ? dark_mode_fish_color : default_fish_color;
+	endcase
+end
 
  logic [0:15] [0:15] [2:0] hit_colors = 
 		  {48'o4433333333333344,     
