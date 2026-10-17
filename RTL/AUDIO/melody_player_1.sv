@@ -57,7 +57,7 @@ module melody_player_1
     .LPM_WIDTH(16),
     .LPM_WIDTHAD(12),
 	 .LPM_NUMWORDS(4096),
-    .LPM_FILE("RTL/AUDIO/songs2.mif"),
+    .LPM_FILE("RTL/AUDIO/songs.mif"),
 	   .LPM_TYPE               ("LPM_ROM"),
       .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
 		.LPM_OUTDATA            ("UNREGISTERED"), 

@@ -455,9 +455,15 @@ agreement for further details.
 		(text "melodyEnded" (rect 163 75 219 87)(font "Arial" ))
 		(line (pt 240 80)(pt 224 80))
 	)
+	(parameter
+		"JUMP_SONG_ID"
+		"0011"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing
 		(rectangle (rect 16 16 224 96))
 	)
+	(annotation_block (parameter)(rect 256 -24 472 16))
 )
 (connector
 	(pt 960 376)
