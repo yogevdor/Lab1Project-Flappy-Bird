@@ -11,6 +11,9 @@ module backgroundObjectBitMap	(
 					output	logic	[7:0] RGBout  //rgb value from the bitmap 
  ) ;
 
+ 
+parameter string MIF_FILE = "RTL/sea_turtle.mif";
+
 // this is the devider used to access the right pixel 
 localparam  int OBJECT_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
 localparam  int OBJECT_NUMBER_OF_X_BITS = 6;  // 2^5 = 32 
@@ -25,12 +28,11 @@ assign address = (offsetY*OBJECT_WIDTH_X + offsetX);
 logic	[7:0] color;
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap representing a transparent pixel 
 
-logic [7:0] sea_turtle_color;
 lpm_rom #(
     .LPM_WIDTH(8),
     .LPM_WIDTHAD(10),
 	 .LPM_NUMWORDS(1024),
-    .LPM_FILE("RTL/sea_turtle.mif"),
+    .LPM_FILE(MIF_FILE),
 	   .LPM_TYPE               ("LPM_ROM"),
       .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
 		.LPM_OUTDATA            ("UNREGISTERED"), 
@@ -41,30 +43,9 @@ lpm_rom #(
     .address(address),
 	 .inclock(clk),
 	// .outclock(clk),
-    .q(sea_turtle_color)
+    .q(color)
 );
 
-
-logic [7:0] sardines_color;
-lpm_rom #(
-    .LPM_WIDTH(8),
-    .LPM_WIDTHAD(10),
-	 .LPM_NUMWORDS(1024),
-    .LPM_FILE("RTL/sardines.mif"),
-	   .LPM_TYPE               ("LPM_ROM"),
-      .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
-		.LPM_OUTDATA            ("UNREGISTERED"), 
-		.AUTO_CARRY_CHAINS      ("ON"),
-		.AUTO_CASCADE_BUFFERS   ("ON"),
-	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
-) rom_dark_mode_inst (
-    .address(address),
-	 .inclock(clk),
-	// .outclock(clk),
-    .q(sardines_color)
-);
-
-assign color = (objectTypeSelect) ? sea_turtle_color : sardines_color;
  
 // pipeline (ff) to get the pixel color from the array 	 
 
@@ -81,7 +62,7 @@ begin
 
 		if (InsideRectangle == 1'b1 ) 
 		begin // inside an external bracket 
-			 
+			
 			RGBout <= color;		
 		end  	
 	end

@@ -138,6 +138,11 @@ agreement for further details.
 		"110"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"MIP_FILE"
+		"RTL/sea_turtle.mif"
+		""
+		(type "PARAMETER_STRING")	)
 	(drawing
 		(rectangle (rect 16 16 248 208))
 	)

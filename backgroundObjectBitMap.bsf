@@ -80,7 +80,13 @@ agreement for further details.
 		(text "RGBout[7..0]" (rect 158 43 211 55)(font "Arial" ))
 		(line (pt 232 48)(pt 216 48)(line_width 3))
 	)
+	(parameter
+		"MIF_FILE"
+		"RTL/sea_turtle.mif"
+		""
+		(type "PARAMETER_STRING")	)
 	(drawing
 		(rectangle (rect 16 16 216 128)(line_width 1))
 	)
+	(annotation_block (parameter)(rect 248 -64 348 16))
 )
