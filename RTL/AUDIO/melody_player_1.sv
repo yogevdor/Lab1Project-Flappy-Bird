@@ -57,7 +57,7 @@ module melody_player_1
     .LPM_WIDTH(16),
     .LPM_WIDTHAD(12),
 	 .LPM_NUMWORDS(4096),
-    .LPM_FILE("RTL/AUDIO/songs.mif"),
+    .LPM_FILE("RTL/AUDIO/songs2.mif"),
 	   .LPM_TYPE               ("LPM_ROM"),
       .LPM_ADDRESS_CONTROL    ("REGISTERED"), 
 		.LPM_OUTDATA            ("UNREGISTERED"), 
@@ -78,7 +78,16 @@ module melody_player_1
 								 .resetN(resetN),
 								 .turbo(1'h0),   
 								 .hundredth_sec(hundredthSecPulse) );
-								 
+	
+
+
+ logic notCyclic;
+ assign notCyclic = (melodySelect == 4'd1);
+ 
+ logic [3:0] melodySelect_D;
+ 
+ 
+ 
 	//----------------------------------------------------------------------------------------------------------								 					 	 
 	//   syncronous code,  executed once every clock to update the current state and outputs 
 	//----------------------------------------------------------------------------------------------------------	
@@ -90,61 +99,77 @@ module melody_player_1
 			noteTimeCounter  <= noteDuration ;
 			EnableSoundOut <= 1'b0 ;
 			melodyEnded <= 1'b0 ;
-		end // asynch
+			melodySelect_D <= 4'd0;
+		end // asynch		
 		else begin 	// Synchronic logic of the state machine; once every clock 
 //--------------------------------------------------------------------------------------------------------------------
 			// state machine 
 			// default outputs 
 			EnableSoundOut <= 1'b0 ;
 			melodyEnded <= 1'b0 ;
+			melodySelect_D <= melodySelect;
 		
-			case ( SM_Maestro )			
-				// ================================================				
-				s_idle: begin
-					noteIndex <= 8'b0;
-				   if (startMelody) begin   // start melody pressed 
-						noteTimeCounter <= noteDuration ;// preset noteTimecounter
-	               SM_Maestro <= s_playNote ;	
-					end // if
-				end // s_idle	
-				// ================================================				
-				s_playNote: begin	
-					EnableSoundOut <= 1'b1 ; // enable sound 
-					if ((noteDuration != 4'b0)) begin   // if song is still playing 
-						if ( hundredthSecPulse ) begin
-							noteTimeCounter <= noteTimeCounter - 5'b1; // decremnt counter
+			// Global abort: Whenever the song changes, reset to note 0 immediately
+			if (melodySelect != melodySelect_D) begin
+				 noteIndex       <= 8'b0;
+				 noteTimeCounter <= 5'd0;
+				 SM_Maestro      <= s_idle;
+			end
+			else begin
+
+				case ( SM_Maestro )			
+					// ================================================				
+					s_idle: begin
+						noteIndex <= 8'b0;
+						if (startMelody) begin   // start melody pressed 
+							noteTimeCounter <= noteDuration ;// preset noteTimecounter
+							SM_Maestro <= s_playNote ;	
+						end // if
+					end // s_idle	
+					// ================================================				
+					s_playNote: begin	
+						EnableSoundOut <= 1'b1 ; // enable sound 
+						if ((noteDuration != 4'b0)) begin   // if song is still playing 
+							if ( hundredthSecPulse ) begin
+								noteTimeCounter <= noteTimeCounter - 5'b1; // decremnt counter
+							end
+							if (noteTimeCounter == 5'b0) begin // timer finished  
+								noteIndex <= noteIndex + 1'b1 ;   // increment note Index 
+								SM_Maestro <= s_gap ;   // next state 
+								noteTimeCounter <= gapDuration ;// preset counter for gap between notes 
+							end // if timer ended
+						end // if not end of song	  
+						else begin
+							// reached end of song
+							SM_Maestro <= s_ended;
 						end
-						if (noteTimeCounter == 5'b0) begin // timer finished  
-							noteIndex <= noteIndex + 1'b1 ;   // increment note Index 
-							SM_Maestro <= s_gap ;   // next state 
-							noteTimeCounter <= gapDuration ;// preset counter for gap between notes 
-						end // if timer ended
-					end // if not end of song	  
-					else begin
-						// reached end of song
-						SM_Maestro <= s_ended;
-					end
-				end // s_playNote
-				// ================================================				
-				s_gap : begin	
-					if ( hundredthSecPulse ) begin
-						noteTimeCounter <= noteTimeCounter - 5'b1; // decremnt counter  
-					end
-					if (noteTimeCounter == 5'b0) begin // timer finished 
-						SM_Maestro <= s_playNote ;   // back to playnote state    
-				      noteTimeCounter <= noteDuration ;     // preset counter 
-					end // if 
-				end // s_gap
-				// ================================================				
-            s_ended : begin
-					melodyEnded <= 1'b1 ;   
-               SM_Maestro <= s_idle ;  
-				end //s_end
-				//	================================================				
-            default: begin
-					SM_Maestro <= s_idle ;
-				end // default
-			endcase
+					end // s_playNote
+					// ================================================				
+					s_gap : begin	
+						if ( hundredthSecPulse ) begin
+							noteTimeCounter <= noteTimeCounter - 5'b1; // decremnt counter  
+						end
+						if (noteTimeCounter == 5'b0) begin // timer finished 
+							SM_Maestro <= s_playNote ;   // back to playnote state    
+							noteTimeCounter <= noteDuration ;     // preset counter 
+						end // if 
+					end // s_gap
+					// ================================================				
+					s_ended : begin
+						melodyEnded <= 1'b1 ;   
+						if (!notCyclic) begin
+							noteIndex       <= 8'b0;
+							noteTimeCounter <= noteDuration;
+							SM_Maestro <= s_playNote ;  
+							
+						end
+					end //s_end
+					//	================================================				
+					default: begin
+						SM_Maestro <= s_idle ;
+					end // default
+				endcase
+			end
 		end // if reset else
 	end // always_ff state machine 
 

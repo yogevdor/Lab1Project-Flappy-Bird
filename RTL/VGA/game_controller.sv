@@ -12,6 +12,7 @@ module	game_controller	(
 					output logic gameOverDrawingReq,
 					output logic pauseDrawingReq,
 					output logic objectsResetN,
+					output logic startMelody, // control the different game melodies
 					output logic game_on
 //					output logic darkModeOn
 );
@@ -37,6 +38,7 @@ always_ff @(posedge clk or negedge resetN)
 			SM_GAME <= START_SCREEN_ST ;
 			game_on <= 1'b0;
 //			darkModeOn <= 1'b0;
+			startMelody <= 1'b0;
 			startDrawingReq <= 1'b0;
 			pauseDrawingReq <= 1'b0;
 			gameOverDrawingReq <= 1'b0;
@@ -49,6 +51,7 @@ always_ff @(posedge clk or negedge resetN)
 		
 		else begin
 			game_on <= 1'b0;
+			startMelody <= 1'b0;
 			startDrawingReq <= 1'b0;
 			pauseDrawingReq <= 1'b0;
 			gameOverDrawingReq <= 1'b0;
@@ -76,6 +79,8 @@ always_ff @(posedge clk or negedge resetN)
 				GAME_ON_ST: begin
 					game_on <= 1'b1;
 //					darkModeOn <= 1'b0;
+					startMelody <= 1'b1;
+
 					if (key0_pulse) begin
 						SM_GAME <= PAUSE_ST;
 					end
@@ -90,6 +95,8 @@ always_ff @(posedge clk or negedge resetN)
 				PAUSE_ST: begin
 					game_on <= 1'b0;
 					pauseDrawingReq <= 1'b1;
+					startMelody <= 1'b0;
+
 					if (key0_pulse) begin
 						SM_GAME <= GAME_ON_ST;
 					end
@@ -98,6 +105,7 @@ always_ff @(posedge clk or negedge resetN)
 				GAMEOVER_ST: begin
 					game_on <= 1'b0;
 //					darkModeOn <= 1'b0;
+					startMelody <= 1'b1;
 					gameOverDrawingReq <= 1'b1;
 					if (key0_pulse) begin
 						SM_GAME <= START_SCREEN_ST;
