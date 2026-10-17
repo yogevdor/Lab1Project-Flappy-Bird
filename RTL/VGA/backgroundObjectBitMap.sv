@@ -1,5 +1,8 @@
 
-module backgroundObjectBitMap	(	
+module backgroundObjectBitMap	#(
+	parameter string MIF_FILE = "RTL/sea_turtle.mif"
+	)(
+	
 					input	logic	clk,
 					input	logic	resetN,
 					input logic	[10:0] offsetX,// offset from top left  position 
@@ -12,7 +15,6 @@ module backgroundObjectBitMap	(
  ) ;
 
  
-parameter string MIF_FILE = "RTL/sea_turtle.mif";
 
 // this is the devider used to access the right pixel 
 localparam  int OBJECT_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
@@ -30,8 +32,8 @@ localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap 
 
 lpm_rom #(
     .LPM_WIDTH(8),
-    .LPM_WIDTHAD(10),
-	 .LPM_NUMWORDS(1024),
+    .LPM_WIDTHAD(11),
+	 .LPM_NUMWORDS(2048),
     .LPM_FILE(MIF_FILE),
 	   .LPM_TYPE               ("LPM_ROM"),
       .LPM_ADDRESS_CONTROL    ("REGISTERED"), 

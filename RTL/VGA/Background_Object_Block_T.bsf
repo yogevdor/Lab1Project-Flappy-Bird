@@ -139,7 +139,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
-		"MIP_FILE"
+		"MIF_FILE_"
 		"RTL/sea_turtle.mif"
 		""
 		(type "PARAMETER_STRING")	)

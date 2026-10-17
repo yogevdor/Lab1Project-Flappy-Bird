@@ -97,7 +97,7 @@ agreement for further details.
 	(parameter)
 	(text "PARAM" (rect 3 -1 46 13)(font "Arial" (font_size 8)))
 	(text "DEFAULT VALUE" (rect 141 0 229 12)(font "Arial" ))
-	(text "MIP_FILE" (rect 3 16 52 30)(font "Arial" (font_size 8)))
+	(text "MIF_FILE_" (rect 3 16 59 30)(font "Arial" (font_size 8)))
 	(text " NAME" (rect 108 0 142 12)(font "Arial" ))
 	(text "S\"RTL/sea_turtle.mif\"" (rect 141 16 243 30)(font "Arial" (font_size 8)))
 	(drawing
@@ -558,13 +558,13 @@ agreement for further details.
 	)
 	(parameter
 		"MIF_FILE"
-		"MIF_FILE"
+		"MIF_FILE_"
 		""
 		(type "PARAMETER_STRING")	)
 	(drawing
 		(rectangle (rect 16 16 216 128))
 	)
-	(annotation_block (parameter)(rect 1944 392 2086 430))
+	(annotation_block (parameter)(rect 1944 368 2096 432))
 )
 (connector
 	(text "pixelX[10..0]" (rect 1098 520 1157 537)(font "Intel Clear" ))

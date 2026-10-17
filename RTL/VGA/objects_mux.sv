@@ -38,8 +38,11 @@ module	objects_mux	(
 					input logic gameOverScreenDrawingRequest,
 					input logic	[7:0] gameOverScreenRGB,  
 					
-					input logic backgroundObjectDrawingRequest,
-					input logic [7:0] BGObjRGB, // background objects over the full screen background
+					input logic backgroundObject1DrawingRequest,
+					input logic [7:0] BGObj1RGB, // background objects over the full screen background
+
+					input logic backgroundObject2DrawingRequest,
+					input logic [7:0] BGObj2RGB, // background objects over the full screen background
 					
 					input logic	[7:0] backGroundRGB, 
 					input logic	BGDrawingRequest, 
@@ -106,9 +109,12 @@ begin
 		else if (singlePipe3DrawingRequest == 1'b1 )
 			RGBOut <= darkModeOn ? darken(singlePipe3RGB) : singlePipe3RGB;
 		
-		else if (backgroundObjectDrawingRequest == 1'b1 )
-			RGBOut <= darkModeOn ? darken(BGObjRGB) : BGObjRGB;
-				
+		else if (backgroundObject1DrawingRequest == 1'b1 )
+			RGBOut <= darkModeOn ? darken(BGObj1RGB) : BGObj1RGB;
+
+		else if (backgroundObject2DrawingRequest == 1'b1 )
+			RGBOut <= darkModeOn ? darken(BGObj2RGB) : BGObj2RGB;
+			
 		else if (BGDrawingRequest == 1'b1)
 				RGBOut <= darkModeOn ? darken(backGroundRGB) : backGroundRGB ;
 				
