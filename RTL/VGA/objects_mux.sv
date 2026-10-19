@@ -38,6 +38,9 @@ module	objects_mux	(
 					input logic gameOverScreenDrawingRequest,
 					input logic	[7:0] gameOverScreenRGB,  
 					
+					input logic pauseScreenDrawingRequest,
+					input logic	[7:0] pauseScreenRGB,
+					
 					input logic backgroundObject1DrawingRequest,
 					input logic [7:0] BGObj1RGB, // background objects over the full screen background
 
@@ -92,6 +95,9 @@ begin
 			RGBOut <= SQR_RGB;
 
 		else if (gameOverScreenDrawingRequest == 1'b1)
+			RGBOut <= gameOverScreenRGB;
+		
+		else if (pauseScreenDrawingRequest == 1'b1)
 			RGBOut <= gameOverScreenRGB;
 		 
 		else if (darkModeOn && (squared_distance > DARK_MODE_RADIUS_SQUARED))

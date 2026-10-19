@@ -107,7 +107,7 @@ always_ff @(posedge clk or negedge resetN)
 //					darkModeOn <= 1'b0;
 					startMelody <= 1'b1;
 					gameOverDrawingReq <= 1'b1;
-					if (key0_pulse) begin
+					if (key8_pulse) begin
 						SM_GAME <= START_SCREEN_ST;
 					end
 				end
