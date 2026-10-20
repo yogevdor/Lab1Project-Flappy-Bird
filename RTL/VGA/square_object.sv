@@ -11,7 +11,7 @@ module	square_object	(
 					input 	logic signed	[10:0] pixelX,//  current VGA pixel 
 					input 	logic signed	[10:0] pixelY,
 					input 	logic signed	[10:0] topLeftX, //position on the screen 
-					input 	logic	signed [10:0] topLeftY,   // can be negative , if the object is partliy outside 
+					input 	logic	signed 	[10:0] topLeftY,   // can be negative , if the object is partliy outside 
 					
 					output 	logic	[10:0] offsetX,// offset inside bracket from top left position 
 					output 	logic	[10:0] offsetY,
@@ -28,8 +28,11 @@ int rightX ; //coordinates of the sides
 int bottomY ;
 logic insideBracket ; 
 
-//////////--------------------------------------------------------------------------------------------------------------=
-// Calculate object right  & bottom  boundaries
+// --------------------------------------------------------------------------------------------------------------=
+
+// *********************************************************
+// 	  Calculate object right  & bottom  boundaries
+// *********************************************************
 assign rightX	= (topLeftX + OBJECT_WIDTH_X);
 assign bottomY	= (topLeftY + OBJECT_HEIGHT_Y);
 assign	insideBracket  = 	 ( (pixelX  >= topLeftX) &&  (pixelX < rightX) // math is made with SIGNED variables  
@@ -37,7 +40,8 @@ assign	insideBracket  = 	 ( (pixelX  >= topLeftX) &&  (pixelX < rightX) // math 
 		
 
 
-//////////--------------------------------------------------------------------------------------------------------------=
+//--------------------------------------------------------------------------------------------------------------=
+
 always_ff@(posedge clk or negedge resetN)
 begin
 	if(!resetN) begin
@@ -59,8 +63,6 @@ begin
 			offsetX	<= (pixelX - topLeftX); //calculate relative offsets from top left corner allways a positive number 
 			offsetY	<= (pixelY - topLeftY);
 		end 
-		
-
 		
 	end
 end 
