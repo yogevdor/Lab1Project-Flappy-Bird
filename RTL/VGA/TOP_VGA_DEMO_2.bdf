@@ -3232,8 +3232,8 @@ agreement for further details.
 )
 (symbol
 	(rect 2832 2720 3048 2864)
-	(text "PrintScreenBitMap" (rect 5 0 94 12)(font "Arial" ))
-	(text "inst37" (rect 8 128 37 140)(font "Arial" ))
+	(text "PauseScreenBitMap" (rect 5 0 102 12)(font "Arial" ))
+	(text "inst20" (rect 8 128 36 145)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -3273,35 +3273,19 @@ agreement for further details.
 		(pt 216 32)
 		(output)
 		(text "drawingRequest" (rect 0 0 77 12)(font "Arial" ))
-		(text "drawingRequest" (rect 130 27 195 39)(font "Arial" ))
+		(text "drawingRequest" (rect 130 27 207 39)(font "Arial" ))
 		(line (pt 216 32)(pt 200 32))
 	)
 	(port
 		(pt 216 48)
 		(output)
 		(text "RGBout[7..0]" (rect 0 0 64 12)(font "Arial" ))
-		(text "RGBout[7..0]" (rect 141 43 195 55)(font "Arial" ))
+		(text "RGBout[7..0]" (rect 141 43 205 55)(font "Arial" ))
 		(line (pt 216 48)(pt 200 48)(line_width 3))
 	)
-	(parameter
-		"MIF_FILE"
-		"RTL/pauseScreen.mif"
-		""
-		(type "PARAMETER_STRING")	)
-	(parameter
-		"TOP_X"
-		"192"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"TOP_Y"
-		"112"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 200 128))
 	)
-	(annotation_block (parameter)(rect 3048 2640 3299 2716))
 )
 (connector
 	(text "enableStartScreen" (rect 3351 2824 3438 2841)(font "Intel Clear" ))
@@ -4961,13 +4945,14 @@ agreement for further details.
 	(bus)
 )
 (connector
+	(text "passed3" (rect 7890 3240 7928 3257)(font "Intel Clear" ))
+	(pt 7960 3256)
+	(pt 7848 3256)
+)
+(connector
 	(text "pauseScreenDR" (rect 6728 3904 6802 3921)(font "Intel Clear" ))
 	(pt 6688 3920)
 	(pt 6808 3920)
-)
-(connector
-	(pt 6808 3920)
-	(pt 6816 3920)
 )
 (connector
 	(text "pauseScreenRGB[7..0]" (rect 6712 3920 6817 3937)(font "Intel Clear" ))
@@ -4975,14 +4960,8 @@ agreement for further details.
 	(pt 6808 3936)
 	(bus)
 )
-(connector
-	(text "passed3" (rect 7890 3240 7928 3257)(font "Intel Clear" ))
-	(pt 7960 3256)
-	(pt 7848 3256)
-)
 (junction (pt 6232 4552))
 (junction (pt 6232 4568))
-(junction (pt 6808 3920))
 (text "\"Enter\"  is toggleX" (rect 6240 3296 6365 3316)(font "Intel Clear" (font_size 10)))
 (text "KEY \"8\"  is Y_direction" (rect 6240 3264 6393 3284)(font "Intel Clear" (font_size 10)))
 (text "KEY \"8\"  is Y_direction" (rect 5440 2760 5593 2780)(font "Intel Clear" (font_size 10)))
