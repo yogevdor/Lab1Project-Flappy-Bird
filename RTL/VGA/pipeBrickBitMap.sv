@@ -14,12 +14,10 @@ module	pipeBrickBitMap	(
 					input 	logic regenerate,
 					
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
-					output	logic	[7:0] RGBout,  //rgb value from the bitmap 
-				   output   logic	[2:0] HitEdgeCode 
+					output	logic	[7:0] RGBout  //rgb value from the bitmap 
  ) ;
 
 
-// localparam logic [7:0] PIPES_COLOR = 8'b11100000 ; //temporary
 localparam int PIPE_TOP_HEIGHT = 32;
 localparam int PIPE_BOTTOM_HEIGHT = 32;
 localparam int SCREEN_HEIGHT = 480;
@@ -28,7 +26,7 @@ parameter int GAP_SIZE_Y = 108 ;
 parameter logic [1:0] INITIAL_PILLAR_TYPE = 2'b00;
 
 
-logic [4:0]  local_y; // 5 bits for 32 pixels height
+logic [4:0]  local_y; // 5 bits for 32 pixels height, y value in relation to the object itself
 logic [10:0] gapBottom;
 logic [10:0] pipe_top_y;
 logic [10:0] pipe_bottom_y;
@@ -300,6 +298,8 @@ lpm_rom #(
 
 // -------------------------------------------------------
 
+// set the pillar's chosen graphic
+
 always_comb begin
     case (pillar_type)
         2'b00: begin
@@ -340,7 +340,6 @@ begin
 	if(!resetN) begin
 		RGBout <= TRANSPARENT_ENCODING;
 		pillar_type <= INITIAL_PILLAR_TYPE;
-		HitEdgeCode <= 3'h0;
 
 	end
 
@@ -350,10 +349,9 @@ begin
 				
 		
 		RGBout <= TRANSPARENT_ENCODING ; // default  
-		HitEdgeCode <= 3'h0;
 
-		if (InsideRectangle == 1'b1 ) 
-		begin // inside an external bracket 
+		if (InsideRectangle == 1'b1 ) begin // inside an external bracket 
+		
 			if (offsetY >= gapTop) begin	// gap or floor pillar
 			// **||  GAP  ||**
 				if (offsetY <= gapBottom) begin
@@ -394,14 +392,14 @@ begin
 					local_y <= (gapTop - PIPE_TOP_HEIGHT - offsetY - 1);
 				end
 			end
-//			HitEdgeCode <= hit_colors[HitCodeY][HitCodeX];	//get hit edge code from the colors table  
 		end  	
 	end
 		
 end
 
-//////////--------------------------------------------------------------------------------------------------------------=
+//--------------------------------------------------------------------------------------------------------------=
+
 // decide if to draw the pixel or not 
-assign drawingRequest = (RGBout != TRANSPARENT_ENCODING ) ? 1'b1 : 1'b0 ; // get optional transparent command from the bitmpap   
+assign drawingRequest = (RGBout != TRANSPARENT_ENCODING ) ? 1'b1 : 1'b0 ; 
 
 endmodule
