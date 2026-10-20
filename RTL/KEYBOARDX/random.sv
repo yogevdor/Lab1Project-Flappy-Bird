@@ -1,4 +1,4 @@
-// (c) Technion IIT, Department of Electrical Engineering 2025 
+
 module random 	
  ( 
 	input	logic clk,
@@ -15,14 +15,16 @@ parameter unsigned [SIZE_BITS-1:0] MIN_VAL = 32;  //set the min and max values
 parameter unsigned [SIZE_BITS-1:0] MAX_VAL = 276;
 parameter int START_COUNTER = 53;
 
-	logic unsigned  [SIZE_BITS-1:0] counter/* synthesis keep = 1 */;
-	logic rise_d /* synthesis keep = 1 */;
+	logic unsigned  [SIZE_BITS-1:0] counter;
+	logic rise_d;
 	logic flap_d;
 	logic [2:0] flap_cnt;
 
 	localparam int RANGE = MAX_VAL - MIN_VAL + 1;      
 
-	logic [SIZE_BITS:0] next_counter;                  // extra bit for overflow
+	
+	logic [SIZE_BITS:0] next_counter; // extra bit for overflow
+	
 	assign next_counter = counter + SIZE_BITS'(START_COUNTER) + SIZE_BITS'(flap_cnt);
 	
 	

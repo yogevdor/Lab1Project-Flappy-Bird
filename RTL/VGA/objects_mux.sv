@@ -1,21 +1,14 @@
 
-// (c) Technion IIT, Department of Electrical Engineering 2025 
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
-// coding convention dudy December 2018
-
-//-- Eyal Lev 31 Jan 2021
 
 module	objects_mux	(	
-//		--------	Clock Input	 	
+
 					input logic	clk,
 					input logic	resetN,
 		   // fish
 					input logic	fishDrawingRequest, // two set of inputs per unit
 					input logic	[7:0] fishRGB, 
 			
-			// single pipes:
+			// single pillars
 					input logic	singlePipe1DrawingRequest, // two set of inputs per unit
 					input logic	[7:0] singlePipe1RGB, 
 
@@ -26,12 +19,11 @@ module	objects_mux	(
 					input logic	[7:0] singlePipe3RGB, 
 			
 			
-		  // add the box here 
+		  // score display
 					input logic scoreDrawingRequest,
 					input logic [7:0] SQR_RGB,
-			  
-		  ////////////////////////
-		  // background 
+			  		  
+		  // background and screens (start, gameOver, pause)
 					input logic startScreenDrawingRequest,
 					input logic	[7:0] startScreenRGB,
 		
@@ -47,10 +39,7 @@ module	objects_mux	(
 					input logic backgroundObject2DrawingRequest,
 					input logic [7:0] BGObj2RGB, // background objects over the full screen background
 					
-					input logic	[7:0] backGroundRGB, 
-					input logic	BGDrawingRequest, 
-					
-					input logic	[7:0] RGB_MIF, 
+					input logic	[7:0] BG_RGB, 
 					
 			// DARK-MODE
 					input logic darkModeOn,
@@ -120,11 +109,8 @@ begin
 
 		else if (backgroundObject2DrawingRequest == 1'b1 )
 			RGBOut <= darkModeOn ? darken(BGObj2RGB) : BGObj2RGB;
-			
-		else if (BGDrawingRequest == 1'b1)
-				RGBOut <= darkModeOn ? darken(backGroundRGB) : backGroundRGB ;
 				
-		else RGBOut <= darkModeOn ? darken(RGB_MIF) : RGB_MIF ;// last priority 
+		else RGBOut <= darkModeOn ? darken(BG_RGB) : BG_RGB ;// last priority 
 		end ; 
 	end
 
