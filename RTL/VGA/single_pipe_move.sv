@@ -26,7 +26,7 @@ parameter int INITIAL_Y_SPEED = 0;
 parameter int FISH_X = 130; //fish X cordianate
 localparam int PIPE_W = 52;
 
-logic scored;
+logic scored; 
 
 const logic signed 	[10:0]	FIXED_POINT_MULTIPLIER = 64; // must be 2^n 
 
@@ -170,7 +170,7 @@ always_ff @(posedge clk or negedge resetN) begin
             scored <= 1'b0;
         else if (topLeftX > FISH_X)
             scored <= 1'b0;
-        else if (!scored && gameOn && (topLeftX + PIPE_W < FISH_X)) begin
+        else if (!scored && gameOn && (topLeftX + PIPE_W < FISH_X)) begin // the (topLeftX + PIPE_W < FISH_X) condition is true until the pipe regenerate (end of cycle) so scored is needed to make sure the score pulse is only 1 clock
             scored <= 1'b1;
             passed <= 1'b1;
         end
