@@ -87,7 +87,7 @@ begin
 			RGBOut <= gameOverScreenRGB;
 		
 		else if (pauseScreenDrawingRequest == 1'b1)
-			RGBOut <= gameOverScreenRGB;
+			RGBOut <= pauseScreenRGB;
 		 
 		else if (darkModeOn && (squared_distance > DARK_MODE_RADIUS_SQUARED))
 			RGBOut <= DARK_MODE_COLOR;

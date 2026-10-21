@@ -2696,7 +2696,7 @@ agreement for further details.
 		(pt 216 32)
 		(output)
 		(text "dout[SIZE_BITS-1..0]" (rect 0 0 105 12)(font "Arial" ))
-		(text "dout[SIZE_BITS-1..0]" (rect 107 27 195 39)(font "Arial" ))
+		(text "dout[SIZE_BITS-1..0]" (rect 107 27 212 39)(font "Arial" ))
 		(line (pt 216 32)(pt 200 32)(line_width 3))
 	)
 	(parameter
@@ -2760,7 +2760,7 @@ agreement for further details.
 		(pt 216 32)
 		(output)
 		(text "dout[SIZE_BITS-1..0]" (rect 0 0 105 12)(font "Arial" ))
-		(text "dout[SIZE_BITS-1..0]" (rect 107 27 195 39)(font "Arial" ))
+		(text "dout[SIZE_BITS-1..0]" (rect 107 27 212 39)(font "Arial" ))
 		(line (pt 216 32)(pt 200 32)(line_width 3))
 	)
 	(parameter
@@ -2824,7 +2824,7 @@ agreement for further details.
 		(pt 216 32)
 		(output)
 		(text "dout[SIZE_BITS-1..0]" (rect 0 0 105 12)(font "Arial" ))
-		(text "dout[SIZE_BITS-1..0]" (rect 107 27 195 39)(font "Arial" ))
+		(text "dout[SIZE_BITS-1..0]" (rect 107 27 212 39)(font "Arial" ))
 		(line (pt 216 32)(pt 200 32)(line_width 3))
 	)
 	(parameter
@@ -3056,7 +3056,7 @@ agreement for further details.
 		(pt 296 32)
 		(output)
 		(text "RGBOut[7..0]" (rect 0 0 67 12)(font "Arial" ))
-		(text "RGBOut[7..0]" (rect 219 27 275 39)(font "Arial" ))
+		(text "RGBOut[7..0]" (rect 219 27 286 39)(font "Arial" ))
 		(line (pt 296 32)(pt 280 32)(line_width 3))
 	)
 	(drawing
@@ -3127,7 +3127,7 @@ agreement for further details.
 		(pt 232 32)
 		(output)
 		(text "BG_RGB[7..0]" (rect 0 0 70 12)(font "Arial" ))
-		(text "BG_RGB[7..0]" (rect 152 27 211 39)(font "Arial" ))
+		(text "BG_RGB[7..0]" (rect 152 27 222 39)(font "Arial" ))
 		(line (pt 232 32)(pt 216 32)(line_width 3))
 	)
 	(parameter
@@ -3770,21 +3770,9 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "ones[3..0]" (rect 3904 3856 3950 3873)(font "Intel Clear" ))
-	(pt 3976 3872)
-	(pt 3888 3872)
-	(bus)
-)
-(connector
 	(text "tens[3..0]" (rect 3906 3840 3949 3857)(font "Intel Clear" ))
 	(pt 3976 3856)
 	(pt 3888 3856)
-	(bus)
-)
-(connector
-	(text "hundreds[3..0]" (rect 3903 3824 3970 3841)(font "Intel Clear" ))
-	(pt 3976 3840)
-	(pt 3888 3840)
 	(bus)
 )
 (connector
@@ -4745,6 +4733,18 @@ agreement for further details.
 	(text "BG_RGB[7..0]" (rect 6706 4000 6770 4017)(font "Intel Clear" ))
 	(pt 6688 4016)
 	(pt 6808 4016)
+	(bus)
+)
+(connector
+	(text "hundreds[3..0]" (rect 3903 3856 3970 3873)(font "Intel Clear" ))
+	(pt 3976 3872)
+	(pt 3888 3872)
+	(bus)
+)
+(connector
+	(text "ones[3..0]" (rect 3912 3824 3958 3841)(font "Intel Clear" ))
+	(pt 3976 3840)
+	(pt 3888 3840)
 	(bus)
 )
 (junction (pt 6232 4552))
