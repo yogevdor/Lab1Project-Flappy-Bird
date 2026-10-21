@@ -5,7 +5,6 @@ module	Fish_move	(
 					input	 logic resetN,
 					input	 logic startOfFrame,      //short pulse every start of frame 30Hz 
 					input	 logic Y_direction_key,   //move Y Up   
-//					input	 logic toggle_x_key,      //toggle X   
 					input	 logic gameOn,
 					input  logic objectsResetN,
 					
@@ -48,12 +47,10 @@ enum  logic [2:0] {IDLE_ST,         	// initial state
 						 POSITION_LIMITS_ST  // check if inside the frame  
 						}  SM_Motion ;
 
-int Xspeed  ; // speed    
 int Yspeed  ; 
-int Xposition ; //position   
+int Xposition ;   
 int Yposition ;  
 
-//logic toggle_x_key_D ;
 logic Y_direction_key_D ;
 logic gameOn_D ;
 
@@ -65,13 +62,9 @@ begin : fsm_sync_proc
 
 	if (resetN == 1'b0) begin 
 		SM_Motion <= IDLE_ST ; 
-		Xspeed <= 0   ; 
 		Yspeed <= 0  ; 
-//		Xposition <= 0  ; 
-//		Yposition <= 0   ; 
-	Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER  ; 
-	Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER   ; 
-//		toggle_x_key_D <= 0 ;
+		Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER  ; 
+		Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER   ; 
 		Y_direction_key_D <= 0 ;
 		gameOn_D <= 0 ;
 	
@@ -79,7 +72,6 @@ begin : fsm_sync_proc
 	
 	else begin
 	
-//		toggle_x_key_D <= toggle_x_key ;  //shift register to detect edge 
 		Y_direction_key_D <= Y_direction_key ;
 		gameOn_D          <= gameOn ;
 	
@@ -95,7 +87,6 @@ begin : fsm_sync_proc
 			IDLE_ST: begin
 		//------------
 		
-				Xspeed  <= INITIAL_X_SPEED ; 
 				Yspeed  <= INITIAL_Y_SPEED  ; 
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
@@ -114,33 +105,23 @@ begin : fsm_sync_proc
 						Yspeed <= -352;
 					
 					if (gameOn && startOfFrame )
-//						SM_Motion <= START_OF_FRAME_ST ; 						
 						SM_Motion <= POSITION_CHANGE_ST ; 						
 				
 		end 
-//		
-//		//------------
-//			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
-//		//------------
-//				SM_Motion <= POSITION_CHANGE_ST ; 
-//		end 
 
 		//------------------------
 			POSITION_CHANGE_ST : begin  // position interpolate 
 		//------------------------
 				if (!gameOn) begin
-						Xspeed <= 0;
 						Yspeed <= 0;
 				end				
-				else if(gameOn_D) begin
-					Xposition <= Xposition + Xspeed ; 
+				else if(gameOn_D) begin 
 					Yposition <= Yposition + Yspeed ;
 					if (Yspeed < MAX_Y_SPEED)
 						Yspeed <= Yspeed - Y_ACCEL;
 				end
 				
 				else begin
-					Xspeed <= INITIAL_X_SPEED;
 					Yspeed <= INITIAL_Y_SPEED;
 				end
 				
@@ -150,10 +131,6 @@ begin : fsm_sync_proc
 		//------------------------
 			POSITION_LIMITS_ST : begin  //check if still inside the frame 
 		//------------------------
-//		if (Xposition < x_FRAME_LEFT) 
-//						Xposition <= x_FRAME_LEFT ; 
-//		if (Xposition > x_FRAME_RIGHT)
-//						Xposition <= x_FRAME_RIGHT ; 
 		if (Yposition < y_FRAME_TOP) 
 						Yposition <= y_FRAME_TOP ; 
 		if (Yposition > y_FRAME_BOTTOM) 
@@ -173,10 +150,10 @@ end // end fsm_sync
 
 //return from FIXED point trunc back to prame size parameters 
   
-assign 	topLeftX_tmp = Xposition / FIXED_POINT_MULTIPLIER ;   // note it must be 2^n 
+assign 	topLeftX_tmp = Xposition / FIXED_POINT_MULTIPLIER ;   // must be 2^n 
 assign 	topLeftY_tmp = Yposition / FIXED_POINT_MULTIPLIER ;    
 
-assign 	topLeftX = {topLeftX_tmp[10:0]} ;   // note it must be 2^n 
+assign 	topLeftX = {topLeftX_tmp[10:0]} ;   // must be 2^n 
 assign 	topLeftY = {topLeftY_tmp[10:0]} ;    	
 
 endmodule	

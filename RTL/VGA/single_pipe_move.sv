@@ -104,16 +104,9 @@ begin : fsm_sync_proc
 		//------------
 
 				if (gameOn && startOfFrame && !startOfFrame_D)
-					SM_Motion <= START_OF_FRAME_ST ; 
-								
+					SM_Motion <= POSITION_CHANGE_ST ; 								
 			end 
 		
-		//------------
-			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
-		//------------				
-				
-				SM_Motion <= POSITION_CHANGE_ST ; 
-		end 
 
 		//------------------------
 			POSITION_CHANGE_ST : begin
