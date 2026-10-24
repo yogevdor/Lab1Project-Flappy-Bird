@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSXFC6D6F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY TOP_VGA_DEMO_2
+set_global_assignment -name TOP_LEVEL_ENTITY TOP_FLAPPY_FISH
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 17.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:51:54  JULY 08, 2018"
 set_global_assignment -name LAST_QUARTUS_VERSION "17.0.0 Lite Edition"
@@ -314,7 +314,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/MyConstant.sv
 set_global_assignment -name CDF_FILE output_files/Chain2.cdf
 set_global_assignment -name BDF_FILE ALL_HEXSS.bdf
 set_global_assignment -name SIGNALTAP_FILE output_files/stp2.stp
-set_global_assignment -name BDF_FILE RTL/VGA/TOP_VGA_DEMO_2.bdf
+set_global_assignment -name BDF_FILE RTL/VGA/TOP_FLAPPY_FISH.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/game_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/score_counter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/score_digit_select.sv
