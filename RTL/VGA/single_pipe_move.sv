@@ -41,9 +41,8 @@ const int   OBJECT_WIDTH_X = 64;
 const int X_MIN_LIMIT = -OBJECT_WIDTH_X * FIXED_POINT_MULTIPLIER;
 
 
-enum  logic [2:0] {IDLE_ST,         	// initial state
-						 MOVE_ST, 				// moving no colision 
-						 START_OF_FRAME_ST,	// startOfFrame activity-after all data collected 
+enum  logic [1:0] {IDLE_ST,         	// initial state
+						 MOVE_ST, 				// moving no colision
 						 POSITION_CHANGE_ST, // position interpolate 
 						 POSITION_LIMITS_ST  // check if inside the frame  
 						}  SM_Motion ;

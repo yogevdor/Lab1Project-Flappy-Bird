@@ -40,9 +40,8 @@ const int	x_FRAME_RIGHT	=	(639 - SafetyMargin - OBJECT_WIDTH_X)* FIXED_POINT_MUL
 const int	y_FRAME_TOP		=	(SafetyMargin) * FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_BOTTOM	=	(479 -SafetyMargin - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
 
-enum  logic [2:0] {IDLE_ST,         	// initial state
-						 MOVE_ST, 				// moving no colision 
-						 START_OF_FRAME_ST, 	// startOfFrame activity-after all data collected 
+enum  logic [1:0] {IDLE_ST,         	// initial state
+						 MOVE_ST, 				// moving no colision
 						 POSITION_CHANGE_ST, // position interpolate 
 						 POSITION_LIMITS_ST  // check if inside the frame  
 						}  SM_Motion ;
