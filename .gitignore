@@ -48,3 +48,10 @@ CLAUDE.local.md
 **/CLAUDE.md
 **/CLAUDE.local.md
 *.stp
+/tools
+/sim
+transcript
+transcript
+modelsim.ini
+docs/pipe_state_machine.svg
+docs/pipe_state_machine.png

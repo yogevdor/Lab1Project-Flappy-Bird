@@ -29,7 +29,7 @@ lpm_rom #(
     .LPM_WIDTH(8),
     .LPM_WIDTHAD(14),
     .LPM_NUMWORDS(16384),
-    .LPM_FILE("RTL/pauseScreen.mif"),
+    .LPM_FILE("RTL/pauseNew.mif"),
     .LPM_TYPE("LPM_ROM"),
     .LPM_ADDRESS_CONTROL("REGISTERED"),
     .LPM_OUTDATA("UNREGISTERED"),
