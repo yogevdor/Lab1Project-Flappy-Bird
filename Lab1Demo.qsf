@@ -296,8 +296,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/addr_counter.sv
 set_global_assignment -name QXP_FILE KBDINTF.qxp
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/square_object.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/back_ground_draw.sv
-set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/harts_matrix_bit_map.sv
-set_global_assignment -name BDF_FILE RTL/VGA/hart_display.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/objects_mux.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/vga_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/numbers_bit_map.sv
@@ -310,9 +308,7 @@ set_global_assignment -name SDC_FILE DE10_Standard_Audio.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/Seg7/SEG7.SV
 set_global_assignment -name QIP_FILE CLK_31P5.qip
 set_global_assignment -name SIP_FILE CLK_31P5.sip
-set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/my_constant.sv
 set_global_assignment -name CDF_FILE output_files/Chain2.cdf
-set_global_assignment -name BDF_FILE all_hexss.bdf
 set_global_assignment -name SIGNALTAP_FILE output_files/stp2.stp
 set_global_assignment -name BDF_FILE RTL/VGA/TOP_FLAPPY_FISH.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/game_controller.sv

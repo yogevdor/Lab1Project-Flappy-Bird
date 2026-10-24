@@ -279,7 +279,7 @@ agreement for further details.
 )
 (symbol
 	(rect 7192 3632 7400 3776)
-	(text "vga_controller" (rect 5 0 80 12)(font "Arial" ))
+	(text "vga_controller" (rect 5 0 74 12)(font "Arial" ))
 	(text "inst" (rect 8 128 25 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -610,7 +610,7 @@ agreement for further details.
 )
 (symbol
 	(rect 4632 3792 4856 3936)
-	(text "numbers_bit_map" (rect 5 0 82 12)(font "Arial" ))
+	(text "numbers_bit_map" (rect 5 0 92 12)(font "Arial" ))
 	(text "inst15" (rect 8 128 36 145)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -877,7 +877,7 @@ agreement for further details.
 )
 (symbol
 	(rect 3440 2744 3656 2888)
-	(text "print_screen_bit_map" (rect 5 0 94 12)(font "Arial" ))
+	(text "print_screen_bit_map" (rect 5 0 110 12)(font "Arial" ))
 	(text "inst30" (rect 8 128 37 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -950,7 +950,7 @@ agreement for further details.
 )
 (symbol
 	(rect 4008 2736 4224 2880)
-	(text "print_screen_bit_map" (rect 5 0 94 12)(font "Arial" ))
+	(text "print_screen_bit_map" (rect 5 0 110 12)(font "Arial" ))
 	(text "inst31" (rect 8 128 37 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -1398,72 +1398,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 5056 3176 5248 3320)
-	(text "speed_controller" (rect 5 0 85 12)(font "Arial" ))
-	(text "inst13" (rect 8 128 37 140)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "resetN" (rect 0 0 33 12)(font "Arial" ))
-		(text "resetN" (rect 21 43 54 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "point" (rect 0 0 23 12)(font "Arial" ))
-		(text "point" (rect 21 59 44 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "turbo2" (rect 0 0 30 12)(font "Arial" ))
-		(text "turbo2" (rect 21 75 51 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "turbo3" (rect 0 0 30 12)(font "Arial" ))
-		(text "turbo3" (rect 21 91 51 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96))
-	)
-	(port
-		(pt 192 32)
-		(output)
-		(text "speedBoost[9..0]" (rect 0 0 83 12)(font "Arial" ))
-		(text "speedBoost[9..0]" (rect 101 27 184 39)(font "Arial" ))
-		(line (pt 192 32)(pt 176 32)(line_width 3))
-	)
-	(parameter
-		"PIPES_PER_STEP"
-		"10"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"SPEED_STEP"
-		"2"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"MAX_BOOST"
-		"128"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 176 128))
-	)
-	(annotation_block (parameter)(rect 5080 3080 5288 3156))
-)
-(symbol
 	(rect 3928 3960 4136 4104)
 	(text "best_score_display" (rect 5 0 100 12)(font "Arial" ))
 	(text "inst8" (rect 8 128 30 145)(font "Intel Clear" ))
@@ -1550,7 +1484,7 @@ agreement for further details.
 )
 (symbol
 	(rect 2680 3296 2944 3520)
-	(text "background_object_block_t" (rect 5 0 174 19)(font "Intel Clear" (font_size 8)))
+	(text "background_object_block_t" (rect 5 0 169 19)(font "Intel Clear" (font_size 8)))
 	(text "inst21" (rect 8 203 36 220)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -1846,7 +1780,7 @@ agreement for further details.
 )
 (symbol
 	(rect 3208 3312 3472 3536)
-	(text "background_object_block_t" (rect 5 0 174 19)(font "Intel Clear" (font_size 8)))
+	(text "background_object_block_t" (rect 5 0 169 19)(font "Intel Clear" (font_size 8)))
 	(text "inst36" (rect 8 203 36 220)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -1979,7 +1913,7 @@ agreement for further details.
 )
 (symbol
 	(rect 5864 3848 6112 4008)
-	(text "audio" (rect 5 0 45 19)(font "Intel Clear" (font_size 8)))
+	(text "audio" (rect 5 0 38 19)(font "Intel Clear" (font_size 8)))
 	(text "inst18" (rect 8 139 36 156)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2036,7 +1970,7 @@ agreement for further details.
 )
 (symbol
 	(rect 2968 2736 3184 2880)
-	(text "pause_screen_bit_map" (rect 5 0 102 12)(font "Arial" ))
+	(text "pause_screen_bit_map" (rect 5 0 118 12)(font "Arial" ))
 	(text "inst20" (rect 8 128 36 145)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2583,7 +2517,7 @@ agreement for further details.
 )
 (symbol
 	(rect 5696 2664 5960 2856)
-	(text "fish_block_t" (rect 5 0 82 19)(font "Intel Clear" (font_size 8)))
+	(text "fish_block_t" (rect 5 0 76 19)(font "Intel Clear" (font_size 8)))
 	(text "inst1" (rect 8 171 30 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2703,7 +2637,7 @@ agreement for further details.
 )
 (symbol
 	(rect 7008 3200 7288 3392)
-	(text "pipes_block_t" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
+	(text "pipes_block_t" (rect 5 0 88 19)(font "Intel Clear" (font_size 8)))
 	(text "inst22" (rect 8 171 36 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2828,7 +2762,7 @@ agreement for further details.
 )
 (symbol
 	(rect 7568 3192 7848 3384)
-	(text "pipes_block_t" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
+	(text "pipes_block_t" (rect 5 0 88 19)(font "Intel Clear" (font_size 8)))
 	(text "inst23" (rect 8 171 36 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2953,7 +2887,7 @@ agreement for further details.
 )
 (symbol
 	(rect 6496 3208 6776 3400)
-	(text "pipes_block_t" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
+	(text "pipes_block_t" (rect 5 0 88 19)(font "Intel Clear" (font_size 8)))
 	(text "inst9" (rect 8 171 30 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -3075,6 +3009,72 @@ agreement for further details.
 		(rectangle (rect 16 16 264 176))
 	)
 	(annotation_block (parameter)(rect 6512 3080 6720 3200))
+)
+(symbol
+	(rect 5056 3176 5248 3320)
+	(text "speed_controller" (rect 5 0 85 12)(font "Arial" ))
+	(text "inst13" (rect 8 128 37 140)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "resetN" (rect 0 0 33 12)(font "Arial" ))
+		(text "resetN" (rect 21 43 54 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "point" (rect 0 0 23 12)(font "Arial" ))
+		(text "point" (rect 21 59 44 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "turbo2" (rect 0 0 30 12)(font "Arial" ))
+		(text "turbo2" (rect 21 75 51 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "turbo3" (rect 0 0 30 12)(font "Arial" ))
+		(text "turbo3" (rect 21 91 51 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96))
+	)
+	(port
+		(pt 192 32)
+		(output)
+		(text "speedBoost[9..0]" (rect 0 0 83 12)(font "Arial" ))
+		(text "speedBoost[9..0]" (rect 101 27 184 39)(font "Arial" ))
+		(line (pt 192 32)(pt 176 32)(line_width 3))
+	)
+	(parameter
+		"PIPES_PER_STEP"
+		"8"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"SPEED_STEP"
+		"4"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"MAX_BOOST"
+		"128"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 176 128))
+	)
+	(annotation_block (parameter)(rect 5080 3080 5288 3156))
 )
 (connector
 	(text "enableStartScreen" (rect 3351 2824 3438 2841)(font "Intel Clear" ))
