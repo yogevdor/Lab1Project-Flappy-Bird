@@ -292,7 +292,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/SinTable.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/prescaler.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/Mili_sec_counter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/melody_player_1.sv
-set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/JukeBox1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/addr_counter.sv
 set_global_assignment -name QXP_FILE KBDINTF.qxp
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/square_object.sv
@@ -305,7 +304,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/NumbersBitMap.sv
 set_global_assignment -name TCL_SCRIPT_FILE constraints/pin.tcl
 set_global_assignment -name BDF_FILE RTL/KEYBOARDX/TOP_KBD.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARDX/keyPad_decoder.sv
-set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARDX/simple_up_counter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARDX/random.sv
 set_global_assignment -name CDF_FILE output_files/Chain1.cdf
 set_global_assignment -name SDC_FILE DE10_Standard_Audio.sdc
