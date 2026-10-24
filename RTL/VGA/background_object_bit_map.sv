@@ -1,5 +1,5 @@
 
-module backgroundObjectBitMap	#(
+module background_object_bit_map	#(
 	parameter string MIF_FILE = "RTL/sea_turtle.mif"
 	)(
 	
@@ -74,4 +74,4 @@ end
 // decide if to draw the pixel or not 
 assign drawingRequest = (RGBout != TRANSPARENT_ENCODING ) ? 1'b1 : 1'b0 ; // get optional transparent command from the bitmpap   
 
-endmodule
+endmodule

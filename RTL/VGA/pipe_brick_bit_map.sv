@@ -4,7 +4,7 @@
 
 
 
-module	pipeBrickBitMap	(	
+module	pipe_brick_bit_map	(	
 					input		logic	clk,
 					input		logic	resetN,
 					input 	logic	[10:0] offsetX,// offset from top left  position 
@@ -390,4 +390,4 @@ end
 // decide if to draw the pixel or not 
 assign drawingRequest = (RGBout != TRANSPARENT_ENCODING ) ? 1'b1 : 1'b0 ; 
 
-endmodule
+endmodule

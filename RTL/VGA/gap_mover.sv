@@ -8,7 +8,7 @@ module gap_mover (
 	input  logic        game_on,
 	input  logic        bossActive,
 	input  logic [10:0] gapIn,            // gapTop from random.sv
-	output logic [10:0] gapOut            // to the gapTop pin of Pipes_Block_T
+	output logic [10:0] gapOut            // to the gapTop pin of pipes_block_t
 );
 
 parameter int GAP_MIN   = 32;             

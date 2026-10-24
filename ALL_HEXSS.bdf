@@ -424,7 +424,7 @@ agreement for further details.
 )
 (symbol
 	(rect 360 296 520 376)
-	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
+	(text "my_constant" (rect 5 0 65 12)(font "Arial" ))
 	(text "inst2" (rect 8 64 30 81)(font "Intel Clear" ))
 	(port
 		(pt 160 32)
@@ -450,7 +450,7 @@ agreement for further details.
 )
 (symbol
 	(rect 464 424 624 504)
-	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
+	(text "my_constant" (rect 5 0 65 12)(font "Arial" ))
 	(text "inst3" (rect 8 64 30 81)(font "Intel Clear" ))
 	(port
 		(pt 160 32)

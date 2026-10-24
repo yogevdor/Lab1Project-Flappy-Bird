@@ -182,7 +182,7 @@ agreement for further details.
 )
 (symbol
 	(rect 1288 280 1536 456)
-	(text "HartsMatrixBitMap" (rect 5 0 94 12)(font "Arial" ))
+	(text "harts_matrix_bit_map" (rect 5 0 94 12)(font "Arial" ))
 	(text "inst6" (rect 8 160 31 172)(font "Arial" ))
 	(port
 		(pt 0 32)

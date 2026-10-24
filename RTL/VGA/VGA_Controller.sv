@@ -8,7 +8,7 @@
 //-- dudy clock 32.5. fixed colors bug                    
 
 
-module	VGA_Controller	(	
+module	vga_controller	(	
 				//	Host Side
 					input logic		[7:0]	RGBIn,
 					output logic	[10:0]	PixelX,
@@ -136,4 +136,4 @@ end
 
 assign startOfFrame	= !oVGA_VS && VGA_VS_d;// generating a short pulse ;
 
-endmodule
+endmodule

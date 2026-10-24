@@ -498,7 +498,7 @@ agreement for further details.
 )
 (symbol
 	(rect 1936 456 2168 600)
-	(text "backgroundObjectBitMap" (rect 5 0 126 12)(font "Arial" ))
+	(text "background_object_bit_map" (rect 5 0 126 12)(font "Arial" ))
 	(text "inst2" (rect 8 128 31 140)(font "Arial" ))
 	(port
 		(pt 0 32)

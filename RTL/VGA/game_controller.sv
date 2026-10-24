@@ -100,4 +100,4 @@ always_ff @(posedge clk or negedge resetN)
 			endcase
 		end
 	end		
-endmodule			
+endmodule			

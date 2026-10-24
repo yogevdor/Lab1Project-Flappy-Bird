@@ -279,7 +279,7 @@ agreement for further details.
 )
 (symbol
 	(rect 7192 3632 7400 3776)
-	(text "VGA_Controller" (rect 5 0 80 12)(font "Arial" ))
+	(text "vga_controller" (rect 5 0 80 12)(font "Arial" ))
 	(text "inst" (rect 8 128 25 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -610,7 +610,7 @@ agreement for further details.
 )
 (symbol
 	(rect 4632 3792 4856 3936)
-	(text "NumbersBitMap" (rect 5 0 82 12)(font "Arial" ))
+	(text "numbers_bit_map" (rect 5 0 82 12)(font "Arial" ))
 	(text "inst15" (rect 8 128 36 145)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -877,7 +877,7 @@ agreement for further details.
 )
 (symbol
 	(rect 3440 2744 3656 2888)
-	(text "PrintScreenBitMap" (rect 5 0 94 12)(font "Arial" ))
+	(text "print_screen_bit_map" (rect 5 0 94 12)(font "Arial" ))
 	(text "inst30" (rect 8 128 37 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -950,7 +950,7 @@ agreement for further details.
 )
 (symbol
 	(rect 4008 2736 4224 2880)
-	(text "PrintScreenBitMap" (rect 5 0 94 12)(font "Arial" ))
+	(text "print_screen_bit_map" (rect 5 0 94 12)(font "Arial" ))
 	(text "inst31" (rect 8 128 37 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -1550,7 +1550,7 @@ agreement for further details.
 )
 (symbol
 	(rect 2680 3296 2944 3520)
-	(text "Background_Object_Block_T" (rect 5 0 174 19)(font "Intel Clear" (font_size 8)))
+	(text "background_object_block_t" (rect 5 0 174 19)(font "Intel Clear" (font_size 8)))
 	(text "inst21" (rect 8 203 36 220)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -1846,7 +1846,7 @@ agreement for further details.
 )
 (symbol
 	(rect 3208 3312 3472 3536)
-	(text "Background_Object_Block_T" (rect 5 0 174 19)(font "Intel Clear" (font_size 8)))
+	(text "background_object_block_t" (rect 5 0 174 19)(font "Intel Clear" (font_size 8)))
 	(text "inst36" (rect 8 203 36 220)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -1979,7 +1979,7 @@ agreement for further details.
 )
 (symbol
 	(rect 5864 3848 6112 4008)
-	(text "AUDIO" (rect 5 0 45 19)(font "Intel Clear" (font_size 8)))
+	(text "audio" (rect 5 0 45 19)(font "Intel Clear" (font_size 8)))
 	(text "inst18" (rect 8 139 36 156)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2036,7 +2036,7 @@ agreement for further details.
 )
 (symbol
 	(rect 2968 2736 3184 2880)
-	(text "PauseScreenBitMap" (rect 5 0 102 12)(font "Arial" ))
+	(text "pause_screen_bit_map" (rect 5 0 102 12)(font "Arial" ))
 	(text "inst20" (rect 8 128 36 145)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2583,7 +2583,7 @@ agreement for further details.
 )
 (symbol
 	(rect 5696 2664 5960 2856)
-	(text "Fish_Block_T" (rect 5 0 82 19)(font "Intel Clear" (font_size 8)))
+	(text "fish_block_t" (rect 5 0 82 19)(font "Intel Clear" (font_size 8)))
 	(text "inst1" (rect 8 171 30 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2703,7 +2703,7 @@ agreement for further details.
 )
 (symbol
 	(rect 7008 3200 7288 3392)
-	(text "Pipes_Block_T" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
+	(text "pipes_block_t" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
 	(text "inst22" (rect 8 171 36 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2828,7 +2828,7 @@ agreement for further details.
 )
 (symbol
 	(rect 7568 3192 7848 3384)
-	(text "Pipes_Block_T" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
+	(text "pipes_block_t" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
 	(text "inst23" (rect 8 171 36 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
@@ -2953,7 +2953,7 @@ agreement for further details.
 )
 (symbol
 	(rect 6496 3208 6776 3400)
-	(text "Pipes_Block_T" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
+	(text "pipes_block_t" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
 	(text "inst9" (rect 8 171 30 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)

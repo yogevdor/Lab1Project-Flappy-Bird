@@ -1,4 +1,4 @@
-module PauseScreenBitMap(
+module pause_screen_bit_map(
     input  logic        clk,
     input  logic        resetN,
     input  logic [10:0] pixelX,

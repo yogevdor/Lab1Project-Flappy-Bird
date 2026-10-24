@@ -4,7 +4,7 @@
 //-- Dudy Feb 12 2019
 //-- Eyal Lev --change values to 31.5 MHz   Apr 2023
 //-- Eyal Lev --change values to OCTAVA  6   Nov 2024
-module	ToneDecoder	(
+module	tone_decoder	(
 					input	logic [3:0] tone,
 					input	logic [2:0] octave,
 					output	logic [11:0]	preScaleValue

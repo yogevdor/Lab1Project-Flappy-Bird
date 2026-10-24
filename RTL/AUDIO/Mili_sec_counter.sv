@@ -5,7 +5,7 @@
 // Updated by Mor Dahan - January 2022
 // Updated by Dudy BarOn - march  2025
  
- module Mili_sec_counter      	
+ module mili_sec_counter      	
 	(
    // Input, Output Ports
 	input  logic clk, 
@@ -53,4 +53,4 @@ parameter  PLLClock  = 315 ;
 		
 	end // always
 	
-endmodule
+endmodule

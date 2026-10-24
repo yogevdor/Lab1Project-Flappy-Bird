@@ -1,4 +1,4 @@
-module PrintScreenBitMap #(
+module print_screen_bit_map #(
     parameter string MIF_FILE = "RTL/start_screen320x240.mif"
 )(
     input  logic        clk,

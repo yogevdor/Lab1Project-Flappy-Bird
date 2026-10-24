@@ -5,7 +5,7 @@
 
 
 
-module NumbersBitMap	(	
+module numbers_bit_map	(	
 					input		logic	clk,
 					input		logic	resetN,
 					input 	logic	[10:0] offsetX,// offset from top left  position 
@@ -67,4 +67,4 @@ end
 assign RGBout = digit_color ; // this is a fixed color 
 
 
-endmodule
+endmodule

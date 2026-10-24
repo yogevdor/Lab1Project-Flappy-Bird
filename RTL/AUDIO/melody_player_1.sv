@@ -69,7 +69,7 @@ module melody_player_1
   //----------------------------------------------------------------------------------------------------------
   // Instances of slow counter.  pulse every 10 mSec
   //----------------------------------------------------------------------------------------------------------									  									  								 
-   Mili_sec_counter #(.SIMULATION_MODE(1'h0), .mSecPerTick(30), .PLLClock(315)) mili_sec_counter_inst 
+   mili_sec_counter #(.SIMULATION_MODE(1'h0), .mSecPerTick(30), .PLLClock(315)) mili_sec_counter_inst 
 	                     (.clk(CLOCK_31p5),   
 								 .resetN(resetN),
 								 .turbo(1'h0),   

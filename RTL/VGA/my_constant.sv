@@ -3,7 +3,7 @@
 
 
 
-module	MyConstant	
+module	my_constant	
 #(parameter int size = 8,  
 				unsigned	[size-1:0] MyValue= 0)
   
@@ -13,4 +13,4 @@ module	MyConstant
 
 assign value = MyValue ;	 	 
 
-endmodule
+endmodule

@@ -4,7 +4,7 @@
 
 
 
-module	fishBitMap	(	
+module	fish_bit_map	(	
 					input	logic	clk,
 					input	logic	resetN,
 					input logic	[10:0] offsetX,// offset from top left  position 

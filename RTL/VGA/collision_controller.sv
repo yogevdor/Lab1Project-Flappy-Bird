@@ -17,8 +17,8 @@ module	collision_controller	(
 			output logic collision		
 );
 
-localparam int Y_TOP_LIMIT    = 2;    // = SafetyMargin in Fish_move
-localparam int Y_BOTTOM_LIMIT = 445;  // = 479 - SafetyMargin - 32 in Fish_move
+localparam int Y_TOP_LIMIT    = 2;    // = SafetyMargin in fish_move
+localparam int Y_BOTTOM_LIMIT = 445;  // = 479 - SafetyMargin - 32 in fish_move
 
 logic hit_frame_edge;
 assign hit_frame_edge = (fishTopY <= Y_TOP_LIMIT) || (fishTopY >= Y_BOTTOM_LIMIT);

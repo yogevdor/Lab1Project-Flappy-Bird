@@ -1,5 +1,5 @@
 
-module	Fish_move	(	
+module	fish_move	(	
  
 					input	 logic clk,
 					input	 logic resetN,

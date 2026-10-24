@@ -178,7 +178,7 @@ agreement for further details.
 )
 (symbol
 	(rect 320 528 552 608)
-	(text "ToneDecoder" (rect 5 0 69 12)(font "Arial" ))
+	(text "tone_decoder" (rect 5 0 69 12)(font "Arial" ))
 	(text "inst4" (rect 8 64 31 76)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -207,7 +207,7 @@ agreement for further details.
 )
 (symbol
 	(rect 536 104 784 216)
-	(text "sintable" (rect 5 0 42 12)(font "Arial" ))
+	(text "sine_table" (rect 5 0 42 12)(font "Arial" ))
 	(text "inst1" (rect 8 96 31 108)(font "Arial" ))
 	(port
 		(pt 0 32)
