@@ -63,7 +63,8 @@ module melody_player_1
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) rom_inst (
     .address(note_address),
-	 .inclock(CLOCK_31p5),    .q(songs_mem)
+	 .inclock(CLOCK_31p5),
+    .q(songs_mem)
 );
   //----------------------------------------------------------------------------------------------------------
   // Instances of slow counter.  pulse every 10 mSec

@@ -14,17 +14,7 @@ module	back_ground_draw	(
 );
 
 
-logic [2:0] redBits;
-logic [2:0] greenBits;
-logic [1:0] blueBits;
-
-
-localparam logic [2:0] DARK_COLOR = 3'b111 ;// bitmap of a dark color
-
-// **************************************************************
-// ****************************
-// for scrolling the backgorund
-// ****************************
+// scrolling the background
 
 localparam int BG_W = 640;
 parameter  int BG_SPEED = 1;	// starting speed, px/frame
@@ -71,25 +61,9 @@ assign bgAddress = pixelY * BG_W + shiftedX;
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) rom_inst (
     .address(bgAddress),
-	 .inclock(clk),    .q(BG_RGB)
+	 .inclock(clk),
+    .q(BG_RGB)
 ); // background
- 
- 
-always_ff@(posedge clk or negedge resetN)
-begin
-	if(!resetN) begin
-				redBits <= DARK_COLOR ;	
-				greenBits <= DARK_COLOR  ;	
-				blueBits <= DARK_COLOR[1:0] ;	 
-	end 
-	else begin
 
-	// defaults 
-		greenBits <= 3'b111 ; 
-		redBits <= 3'b000 ;
-		blueBits <= 2'b11;//LIGHT_COLOR;
-		
-	end; 	
-end 
 endmodule
 

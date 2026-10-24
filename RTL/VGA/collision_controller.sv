@@ -23,9 +23,7 @@ localparam int Y_BOTTOM_LIMIT = 445;  // = 479 - SafetyMargin - 32 in Fish_move
 logic hit_frame_edge;
 assign hit_frame_edge = (fishTopY <= Y_TOP_LIMIT) || (fishTopY >= Y_BOTTOM_LIMIT);
 
-assign collision = (drawing_request_fish && drawing_request_pipe1) ||
-						 (drawing_request_fish && drawing_request_pipe2) ||
-						 (drawing_request_fish && drawing_request_pipe3) ||
+assign collision = (drawing_request_fish && (drawing_request_pipe1 || drawing_request_pipe2 || drawing_request_pipe3)) ||
 						 hit_frame_edge;
 
 

@@ -44,7 +44,8 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) rom_inst (
     .address(address),
-	 .inclock(clk),    .q(color)
+	 .inclock(clk),
+    .q(color)
 );
 
 // pipeline (ff) to get the pixel color from the array 	 

@@ -61,6 +61,11 @@ function automatic logic [7:0] darken(input logic [7:0] c);
 	return {1'b0, c[7:6],  1'b0, c[4:3],  1'b0, c[1]};
 endfunction
 
+// darkens a color only while dark mode is on
+function automatic logic [7:0] shade(input logic [7:0] c);
+	return darkModeOn ? darken(c) : c;
+endfunction
+
 int dx, dy, squared_distance;
 
 // dark-mode distance from fish calculation
@@ -96,21 +101,21 @@ begin
 			RGBOut <= fishRGB;
 		// pipe and bg gets darker if dark mode is on
 		else if (singlePipe1DrawingRequest == 1'b1 )
-			RGBOut <= darkModeOn ? darken(singlePipe1RGB) : singlePipe1RGB;
+			RGBOut <= shade(singlePipe1RGB);
 		
 		else if (singlePipe2DrawingRequest == 1'b1 )
-			RGBOut <= darkModeOn ? darken(singlePipe2RGB) : singlePipe2RGB;
+			RGBOut <= shade(singlePipe2RGB);
 
 		else if (singlePipe3DrawingRequest == 1'b1 )
-			RGBOut <= darkModeOn ? darken(singlePipe3RGB) : singlePipe3RGB;
+			RGBOut <= shade(singlePipe3RGB);
 		
 		else if (backgroundObject1DrawingRequest == 1'b1 )
-			RGBOut <= darkModeOn ? darken(BGObj1RGB) : BGObj1RGB;
+			RGBOut <= shade(BGObj1RGB);
 
 		else if (backgroundObject2DrawingRequest == 1'b1 )
-			RGBOut <= darkModeOn ? darken(BGObj2RGB) : BGObj2RGB;
+			RGBOut <= shade(BGObj2RGB);
 				
-		else RGBOut <= darkModeOn ? darken(BG_RGB) : BG_RGB ;// last priority 
+		else RGBOut <= shade(BG_RGB);// last priority 
 		end ; 
 	end
 

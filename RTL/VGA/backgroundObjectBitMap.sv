@@ -43,7 +43,8 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) rom_default_inst (
     .address(address),
-	 .inclock(clk),    .q(color)
+	 .inclock(clk),
+    .q(color)
 );
 
  

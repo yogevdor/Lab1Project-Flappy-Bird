@@ -64,7 +64,6 @@ always_ff @(posedge clk or negedge resetN)
 			case(SM_GAME)
 			
 				START_SCREEN_ST: begin
-					game_on <= 1'b0;
 					startDrawingReq <= 1'b1;
 					objectsResetN <= 1'b0;
 					godMode <= 1'b0;          // every new game starts in normal mode
@@ -77,21 +76,14 @@ always_ff @(posedge clk or negedge resetN)
 					game_on <= 1'b1;
 					startMelody <= 1'b1;
 
-					if (key0_pulse) begin
+					if (key0_pulse)
 						SM_GAME <= PAUSE_ST;
-					end
-					else if (collision && !godMode) begin
+					else if (collision && !godMode)
 						SM_GAME <= GAMEOVER_ST;
-					end
-					else begin
-						SM_GAME <= GAME_ON_ST;
-					end
 				end
-				
+
 				PAUSE_ST: begin
-					game_on <= 1'b0;
 					pauseDrawingReq <= 1'b1;
-					startMelody <= 1'b0;
 
 					if (key0_pulse) begin
 						SM_GAME <= GAME_ON_ST;
@@ -99,7 +91,6 @@ always_ff @(posedge clk or negedge resetN)
 				end
 				
 				GAMEOVER_ST: begin
-					game_on <= 1'b0;
 					startMelody <= 1'b1;
 					gameOverDrawingReq <= 1'b1;
 					if (key8_pulse) begin
