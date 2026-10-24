@@ -50,7 +50,8 @@ CLAUDE.local.md
 *.stp
 /tools
 /sim
-transcript
+/unused_mif
+/unused_other
 transcript
 modelsim.ini
 docs/pipe_state_machine.svg
