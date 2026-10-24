@@ -71,9 +71,7 @@ assign bgAddress = pixelY * BG_W + shiftedX;
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) rom_inst (
     .address(bgAddress),
-	 .inclock(clk),
-	// .outclock(clk),
-    .q(BG_RGB)
+	 .inclock(clk),    .q(BG_RGB)
 ); // background
  
  

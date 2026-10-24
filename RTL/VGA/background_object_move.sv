@@ -26,10 +26,6 @@ parameter int INITIAL_X_SPEED = 0;
 parameter int INITIAL_Y_SPEED = 0;
 
 
-// parameter int Y_ACCEL = -10;
-
-// const int MAX_Y_SPEED = 500;
-//const int	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n 
 const logic signed 	[10:0]	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n 
 // FIXED_POINT_MULTIPLIER is used to enable working with integers in high resolution so that 
 // we do all calculations with topLeftX_FixedPoint to get a resolution of 1/64 pixel in calcuatuions,
@@ -69,8 +65,6 @@ begin : fsm_sync_proc
 		SM_Motion <= IDLE_ST ; 
 		Xspeed <= INITIAL_X_SPEED   ; 
 		Yspeed <= INITIAL_Y_SPEED  ; 
-//		Xposition <= 0  ; 
-//		Yposition <= 0   ; 
 		Xposition <= INITIAL_X * FIXED_POINT_MULTIPLIER  ; 
 		Yposition <= INITIAL_Y * FIXED_POINT_MULTIPLIER   ; 
 		toggle_x_key_D <= 0 ;

@@ -27,18 +27,15 @@ module melody_player_1
  input logic CLOCK_31p5,
  input logic startMelody,
  input logic [3:0] melodySelect, // selector of one melody  
-// input logic [15:0] songs_mem,		// input from songs.mif
  
  output logic [3:0] tone,
  output logic [2:0] octave,
  output logic EnableSoundOut,		// controls AUDIO module on/off 
- output logic melodyEnded       // indicates end of melody.  Also outputs to LED3      
- //output logic [11:0] note_address // output to audio MIF address 
+ output logic melodyEnded       // indicates end of melody.  Also outputs to LED3
  
   );   // serial number of current note. ( maximum 31 ). noteIndex determines freqIndex and note_length, via JueBox
  
  // songs.vh contain a table of songs, including note_base, octave, duration and gap	
-//`include "songs.sv"
 
  // Maestro state machine declaration 
  enum logic [1:0] {s_idle, s_playNote, s_gap, s_ended} SM_Maestro; // state machine
@@ -66,9 +63,7 @@ module melody_player_1
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) rom_inst (
     .address(note_address),
-	 .inclock(CLOCK_31p5),
-	// .outclock(clk),
-    .q(songs_mem)
+	 .inclock(CLOCK_31p5),    .q(songs_mem)
 );
   //----------------------------------------------------------------------------------------------------------
   // Instances of slow counter.  pulse every 10 mSec
@@ -173,14 +168,7 @@ module melody_player_1
 		end // if reset else
 	end // always_ff state machine 
 
-	//assign song_index  = base_offset + noteIndex;
-	//assign note_address[11:8] = melodySelect;
-	//assign note_address[7:0] = noteIndex;
 	assign note_address = {{melodySelect},{noteIndex}};
-//	assign tone        	= all_songs[song_index].note;
-//	assign octave      	= all_songs[song_index].octave;
-//	assign noteDuration  = all_songs[song_index].duration;	// in units of ? msec
-//	assign gapDuration  	= all_songs[song_index].gap;		   // in units of ? msec
 
 	assign tone        	= songs_mem[15:12];  
 	assign octave   		= {{1'b0},{songs_mem[11:10]}} + 3'd3; 

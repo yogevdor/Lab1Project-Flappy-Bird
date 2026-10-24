@@ -63,9 +63,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) bottom_rom_0_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(bottom_color_0)
+	 .inclock(clk),   .q(bottom_color_0)
 );
 
 logic	[7:0] mid_color_0;
@@ -82,9 +80,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) mid_rom_0_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(mid_color_0)
+	 .inclock(clk),   .q(mid_color_0)
 );
 
 logic	[7:0] top_color_0;
@@ -101,9 +97,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) top_rom_0_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(top_color_0)
+	 .inclock(clk),   .q(top_color_0)
 );
 
 
@@ -126,9 +120,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) bottom_rom_1_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(bottom_color_1)
+	 .inclock(clk),   .q(bottom_color_1)
 );
 
 logic	[7:0] mid_color_1;
@@ -145,9 +137,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) mid_rom_1_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(mid_color_1)
+	 .inclock(clk),   .q(mid_color_1)
 );
 
 logic	[7:0] top_color_1;
@@ -164,9 +154,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) top_rom_1_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(top_color_1)
+	 .inclock(clk),   .q(top_color_1)
 );
 
 
@@ -188,9 +176,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) bottom_rom_2_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(bottom_color_2)
+	 .inclock(clk),   .q(bottom_color_2)
 );
 
 logic	[7:0] mid_color_2;
@@ -207,9 +193,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) mid_rom_2_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(mid_color_2)
+	 .inclock(clk),   .q(mid_color_2)
 );
 
 logic	[7:0] top_color_2;
@@ -226,9 +210,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) top_rom_2_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(top_color_2)
+	 .inclock(clk),   .q(top_color_2)
 );
 
 
@@ -250,9 +232,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) bottom_rom_3_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(bottom_color_3)
+	 .inclock(clk),   .q(bottom_color_3)
 );
 
 logic	[7:0] mid_color_3;
@@ -269,9 +249,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) mid_rom_3_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(mid_color_3)
+	 .inclock(clk),   .q(mid_color_3)
 );
 
 logic	[7:0] top_color_3;
@@ -288,9 +266,7 @@ lpm_rom #(
 	   .INTENDED_DEVICE_FAMILY ("Cyclone V")  
 ) top_rom_3_inst (
    .address(rom_address),
-	 .inclock(clk),
-	// .outclock(clk),
-   .q(top_color_3)
+	 .inclock(clk),   .q(top_color_3)
 );
 
 

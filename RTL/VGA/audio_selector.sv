@@ -8,7 +8,6 @@ module	audio_selector	(
 					input logic pause,
 					input logic objectsResetN,
 					input logic game_on,
-//					input logic darkModeOn,
  
 				   output logic	[3:0] melodySelect
 );
