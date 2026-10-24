@@ -167,54 +167,6 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect 6264 4544 6440 4560)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "redLight" (rect 90 0 128 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-)
-(pin
-	(output)
-	(rect 6264 4560 6440 4576)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "yellowLight" (rect 90 0 144 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-)
-(pin
-	(output)
-	(rect 6264 4576 6440 4592)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "greenLight" (rect 90 0 140 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-)
-(pin
-	(output)
 	(rect 4216 3984 4392 4000)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "HEX0[6..0]" (rect 90 0 143 12)(font "Arial" ))
@@ -388,32 +340,6 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 192 128))
 	)
-)
-(symbol
-	(rect 6216 4408 6376 4488)
-	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
-	(text "inst17" (rect 8 64 36 81)(font "Intel Clear" ))
-	(port
-		(pt 160 32)
-		(output)
-		(text "value[size-1..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "value[size-1..0]" (rect 76 27 151 39)(font "Arial" ))
-		(line (pt 160 32)(pt 144 32)(line_width 3))
-	)
-	(parameter
-		"size"
-		"1"
-		""
-		(type "PARAMETER_UNSIGNED_DEC")	)
-	(parameter
-		"MyValue"
-		"0"
-		""
-		(type "PARAMETER_UNSIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 144 64))
-	)
-	(annotation_block (parameter)(rect 6224 4336 6406 4393))
 )
 (symbol
 	(rect 5040 2448 5200 2592)
@@ -3895,42 +3821,6 @@ agreement for further details.
 	(pt 3528 3848)
 )
 (connector
-	(pt 6232 4552)
-	(pt 6264 4552)
-)
-(connector
-	(pt 6232 4568)
-	(pt 6264 4568)
-)
-(connector
-	(pt 6264 4584)
-	(pt 6232 4584)
-)
-(connector
-	(pt 6408 4504)
-	(pt 6232 4504)
-)
-(connector
-	(pt 6408 4504)
-	(pt 6408 4440)
-)
-(connector
-	(pt 6376 4440)
-	(pt 6408 4440)
-)
-(connector
-	(pt 6232 4504)
-	(pt 6232 4552)
-)
-(connector
-	(pt 6232 4552)
-	(pt 6232 4568)
-)
-(connector
-	(pt 6232 4568)
-	(pt 6232 4584)
-)
-(connector
 	(text "clk" (rect 6736 3648 6750 3665)(font "Intel Clear" ))
 	(pt 6688 3664)
 	(pt 6808 3664)
@@ -4747,8 +4637,6 @@ agreement for further details.
 	(pt 3888 3840)
 	(bus)
 )
-(junction (pt 6232 4552))
-(junction (pt 6232 4568))
 (text "\"Enter\"  is toggleX" (rect 6240 3296 6365 3316)(font "Intel Clear" (font_size 10)))
 (text "KEY \"8\"  is Y_direction" (rect 6240 3264 6393 3284)(font "Intel Clear" (font_size 10)))
 (text "KEY \"8\"  is Y_direction" (rect 5440 2760 5593 2780)(font "Intel Clear" (font_size 10)))
