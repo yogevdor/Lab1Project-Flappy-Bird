@@ -1,9 +1,3 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
-
-
-
 module	fish_bit_map	(	
 					input	logic	clk,
 					input	logic	resetN,
@@ -18,15 +12,12 @@ module	fish_bit_map	(
 					output logic [7:0] RGBout  //rgb value from the bitmap 
  ) ;
 
-// this is the devider used to access the right pixel 
-localparam  int OBJECT_NUMBER_OF_X_BITS = 5;  // 2^5 = 32 
-localparam  logic	[10:0] OBJECT_WIDTH_X = 11'b1 <<  OBJECT_NUMBER_OF_X_BITS;
-
-logic	[10:0] address;
-assign address = (offsetY * OBJECT_WIDTH_X + offsetX);
+// 32x32 sprite: 5 bits of row and 5 bits of column give the 10 bit ROM address
+logic	[9:0] address;
+assign address = {offsetY[4:0], offsetX[4:0]};
 
 logic	[7:0] color;
-localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap representing a transparent pixel 
+localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;
 
 logic [7:0] default_fish_color;
 lpm_rom #(
@@ -213,7 +204,17 @@ always_comb begin
 end
 
  
-// pipeline (ff) to get the pixel color from the array 	 
+
+logic InsideRectangle_D;
+
+always_ff @(posedge clk or negedge resetN) begin
+	if (!resetN)
+		InsideRectangle_D <= 1'b0;
+	else
+		InsideRectangle_D <= InsideRectangle;
+end
+
+// output register: the ROM color inside the bracket, transparent outside it
 
 //--------------------------------------------------------------------------------------------------------------=
 
@@ -224,9 +225,9 @@ begin
 	end
 
 	else begin
-		RGBout <= TRANSPARENT_ENCODING ; // default  
-		
-		if (InsideRectangle == 1'b1 ) begin // inside an external bracket 
+		RGBout <= TRANSPARENT_ENCODING ; // default
+
+		if (InsideRectangle_D == 1'b1 ) begin // inside an external bracket
 			RGBout <= color;		
 		end  	
 
