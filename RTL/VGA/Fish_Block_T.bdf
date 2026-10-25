@@ -150,7 +150,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 224 512 400 528)
+	(rect 216 512 392 528)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
 	(text "Y_direction_key" (rect 5 0 81 17)(font "Intel Clear" ))
 	(pt 176 8)
@@ -230,7 +230,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect 1624 384 1800 400)
+	(rect 1632 384 1808 400)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "fishRGB[7..0]" (rect 90 0 151 17)(font "Intel Clear" ))
 	(pt 0 8)
@@ -372,7 +372,7 @@ agreement for further details.
 )
 (symbol
 	(rect 1280 344 1512 520)
-	(text "fish_bit_map" (rect 5 0 56 12)(font "Arial" ))
+	(text "fish_bit_map" (rect 5 0 68 12)(font "Arial" ))
 	(text "inst1" (rect 8 160 31 172)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -450,7 +450,7 @@ agreement for further details.
 )
 (symbol
 	(rect 552 440 776 584)
-	(text "fish_move" (rect 5 0 60 12)(font "Arial" ))
+	(text "fish_move" (rect 5 0 58 12)(font "Arial" ))
 	(text "inst" (rect 8 128 25 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -498,14 +498,14 @@ agreement for further details.
 		(pt 224 32)
 		(output)
 		(text "topLeftX[10..0]" (rect 0 0 73 12)(font "Arial" ))
-		(text "topLeftX[10..0]" (rect 142 27 203 39)(font "Arial" ))
+		(text "topLeftX[10..0]" (rect 142 27 215 39)(font "Arial" ))
 		(line (pt 224 32)(pt 208 32)(line_width 3))
 	)
 	(port
 		(pt 224 48)
 		(output)
 		(text "topLeftY[10..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "topLeftY[10..0]" (rect 140 43 203 55)(font "Arial" ))
+		(text "topLeftY[10..0]" (rect 140 43 215 55)(font "Arial" ))
 		(line (pt 224 48)(pt 208 48)(line_width 3))
 	)
 	(parameter
@@ -549,18 +549,6 @@ agreement for further details.
 	(pt 936 424)
 )
 (connector
-	(text "pixelX[10..0]" (rect 874 424 934 436)(font "Arial" ))
-	(pt 840 440)
-	(pt 936 440)
-	(bus)
-)
-(connector
-	(text "pixelY[10..0]" (rect 874 440 936 452)(font "Arial" ))
-	(pt 840 456)
-	(pt 936 456)
-	(bus)
-)
-(connector
 	(text "pixelY[10..0]" (rect 402 392 461 409)(font "Intel Clear" ))
 	(pt 392 408)
 	(pt 488 408)
@@ -571,16 +559,6 @@ agreement for further details.
 	(pt 392 360)
 	(pt 488 360)
 	(bus)
-)
-(connector
-	(text "clk" (rect 1232 360 1246 377)(font "Intel Clear" ))
-	(pt 1280 376)
-	(pt 1216 376)
-)
-(connector
-	(text "resetN" (rect 1232 376 1265 388)(font "Arial" ))
-	(pt 1280 392)
-	(pt 1216 392)
 )
 (connector
 	(pt 392 472)
@@ -596,20 +574,9 @@ agreement for further details.
 	(pt 552 504)
 )
 (connector
-	(text "Y_direction_key" (rect 461 504 537 521)(font "Intel Clear" ))
-	(pt 400 520)
-	(pt 552 520)
-)
-(connector
 	(text "fishDR" (rect 1522 360 1552 377)(font "Intel Clear" ))
 	(pt 1512 376)
 	(pt 1632 376)
-)
-(connector
-	(text "fishRGB[7..0]" (rect 1513 376 1574 393)(font "Intel Clear" ))
-	(pt 1512 392)
-	(pt 1624 392)
-	(bus)
 )
 (connector
 	(text "gameOn" (rect 481 520 522 537)(font "Intel Clear" ))
@@ -674,11 +641,6 @@ agreement for further details.
 	(pt 1280 488)
 )
 (connector
-	(text "Y_direction_key" (rect 1189 456 1265 473)(font "Intel Clear" ))
-	(pt 1176 472)
-	(pt 1280 472)
-)
-(connector
 	(pt 776 488)
 	(pt 792 488)
 	(bus)
@@ -699,6 +661,44 @@ agreement for further details.
 	(pt 792 472)
 	(pt 936 472)
 	(bus)
+)
+(connector
+	(text "Y_direction_key" (rect 1213 456 1289 473)(font "Intel Clear" ))
+	(pt 1192 472)
+	(pt 1280 472)
+)
+(connector
+	(text "resetN" (rect 1232 376 1265 388)(font "Arial" ))
+	(pt 1192 392)
+	(pt 1280 392)
+)
+(connector
+	(text "clk" (rect 1232 360 1246 377)(font "Intel Clear" ))
+	(pt 1192 376)
+	(pt 1280 376)
+)
+(connector
+	(text "pixelX[10..0]" (rect 874 424 934 436)(font "Arial" ))
+	(pt 856 440)
+	(pt 936 440)
+	(bus)
+)
+(connector
+	(text "pixelY[10..0]" (rect 874 440 936 452)(font "Arial" ))
+	(pt 856 456)
+	(pt 936 456)
+	(bus)
+)
+(connector
+	(text "fishRGB[7..0]" (rect 1521 376 1582 393)(font "Intel Clear" ))
+	(pt 1512 392)
+	(pt 1632 392)
+	(bus)
+)
+(connector
+	(text "Y_direction_key" (rect 469 504 545 521)(font "Intel Clear" ))
+	(pt 392 520)
+	(pt 552 520)
 )
 (junction (pt 792 472))
 (junction (pt 792 488))
