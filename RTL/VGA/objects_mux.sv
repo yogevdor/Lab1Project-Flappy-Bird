@@ -21,7 +21,7 @@ module	objects_mux	(
 			
 		  // score display
 					input logic scoreDrawingRequest,
-					input logic [7:0] SQR_RGB,
+					input logic [7:0] Score_RGB,
 			  		  
 		  // background and screens (start, gameOver, pause)
 					input logic startScreenDrawingRequest,
@@ -86,7 +86,7 @@ begin
 			RGBOut <= startScreenRGB;  //first priority
 
 		else if (scoreDrawingRequest == 1'b1 )   // score above the game over screen, so it shows in its panel
-			RGBOut <= SQR_RGB;
+			RGBOut <= Score_RGB;
 
 		else if (gameOverScreenDrawingRequest == 1'b1)
 			RGBOut <= gameOverScreenRGB;

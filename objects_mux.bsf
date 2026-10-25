@@ -104,8 +104,8 @@ agreement for further details.
 	(port
 		(pt 0 208)
 		(input)
-		(text "SQR_RGB[7..0]" (rect 0 0 68 12)(font "Arial" ))
-		(text "SQR_RGB[7..0]" (rect 21 203 89 215)(font "Arial" ))
+		(text "Score_RGB[7..0]" (rect 0 0 70 12)(font "Arial" ))
+		(text "Score_RGB[7..0]" (rect 21 203 91 215)(font "Arial" ))
 		(line (pt 0 208)(pt 16 208)(line_width 3))
 	)
 	(port

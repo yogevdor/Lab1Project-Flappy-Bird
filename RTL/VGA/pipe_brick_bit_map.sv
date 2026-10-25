@@ -1,9 +1,3 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
-
-
-
 module	pipe_brick_bit_map	(	
 					input		logic	clk,
 					input		logic	resetN,
