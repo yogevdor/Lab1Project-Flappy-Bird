@@ -343,13 +343,6 @@ agreement for further details.
 		(text "drawingRequest" (rect 138 59 215 71)(font "Arial" ))
 		(line (pt 224 64)(pt 208 64))
 	)
-	(port
-		(pt 224 80)
-		(output)
-		(text "RGBout[7..0]" (rect 0 0 64 12)(font "Arial" ))
-		(text "RGBout[7..0]" (rect 149 75 213 87)(font "Arial" ))
-		(line (pt 224 80)(pt 208 80)(line_width 3))
-	)
 	(parameter
 		"OBJECT_WIDTH_X"
 		"32"
@@ -360,11 +353,6 @@ agreement for further details.
 		"32"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"OBJECT_COLOR"
-		"00"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing
 		(rectangle (rect 16 16 208 128))
 	)
