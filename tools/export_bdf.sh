@@ -8,7 +8,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 MAIN="$(cd "${1:-$HERE/../Project}" && pwd)"
 QMAP="${QUARTUS_MAP:-/c/intelFPGA_lite/17.0/quartus/bin64/quartus_map.exe}"
-for c in "${PYTHON:-}" /c/Users/dordo/AppData/Local/Programs/Python/Python313/python.exe python3 python; do if [ -n "$c" ] && [ "$("$c" -c "print(1)" 2>/dev/null)" = 1 ]; then PY="$c"; break; fi; done
+for c in "${PYTHON:-}" python3 python py; do if [ -n "$c" ] && [ "$("$c" -c "print(1)" 2>/dev/null)" = 1 ]; then PY="$c"; break; fi; done
 
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
