@@ -21,16 +21,19 @@ rm -rf "$B/rom"
 "$PYTHON" "$HERE/tools/convert_mif.py" "$SRC" "$B/rom"
 
 # 2. RTL -> C++
-mapfile -t SV < <(find "$SRC/RTL" \( -name '*.sv' -o -name '*.SV' \) | sort)
+mapfile -t SV < <(find "$SRC/RTL" -iname '*.sv' | sort)
 
 # FAST_VGA (default 1): simulate with shortened VGA blanking (analog-monitor timing the browser does not need).
 # Same 640x480 picture and same per-frame game logic, ~1.38x fewer clocks per frame. Works on a patched COPY;
 # main is untouched. FAST_VGA=0 builds the original timing.
 if [ "${FAST_VGA:-1}" = 1 ]; then
   mkdir -p "$B/patched"
-  "$PYTHON" "$HERE/tools/patch_vga_controller.py" "$SRC/RTL/VGA/vga_controller.sv" "$B/patched/vga_controller.sv"
+  # git may track the file as RTL/VGA/VGA_Controller.sv (Windows ignores case, Linux does not): look it up by -iname
+  VGA_SRC="$(find "$SRC/RTL" -iname vga_controller.sv | head -1)"
+  [ -n "$VGA_SRC" ] || { echo "build.sh: vga_controller.sv not found under $SRC/RTL" >&2; exit 1; }
+  "$PYTHON" "$HERE/tools/patch_vga_controller.py" "$VGA_SRC" "$B/patched/vga_controller.sv"
   SV_ALL=("${SV[@]}"); SV=()
-  for f in "${SV_ALL[@]}"; do [ "$(basename "$f")" = vga_controller.sv ] || SV+=("$f"); done
+  for f in "${SV_ALL[@]}"; do [ "$f" = "$VGA_SRC" ] || SV+=("$f"); done
   SV+=("$B/patched/vga_controller.sv")
 fi
 rm -rf "$B/obj"
