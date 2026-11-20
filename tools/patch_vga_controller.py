@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Write a copy of vga_controller.sv adapted for running in a browser. main is never modified.
 
-Three changes, all only in the video timing block (no game logic anywhere is touched):
+Four changes, all only in the video timing block (no game logic anywhere is touched):
 
 1. Shortened blanking. The porch / sync / back-porch lengths exist for analog monitors; cutting them leaves the
    640x480 picture and the per-frame game logic unchanged but needs ~322k instead of ~433k clocks per frame.
@@ -16,15 +16,21 @@ Three changes, all only in the video timing block (no game logic anywhere is tou
    work per frame roughly by stepY at the price of vertical resolution; used only on machines too slow for full
    resolution. (Skipping columns was tried and rejected: the scrolling dithered background flickers.)
 
+4. Row window. `rowLo` / `rowHi` (written by the harness, normally 0..479) restrict the visible rows that are
+   clocked at all; rows outside the window are jumped over. A "logic" simulator uses this to run the game (which
+   only needs the rows where the fish can touch a pipe, for collision detection) without drawing the whole frame.
+
 usage: patch_vga_controller.py <in vga_controller.sv> <out vga_controller.sv>
 """
 import re
 import sys
 from pathlib import Path
 
+# V_BACK is taller than the minimum so that the extra game ticks and a complete PS/2 key event (~2300 clocks) fit
+# between the start-of-frame pulse and the first visible row (the render farm snapshots the chip there).
 # H_BACK must leave the row counter and the drawing pipeline (registered ROM addresses etc.) time to settle
 # before the first visible pixel; 2 clocks was too few (first column of some rows was drawn from the previous row).
-BLANKING = {"H_FRONT": 2, "H_SYNC": 2, "H_BACK": 16, "V_FRONT": 2, "V_SYNC": 2, "V_BACK": 2}
+BLANKING = {"H_FRONT": 2, "H_SYNC": 2, "H_BACK": 16, "V_FRONT": 2, "V_SYNC": 2, "V_BACK": 8}
 
 TICKS = """\
 // ---- web-demo: extra game ticks -----------------------------------------------------------------
@@ -84,6 +90,12 @@ if n != 1:
 # 3. row skipping knob + counter
 DECL = """// ---- web-demo: optional row skipping (set by the simulator, normally 1) --------------------------
 logic [2:0] stepY /*verilator public_flat_rw*/ = 3'd1;
+logic [10:0] rowLo /*verilator public_flat_rw*/ = 11'd0;
+logic [10:0] rowHi /*verilator public_flat_rw*/ = 11'd479;
+logic [10:0] vNext0, vNextSel;
+assign vNext0   = V_Cont + ((V_Cont >= V_BLANK && stepY > 3'd1) ? {8'd0, stepY} : 11'd1);
+assign vNextSel = (vNext0 >= V_BLANK && vNext0 < V_TOTAL && (vNext0 - V_BLANK) < rowLo) ? (V_BLANK + rowLo) :
+                  (vNext0 >= V_BLANK && vNext0 < V_TOTAL && (vNext0 - V_BLANK) > rowHi) ? V_TOTAL : vNext0;
 """
 pat = re.compile(r"(logic\s+timer_done\s*;[^\n]*\n)")
 src, n = pat.subn(lambda m: m.group(1) + DECL, src)
@@ -91,10 +103,10 @@ if n != 1:
     sys.exit(f"patch_vga_controller: expected exactly one 'timer_done' declaration, found {n}")
 
 pat = re.compile(r"V_Cont\s*<=\s*V_Cont\s*\+\s*1'b1\s*;")
-src, n = pat.subn("V_Cont <= V_Cont + ((V_Cont >= V_BLANK && stepY > 3'd1) ? {8'd0, stepY} : 11'd1);", src)
+src, n = pat.subn("V_Cont <= vNextSel;", src)
 if n != 1:
     sys.exit(f"patch_vga_controller: expected exactly one V_Cont increment, found {n}")
 
-header = "// NOTE: adapted for the browser build by web-demo/tools/patch_vga_controller.py (shortened blanking, extra ticks, optional row skipping)\n"
+header = "// NOTE: adapted for the browser build by web-demo/tools/patch_vga_controller.py (shortened blanking, extra ticks, optional row skipping, row window)\n"
 Path(sys.argv[2]).write_text(header + src)
-print("vga_controller.sv: blanking shortened + extra-tick generator + row-skip knob added")
+print("vga_controller.sv: blanking shortened + extra-tick generator + row-skip knob + row window added")

@@ -4,7 +4,7 @@ This branch (`web-demo`) does **not** change the game. It contains only what is 
 SystemVerilog design from `main` inside a web page:
 
 ```
-SystemVerilog RTL (main)  ──Verilator──►  C++ model  ──Emscripten──►  game.wasm  +  index.html
+SystemVerilog RTL (main)  ──Verilator──►  C++ model  ──Emscripten──►  game.wasm  +  index.html + farm.js
 ```
 
 The DE10 board is replaced by a small C++ harness (`sim/main.cpp`): it toggles the clock, turns the
@@ -14,11 +14,19 @@ The DE10 board is replaced by a small C++ harness (`sim/main.cpp`): it toggles t
 |---|---|
 | `hdl/generated/` | Verilog exported from the `.bdf` schematics with Quartus (`tools/export_bdf.sh`). Committed so CI needs no Quartus. |
 | `hdl/stubs/` | Simulation stand-ins for things Quartus provides: `CLK_31P5` (PLL), `KBDINTF` (PS/2, precompiled `.qxp`), `audio_codec_controller` (`.QXP`), `lpm_rom` (ROMs). |
-| `tools/convert_mif.py` | `.mif` -> hex word lists (so `$readmemh` can load the sprites). |
-| `sim/main.cpp` | Verilator harness / "the board". |
-| `web/index.html` | The page. |
+| `hdl/optional/`, `hdl/verilator.vlt` | Empty audio block (`NOAUDIO`), and a Verilator config that exposes the fish position to the simulator. |
+| `tools/` | `convert_mif.py`, `fix_params.py`, `prune_defparams.py`, `patch_vga_controller.py`, `slim_snapshot.py` (see below), `export_bdf.sh`, `install_verilator_pip.sh`. |
+| `sim/main.cpp` | Verilator harness / "the board" (single simulator and the render-farm API). |
+| `web/index.html`, `web/farm.js` | The page, and the Web Worker of the render farm. |
 | `build.sh` | `./build.sh native` (test, writes PPM frames) or `./build.sh web` (WebAssembly into `site/`). |
 | `.github/workflows/pages.yml` | Builds from `main` + this branch and publishes to GitHub Pages. |
+
+Pinned tools: **Verilator 5.48.0** (`tools/install_verilator_pip.sh`; `slim_snapshot.py` depends on the layout of the code
+it generates) and **Emscripten 3.1.64**. To build locally:
+
+```
+VERILATOR="$(tools/install_verilator_pip.sh /tmp/vl)" ./build.sh web ../Project    # ../Project = checkout of main
+```
 
 ## Publishing
 
@@ -43,19 +51,25 @@ The whole chip is simulated clock by clock, which is far more work than the FPGA
 game playable:
 
 - **Game speed is always 100%.** The game advances one step per "start of frame" pulse (the board draws 72.8
-  frames/s: 31.5 MHz / (832 x 520)). The page runs a fixed-timestep loop: before each displayed frame it asks the VGA
-  block for as many extra pulses as real time requires, so the fish and pipes move at the board's speed on any machine.
-  A machine that draws 30 frames/s simply shows bigger steps per frame (like any 30 fps game), not slow motion.
-- **Frame rate adapts to the machine, picture quality first.** The cost of a frame is proportional to the number of
-  lines clocked through the VGA block. The page uses full resolution whenever the machine reaches 45 frames/s with
-  it; otherwise it tells the block to simulate only every 2nd line and repeats it. Skipping more lines (x2.7 / x3.5
-  faster, `?res=3` / `?res=4`) breaks thin details such as the sardines, so it is never chosen automatically; columns
-  are never skipped (the scrolling background is dithered and sampling every 2nd column makes it flicker). The
-  status line under the game shows which one is in use; `?res=full|2|3|4` in the URL forces one (for testing).
-  The rows that were not simulated are filled in by the page: with every 2nd row simulated they are the average of
-  the rows above and below (error against a full-resolution frame 10.4 instead of 14.4 when just repeating a row);
-  with every 3rd / 4th row the nearest simulated row is used, because averaging there only blurs. `?blend=0` repeats
-  the row above instead.
+  frames/s: 31.5 MHz / (832 x 520)). The page runs a fixed-timestep loop, so the fish and pipes move at the board's
+  speed on any machine; a slower machine only shows fewer pictures per second (like any 30 fps game), not slow motion.
+- **Render farm (default with >= 4 cores): full resolution at a high frame rate.** Drawing a frame is by far the
+  expensive part (~307k clocks), while the game itself only advances once per frame. So:
+  - one *logic* worker runs the chip in real time. It is clocked through the whole frame but only draws the rows
+    around the fish (collision detection needs nothing else), and once per frame it saves the chip state
+    (`verilator --savable`; the constant ROM contents are left out, see `tools/slim_snapshot.py`, so a snapshot is a few KB);
+  - several *render* workers each restore such a snapshot into their own copy of the chip and draw that one frame
+    completely, in parallel; the page shows the newest finished frame. When every renderer is busy a picture is
+    skipped, the game does not slow down.
+  Checked natively: the frames drawn by the farm are identical, bit for bit, to the frames of a single simulator that
+  draws everything (379/380 frames of a game with key presses and game over; the one difference is the very first
+  frame of the reference run, which starts in the middle of a frame). The picture lags the keys by about one more frame.
+  `?workers=N` sets the number of render workers (default cores - 2, at most 5), `?farm=0` uses the single simulator.
+- **Single simulator (fallback with < 4 cores, or `?farm=0`).** One chip draws every frame itself. Picture quality comes
+  first: full resolution whenever the machine reaches 45 frames/s with it, otherwise the VGA block simulates only every
+  2nd line and the page fills the others (average of the neighbours; `?blend=0` repeats the row above). Skipping more
+  lines (`?res=3|4`) breaks thin details such as the sardines, so it is never chosen automatically; columns are never
+  skipped (the scrolling background is dithered and sampling every 2nd column makes it flicker).
 
 ## Differences from main (everything else is the RTL as it is)
 
@@ -64,10 +78,12 @@ timing block or in blocks the browser cannot use:
 
 1. **A copy of `vga_controller.sv` is adapted** (`FAST_VGA`, default on; `tools/patch_vga_controller.py`). This is the
    only RTL change; no game logic is touched.
-   - *Shortened blanking*: porch/sync/back-porch lengths cut (e.g. 192 -> 20 clocks per line); they exist for analog
+   - *Shortened blanking*: porch/sync/back-porch lengths cut (e.g. 192 -> 20 clocks per line; the vertical back porch is 8 lines so the ticks and a key event fit before the first visible row); they exist for analog
      monitors only. ~1.3x fewer clocks per frame.
    - *Extra start-of-frame pulses* (`extraTicks`, written by the simulator): up to 7 more pulses 64 clocks apart,
      right after the real one and long before the first visible line.
+   - *Row window* (`rowLo` / `rowHi`, written by the simulator): visible rows outside the window are jumped over. Used by
+     the logic worker of the render farm.
    - *Row skipping* (`stepY`, written by the simulator): the line counter advances by 1..4 inside the visible area.
      The harness repeats the sampled rows.
 2. **No audio chain** (`NOAUDIO`, default on; `hdl/optional/audio_off.v`). The browser build has no sound, so the

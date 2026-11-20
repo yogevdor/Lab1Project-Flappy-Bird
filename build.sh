@@ -41,8 +41,9 @@ if [ "${NOAUDIO:-1}" = 1 ]; then cp "$HERE/hdl/optional/audio_off.v" "$B/gen/aud
 
 "$VERILATOR" --cc --top-module TOP_FLAPPY_FISH -Mdir "$B/obj" \
   -Wno-fatal -Wno-lint -Wno-style -Wno-WIDTH -Wno-PINNOTFOUND -Wno-TIMESCALEMOD \
-  -O3 --x-assign fast --x-initial fast --noassert --no-timing ${VFLAGS:-} \
-  "$B"/gen/*.v "$HERE"/hdl/stubs/*.v "${SV[@]}"
+  -O3 --x-assign fast --x-initial fast --noassert --no-timing --savable ${VFLAGS:-} \
+  "$HERE"/hdl/verilator.vlt "$B"/gen/*.v "$HERE"/hdl/stubs/*.v "${SV[@]}"
+"$PYTHON" "$HERE/tools/slim_snapshot.py" "$B/obj"
 
 # Hierarchical prefix of the signals added to vga_controller by patch_vga_controller.py, as the simulator sees them
 MAINDEFS=()
@@ -51,7 +52,7 @@ if [ "${FAST_VGA:-1}" = 1 ]; then
   MAINDEFS+=("-DVGA_PREFIX=TOP_FLAPPY_FISH__DOT__${VGAINST}__DOT__")
 fi
 
-CPP=("$B"/obj/*.cpp "$VROOT/include/verilated.cpp" "$VROOT/include/verilated_threads.cpp")
+CPP=("$B"/obj/*.cpp "$VROOT/include/verilated.cpp" "$VROOT/include/verilated_threads.cpp" "$VROOT/include/verilated_save.cpp")
 INC=(-I"$B/obj" -I"$VROOT/include" -I"$VROOT/include/vltstd")
 
 if [ "$MODE" = "native" ]; then
@@ -63,9 +64,9 @@ else
   em++ -O3 -std=c++17 -include stdint.h -DVL_IGNORE_UNKNOWN_ARCH ${EMFLAGS:-} "${INC[@]}" "${CPP[@]}" "${MAINDEFS[@]}" "$HERE/sim/main.cpp" \
     --preload-file "$B/rom/RTL@/RTL" \
     -s ALLOW_MEMORY_GROWTH=1 -s MODULARIZE=1 -s EXPORT_NAME=FlappyFish \
-    -s EXPORTED_FUNCTIONS=_sim_init,_sim_frame,_sim_framebuffer,_sim_set_switches,_sim_set_extra_ticks,_sim_has_ticks,_sim_set_vstep,_sim_set_blend,_sim_key,_sim_hex,_sim_cycles \
-    -s EXPORTED_RUNTIME_METHODS=HEAPU8,HEAPU32,ccall \
+    -s EXPORTED_FUNCTIONS=_sim_init,_sim_frame,_sim_framebuffer,_sim_set_switches,_sim_set_extra_ticks,_sim_has_ticks,_sim_set_vstep,_sim_set_blend,_sim_sync,_sim_logic_begin,_sim_snapshot,_sim_logic_end,_sim_restore,_sim_render_end,_sim_key,_sim_hex,_sim_cycles \
+    -s EXPORTED_RUNTIME_METHODS=HEAPU8,HEAPU32,ccall,FS -s FORCE_FILESYSTEM=1 \
     -o "$HERE/site/game.js"
-  cp "$HERE/web/index.html" "$HERE/site/index.html"
+  cp "$HERE/web/index.html" "$HERE/web/farm.js" "$HERE/site/"
   echo "built $HERE/site/"
 fi

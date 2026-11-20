@@ -49,10 +49,13 @@
   const ctx = canvas.getContext('2d');
   const img = ctx.createImageData(640, 480);
   const hexEl = document.getElementById('hex');
+  const params = new URLSearchParams(location.search);
+  const debug = params.has('debug');
+  const TICK_HZ = 31.5e6 / (832 * 520);   // = the board's frame rate (72.8 Hz): the game advances once per frame
 
-  const M = await FlappyFish();
-  M._sim_init();
-  const fbWords = M._sim_framebuffer() >> 2;
+  // active-low 7-segment patterns -> digit
+  const SEG = {0x40:'0',0x79:'1',0x24:'2',0x30:'3',0x19:'4',0x12:'5',0x02:'6',0x78:'7',0x00:'8',0x10:'9',0x7F:' '};
+  const showHex = (h) => { hexEl.textContent = [5,4,3,2,1,0].map(i => SEG[h[i]] ?? '?').join('').replace(/ /g, '\u00a0'); };
 
   // PS/2 scan codes (bit 8 = E0 extended)
   const KEYMAP = {
@@ -60,108 +63,219 @@
     KeyP: 0x70, Digit0: 0x70, Numpad0: 0x70,
     KeyG: 0x77, NumLock: 0x77,
   };
+  let sendKey = () => {}, sendSwitches = () => {};
   const held = new Set();
   function key(code, down) {
     const sc = KEYMAP[code];
     if (sc === undefined) return false;
     if (down === held.has(code)) return true;       // ignore auto-repeat
     down ? held.add(code) : held.delete(code);
-    M._sim_key(sc, down ? 1 : 0);
+    sendKey(sc, down ? 1 : 0);
     return true;
   }
   addEventListener('keydown', e => { if (key(e.code, true)) e.preventDefault(); });
   addEventListener('keyup',   e => { if (key(e.code, false)) e.preventDefault(); });
   canvas.addEventListener('pointerdown', () => { key('Space', true); });
   addEventListener('pointerup', () => { key('Space', false); });
+  const swValue = () => (document.getElementById('sw0').checked ? 1 : 0) | (document.getElementById('sw1').checked ? 2 : 0);
+  document.getElementById('sw0').onchange = () => sendSwitches(swValue());
+  document.getElementById('sw1').onchange = () => sendSwitches(swValue());
 
-  const sw = () => M._sim_set_switches((document.getElementById('sw0').checked ? 1 : 0) |
-                                       (document.getElementById('sw1').checked ? 2 : 0));
-  document.getElementById('sw0').onchange = sw;
-  document.getElementById('sw1').onchange = sw;
+  // ================================================================================================
+  // Render farm: the game logic runs in one worker, full frames are drawn by several workers in parallel.
+  // ================================================================================================
+  function startFarm(K) {
+    const logic = new Worker('farm.js');
+    const idle = [];
+    let latest = null, drawn = null, lastId = 0;
+    let shown = 0, dropped = 0, ticksPerSec = 0, statT = performance.now(), ready = 0, received = 0, rafs = 0;
+    let lastShownAt = 0, maxGap = 0, maxIdGap = 0, maxRenderMs = 0, lastShownId = 0, idGapSum = 0, gapsOver25 = 0;
 
-  // active-low 7-segment patterns -> digit
-  const SEG = {0x40:'0',0x79:'1',0x24:'2',0x30:'3',0x19:'4',0x12:'5',0x02:'6',0x78:'7',0x00:'8',0x10:'9',0x7F:' '};
-  // ---- game loop -------------------------------------------------------------------------------
-  // 1. Game speed. The game advances one step per "start of frame" pulse of the VGA block. The board draws
-  //    ~72.8 frames/s, this simulation draws fewer, so (like a fixed-timestep game loop) every displayed frame
-  //    is preceded by as many game ticks as real time requires. The game always runs at the board's speed.
-  // 2. Smoothness vs. sharpness. Simulating the chip is the expensive part, and its cost is proportional to the
-  //    number of lines clocked through the VGA block. Picture quality comes first: the page runs at full resolution
-  //    whenever that reaches TARGET_FPS. Only on a machine slower than that does it ask the VGA block to simulate
-  //    every 2nd line (the page repeats it). Skipping more lines (?res=3, ?res=4) breaks thin details such as the
-  //    sardines, so it is never chosen automatically, and columns are never skipped: the scrolling background is
-  //    dithered and sampling every 2nd column makes it flicker.
-  const TICK_HZ = 31.5e6 / (832 * 520);   // = the board's frame rate (72.8 Hz)
-  const MAX_TICKS = 8;                    // 1 real + 7 extra pulses per displayed frame
-  const TARGET_FPS = 45;
-  // relative simulation cost per frame (full resolution = 1); updated from measurements
-  const MODES = [
-    { sy: 1, cost: 1.00, label: 'full resolution' },
-    { sy: 2, cost: 0.50, label: 'half vertical resolution' },
-    { sy: 3, cost: 0.36, label: '1/3 vertical resolution' },
-    { sy: 4, cost: 0.28, label: '1/4 vertical resolution' },
-  ];
-  const AUTO_MODES = 2;                   // full and half vertical resolution
-  const forced = new URLSearchParams(location.search).get('res');   // ?res=full|2|3|4 (testing)
-  const hasTicks = M._sim_has_ticks() === 1;
+    logic.onmessage = (e) => {
+      const m = e.data;
+      if (m.type === 'snap') {
+        const w = idle.pop();
+        snapsThisSec++;
+        if (w) w.postMessage({ type: 'render', id: m.id, data: m.data }, [m.data]);
+        else { dropped++; skippedThisSec++; }              // every renderer is busy: this picture is skipped
+      } else if (m.type === 'stats') {
+        ticksPerSec = m.ticks / m.sec;
+      }
+    };
+    logic.postMessage({ type: 'init', role: 'logic' });
+    sendKey = (sc, down) => logic.postMessage({ type: 'key', sc, down });
+    sendSwitches = (v) => logic.postMessage({ type: 'sw', v });
 
-  let mode = 0, wantMode = 0, wantCount = 0;
-  if (forced) mode = wantMode = { full: 0, '2': 1, '3': 2, '4': 3 }[forced] ?? 0;
-  if (hasTicks) M._sim_set_vstep(MODES[mode].sy);
-  if (new URLSearchParams(location.search).get('blend') === '0') M._sim_set_blend(0);   // ?blend=0: repeat rows instead of interpolating
-
-  let acc = 1, prev = performance.now();
-  let shown = 0, ticksDone = 0, statT = prev, simMs = 0, simN = 0, warm = 0;
-
-  function chooseMode() {
-    if (forced || simN === 0) return;
-    const full = (simMs / simN) / MODES[mode].cost;               // estimated ms per frame at full resolution
-    const overhead = 1.5;                                          // drawing the canvas, etc. (ms)
-    let best = AUTO_MODES - 1;
-    for (let i = 0; i < AUTO_MODES; i++) {
-      if (1000 / (full * MODES[i].cost + overhead) >= TARGET_FPS) { best = i; break; }
+    for (let i = 0; i < K; i++) {
+      const w = new Worker('farm.js');
+      w.onmessage = (e) => {
+        const m = e.data;
+        if (m.type === 'ready') { idle.push(w); ready++; }
+        else if (m.type === 'frame') {
+          idle.push(w); received++;
+          m.worker = w;
+          if (m.id > lastId) { lastId = m.id; if (latest) recycle(latest); latest = m; }
+          else recycle(m);
+          if (m.ms > maxRenderMs) maxRenderMs = m.ms;
+        }
+      };
+      w.postMessage({ type: 'init', role: 'render' });
     }
-    // switch only after two agreeing measurements, and move up in quality only with some margin
-    if (best === mode) { wantCount = 0; return; }
-    if (best < mode && 1000 / (full * MODES[best].cost + overhead) < TARGET_FPS * 1.15) return;
-    wantCount = (best === wantMode) ? wantCount + 1 : 1;
-    wantMode = best;
-    if (wantCount >= 2) { mode = best; M._sim_set_vstep(MODES[mode].sy); wantCount = 0; }
+
+    const recycle = (fr) => fr.worker.postMessage({ type: 'recycle', fb: fr.fb }, [fr.fb]);
+
+    // Frame pacing. The logic worker emits one picture per `interval` ms and folds the game ticks that happened in
+    // between into it, so nothing is dropped at random. The interval follows the display refresh rate and is lengthened
+    // when the renderers cannot keep up (pictures skipped), shortened again when they can.
+    let refreshHz = 60, rafLast = 0, rafDeltas = [], targetFps = TICK_HZ, calmSeconds = 0;
+    const setPace = () => logic.postMessage({ type: 'pace', ms: 1000 / targetFps });
+    function updatePace(snaps, skipped) {
+      if (rafDeltas.length > 20) {
+        const s = rafDeltas.slice().sort((a, b) => a - b);
+        const med = s[s.length >> 1];
+        if (med > 3 && med < 40) refreshHz = 1000 / med;
+      }
+      rafDeltas = [];
+      const cap = Math.min(TICK_HZ, refreshHz * 1.02);
+      if (snaps > 0 && skipped > 0.03 * snaps) { targetFps = Math.max(24, targetFps * 0.9); calmSeconds = 0; }
+      else if (++calmSeconds >= 3) { targetFps = Math.min(cap, targetFps * 1.05); calmSeconds = 0; }
+      targetFps = Math.min(targetFps, cap);
+      setPace();
+    }
+    setPace();
+    let snapsThisSec = 0, skippedThisSec = 0;
+
+    let statT0 = performance.now();
+    function draw(now) {
+      rafs++;
+      if (rafLast) rafDeltas.push(now - rafLast);
+      rafLast = now;
+      if (latest) {
+        ctx.putImageData(new ImageData(new Uint8ClampedArray(latest.fb), 640, 480), 0, 0);
+        showHex(latest.hex);
+        if (lastShownAt) {
+          const gap = now - lastShownAt;
+          if (gap > maxGap) maxGap = gap;
+          if (gap > 25) gapsOver25++;
+          const idGap = latest.id - lastShownId;
+          if (idGap > maxIdGap) maxIdGap = idGap;
+        }
+        lastShownAt = now; lastShownId = latest.id;
+        drawn = latest; shown++;
+        recycle(latest); latest = null;
+      }
+      if (now - statT0 >= 1000) {
+        const sec = (now - statT0) / 1000;
+        status.textContent = (shown / sec).toFixed(0) + ' fps, game speed ' + Math.round(100 * ticksPerSec / TICK_HZ) +
+                             '%, full resolution (render farm: ' + ready + ' workers' + (dropped ? ', ' + dropped + ' skipped' : '') + ', paced ' + targetFps.toFixed(0) + '/s)';
+        if (debug) {                                   // ?debug: show frame pacing numbers (also in the tab title)
+          const diag = 'received ' + (received / sec).toFixed(0) + '/s, rAF ' + (rafs / sec).toFixed(0) + '/s, max gap ' + maxGap.toFixed(0) +
+            ' ms, gaps>25ms ' + gapsOver25 + ', max skipped ids ' + (maxIdGap - 1) + ', slowest render ' + maxRenderMs.toFixed(0) + ' ms';
+          status.textContent += ' | ' + diag;
+          document.title = status.textContent;
+        }
+        updatePace(snapsThisSec, skippedThisSec); snapsThisSec = 0; skippedThisSec = 0;
+        shown = 0; dropped = 0; received = 0; rafs = 0; statT0 = now; maxGap = 0; maxIdGap = 0; maxRenderMs = 0; gapsOver25 = 0;
+      }
+      requestAnimationFrame(draw);
+    }
+    status.textContent = 'starting ' + K + ' workers...';
+    requestAnimationFrame(draw);
   }
 
-  function loop(now) {
-    const dt = Math.min(Math.max(now - prev, 0), 100);   // ms; clamp after the tab slept
-    prev = now;
-    let n = 1;
-    if (hasTicks) {
-      acc += dt * TICK_HZ / 1000;
-      n = Math.min(Math.floor(acc), MAX_TICKS);
-      if (n < 1) { requestAnimationFrame(loop); return; }   // faster than the board: wait for the next tick
-      acc -= n;
-      if (acc > MAX_TICKS) acc = MAX_TICKS;                  // machine too slow to catch up, don't spiral
-      M._sim_set_extra_ticks(n - 1);
+  // ================================================================================================
+  // Single simulator (fallback for few cores / ?farm=0): one chip draws every frame itself.
+  //  1. Game speed: every displayed frame is preceded by as many game ticks as real time requires.
+  //  2. Smoothness vs. sharpness: full resolution whenever that reaches TARGET_FPS, otherwise the VGA block is
+  //     asked to simulate every 2nd line (the page repeats it).
+  // ================================================================================================
+  async function startSingle() {
+    const M = await FlappyFish();
+    M._sim_init();
+    const fbWords = M._sim_framebuffer() >> 2;
+    sendKey = (sc, down) => M._sim_key(sc, down);
+    sendSwitches = (v) => M._sim_set_switches(v);
+
+    const MAX_TICKS = 8;                    // 1 real + 7 extra pulses per displayed frame
+    const TARGET_FPS = 45;
+    // relative simulation cost per frame (full resolution = 1); updated from measurements
+    const MODES = [
+      { sy: 1, cost: 1.00, label: 'full resolution' },
+      { sy: 2, cost: 0.50, label: 'half vertical resolution' },
+      { sy: 3, cost: 0.36, label: '1/3 vertical resolution' },
+      { sy: 4, cost: 0.28, label: '1/4 vertical resolution' },
+    ];
+    const AUTO_MODES = 2;                   // full and half vertical resolution
+    const forced = params.get('res');       // ?res=full|2|3|4 (testing)
+    const hasTicks = M._sim_has_ticks() === 1;
+
+    let mode = 0, wantMode = 0, wantCount = 0;
+    if (forced) mode = wantMode = { full: 0, '2': 1, '3': 2, '4': 3 }[forced] ?? 0;
+    if (hasTicks) M._sim_set_vstep(MODES[mode].sy);
+    if (params.get('blend') === '0') M._sim_set_blend(0);   // ?blend=0: repeat rows instead of interpolating
+
+    let acc = 1, prev = performance.now();
+    let shown = 0, ticksDone = 0, statT = prev, simMs = 0, simN = 0, warm = 0;
+
+    function chooseMode() {
+      if (forced || simN === 0) return;
+      const full = (simMs / simN) / MODES[mode].cost;               // estimated ms per frame at full resolution
+      const overhead = 1.5;                                          // drawing the canvas, etc. (ms)
+      let best = AUTO_MODES - 1;
+      for (let i = 0; i < AUTO_MODES; i++) {
+        if (1000 / (full * MODES[i].cost + overhead) >= TARGET_FPS) { best = i; break; }
+      }
+      // switch only after two agreeing measurements, and move up in quality only with some margin
+      if (best === mode) { wantCount = 0; return; }
+      if (best < mode && 1000 / (full * MODES[best].cost + overhead) < TARGET_FPS * 1.15) return;
+      wantCount = (best === wantMode) ? wantCount + 1 : 1;
+      wantMode = best;
+      if (wantCount >= 2) { mode = best; M._sim_set_vstep(MODES[mode].sy); wantCount = 0; }
     }
-    const t0 = performance.now();
-    M._sim_frame();
-    if (++warm > 15) { simMs += performance.now() - t0; simN++; }   // ignore JIT warm-up
-    img.data.set(new Uint8Array(M.HEAPU32.buffer, fbWords * 4, 640 * 480 * 4));
-    ctx.putImageData(img, 0, 0);
-    let s = '';
-    for (let i = 5; i >= 0; i--) s += SEG[M._sim_hex(i)] ?? '?';
-    hexEl.textContent = s.replace(/ /g, '\u00a0');
-    shown++; ticksDone += n;
-    if (now - statT >= 1000) {
-      const sec = (now - statT) / 1000;
-      status.textContent = (shown / sec).toFixed(0) + ' fps, game speed ' + Math.round(100 * ticksDone / sec / TICK_HZ) +
-                           '%' + (hasTicks ? ', ' + MODES[mode].label : '');
-      if (location.search.includes('debug')) document.title = status.textContent;   // for automated measurements
-      chooseMode();
-      shown = 0; ticksDone = 0; statT = now; simMs = 0; simN = 0;
+
+    function loop(now) {
+      const dt = Math.min(Math.max(now - prev, 0), 100);   // ms; clamp after the tab slept
+      prev = now;
+      let n = 1;
+      if (hasTicks) {
+        acc += dt * TICK_HZ / 1000;
+        n = Math.min(Math.floor(acc), MAX_TICKS);
+        if (n < 1) { requestAnimationFrame(loop); return; }   // faster than the board: wait for the next tick
+        acc -= n;
+        if (acc > MAX_TICKS) acc = MAX_TICKS;                  // machine too slow to catch up, don't spiral
+        M._sim_set_extra_ticks(n - 1);
+      }
+      const t0 = performance.now();
+      M._sim_frame();
+      if (++warm > 15) { simMs += performance.now() - t0; simN++; }   // ignore JIT warm-up
+      img.data.set(new Uint8Array(M.HEAPU32.buffer, fbWords * 4, 640 * 480 * 4));
+      ctx.putImageData(img, 0, 0);
+      showHex([0, 1, 2, 3, 4, 5].map(i => M._sim_hex(i)));
+      shown++; ticksDone += n;
+      if (now - statT >= 1000) {
+        const sec = (now - statT) / 1000;
+        status.textContent = (shown / sec).toFixed(0) + ' fps, game speed ' + Math.round(100 * ticksDone / sec / TICK_HZ) +
+                             '%' + (hasTicks ? ', ' + MODES[mode].label : '');
+        if (debug) document.title = status.textContent;   // for automated measurements
+        chooseMode();
+        shown = 0; ticksDone = 0; statT = now; simMs = 0; simN = 0;
+      }
+      requestAnimationFrame(loop);
     }
+    status.textContent = 'running';
     requestAnimationFrame(loop);
   }
-  status.textContent = 'running';
-  requestAnimationFrame(loop);
+
+  // ---- choose -------------------------------------------------------------------------------------
+  const cores = navigator.hardwareConcurrency || 2;
+  const farmParam = params.get('farm');               // ?farm=0 forces the single simulator, ?farm=1 the farm
+  const useFarm = typeof Worker !== 'undefined' && (farmParam === '1' || (farmParam !== '0' && cores >= 4));
+  if (useFarm) {
+    const K = parseInt(params.get('workers') || '', 10) || Math.min(Math.max(cores - 2, 2), 5);
+    startFarm(K);
+  } else {
+    await startSingle();
+  }
 })();
 </script>
 </body>

@@ -27,12 +27,13 @@ jobs:
           ref: main
           path: main-src
 
-      - name: Install Verilator
+      # Pinned versions: build.sh post-processes the C++ that Verilator generates (tools/slim_snapshot.py).
+      - name: Install Verilator 5.48.0
         run: |
-          sudo apt-get update
-          sudo apt-get install -y verilator
+          chmod +x build.sh tools/*.sh
+          echo "VERILATOR=$(tools/install_verilator_pip.sh "$RUNNER_TEMP/verilator")" >> "$GITHUB_ENV"
 
-      - name: Setup Emscripten
+      - name: Setup Emscripten 3.1.64
         uses: mymindstorm/setup-emsdk@v14
         with:
           version: 3.1.64
