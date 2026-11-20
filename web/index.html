@@ -108,6 +108,7 @@
   let mode = 0, wantMode = 0, wantCount = 0;
   if (forced) mode = wantMode = { full: 0, '2': 1, '3': 2, '4': 3 }[forced] ?? 0;
   if (hasTicks) M._sim_set_vstep(MODES[mode].sy);
+  if (new URLSearchParams(location.search).get('blend') === '0') M._sim_set_blend(0);   // ?blend=0: repeat rows instead of interpolating
 
   let acc = 1, prev = performance.now();
   let shown = 0, ticksDone = 0, statT = prev, simMs = 0, simN = 0, warm = 0;

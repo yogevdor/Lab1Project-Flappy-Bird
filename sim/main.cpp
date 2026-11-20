@@ -107,8 +107,6 @@ static void tick() {
     if (hs_prev && !hs) {                            // falling edge of HSYNC: next line
         px = 0;
         if (line_has_pixels) {
-            for (int k = 1; k < step_y && py + k < H && py < H; k++)    // repeat the sampled row
-                memcpy(&fb[(py + k) * W], &fb[py * W], W * sizeof(uint32_t));
             py += step_y;
         }
         line_has_pixels = false;
@@ -119,6 +117,31 @@ static void tick() {
     }
     hs_prev = hs;
     vs_prev = vs;
+}
+
+// With row skipping only every step_y-th row was simulated. Fill the rows in between. Measured against full-resolution
+// frames, linear interpolation between the sampled rows above and below is best when every 2nd row is simulated; when
+// only every 3rd or 4th is, interpolating just blurs, and the nearest sampled row is both sharper and closer.
+// blend_on = 0 repeats the row above instead (original behaviour).
+static int blend_on = 1;
+static void fill_skipped_rows() {
+    const int s = step_y;
+    if (s <= 1) return;
+    for (int y0 = 0; y0 < H; y0 += s) {
+        const uint32_t *a = &fb[y0 * W];
+        const int y1 = y0 + s;
+        const uint32_t *b = (blend_on && y1 < H) ? &fb[y1 * W] : nullptr;
+        for (int k = 1; k < s && y0 + k < H; k++) {
+            uint32_t *dst = &fb[(y0 + k) * W];
+            if (!b) { memcpy(dst, a, W * sizeof(uint32_t)); continue; }
+            if (s > 2) { memcpy(dst, (2 * k < s) ? a : b, W * sizeof(uint32_t)); continue; }   // nearest sampled row
+            for (int x = 0; x < W; x++) {                                                     // s == 2: average
+                const uint32_t pa = a[x], pb = b[x];
+                const uint32_t avg = (((pa ^ pb) & 0xFEFEFEFEu) >> 1) + (pa & pb);   // per-byte floor average
+                dst[x] = 0xFF000000u | (avg & 0x00FFFFFFu);
+            }
+        }
+    }
 }
 
 // ---- API used by the web page / test main -----------------------------------------------------
@@ -139,6 +162,7 @@ EXPORT void sim_init() {
 EXPORT int sim_frame() {
     frame_done = false;
     for (int i = 0; i < 2000000 && !frame_done; i++) tick();
+    if (frame_done) fill_skipped_rows();
     return frame_done ? 1 : 0;
 }
 
@@ -160,6 +184,8 @@ EXPORT void sim_set_extra_ticks(int n) {
 }
 
 // Row skipping: only every n-th row (n = 1..4) is simulated, the harness repeats it. Call between frames.
+EXPORT void sim_set_blend(int on) { blend_on = on ? 1 : 0; }
+
 EXPORT void sim_set_vstep(int n) {
     step_y = (n < 1) ? 1 : (n > 4 ? 4 : n);
 #ifdef VGA_PREFIX
@@ -228,6 +254,7 @@ int main(int argc, char **argv) {
     sim_init();
     sim_set_extra_ticks(tpf - 1);
     sim_set_vstep(getenv("SY") ? atoi(getenv("SY")) : 1);
+    if (getenv("BLEND")) sim_set_blend(atoi(getenv("BLEND")));
     static const int press[] = {24, 96, 168, 240, 312, 384, 456};
     for (int n = 0; n < frames; n++) {
         long tick = (long)n * tpf;                                   // game ticks completed before this call

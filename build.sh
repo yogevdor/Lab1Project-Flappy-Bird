@@ -63,7 +63,7 @@ else
   em++ -O3 -std=c++17 -include stdint.h -DVL_IGNORE_UNKNOWN_ARCH ${EMFLAGS:-} "${INC[@]}" "${CPP[@]}" "${MAINDEFS[@]}" "$HERE/sim/main.cpp" \
     --preload-file "$B/rom/RTL@/RTL" \
     -s ALLOW_MEMORY_GROWTH=1 -s MODULARIZE=1 -s EXPORT_NAME=FlappyFish \
-    -s EXPORTED_FUNCTIONS=_sim_init,_sim_frame,_sim_framebuffer,_sim_set_switches,_sim_set_extra_ticks,_sim_has_ticks,_sim_set_vstep,_sim_key,_sim_hex,_sim_cycles \
+    -s EXPORTED_FUNCTIONS=_sim_init,_sim_frame,_sim_framebuffer,_sim_set_switches,_sim_set_extra_ticks,_sim_has_ticks,_sim_set_vstep,_sim_set_blend,_sim_key,_sim_hex,_sim_cycles \
     -s EXPORTED_RUNTIME_METHODS=HEAPU8,HEAPU32,ccall \
     -o "$HERE/site/game.js"
   cp "$HERE/web/index.html" "$HERE/site/index.html"

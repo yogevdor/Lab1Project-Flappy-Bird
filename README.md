@@ -52,6 +52,10 @@ game playable:
   faster, `?res=3` / `?res=4`) breaks thin details such as the sardines, so it is never chosen automatically; columns
   are never skipped (the scrolling background is dithered and sampling every 2nd column makes it flicker). The
   status line under the game shows which one is in use; `?res=full|2|3|4` in the URL forces one (for testing).
+  The rows that were not simulated are filled in by the page: with every 2nd row simulated they are the average of
+  the rows above and below (error against a full-resolution frame 10.4 instead of 14.4 when just repeating a row);
+  with every 3rd / 4th row the nearest simulated row is used, because averaging there only blurs. `?blend=0` repeats
+  the row above instead.
 
 ## Differences from main (everything else is the RTL as it is)
 
