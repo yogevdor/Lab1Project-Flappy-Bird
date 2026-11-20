@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1385 696" width="1385" height="696" role="img" aria-label="Flappy-Fish block diagram: inputs, game state, game objects, drawing and outputs">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d6a72"/></marker></defs>
+<rect width="1385" height="696" fill="#ffffff"/>
+<path d="M212.0,141.0 C267.0,141.0 195.0,134.0 250.0,134.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="231.0" y="140.5" text-anchor="middle" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="12" font-weight="500" fill="#1c2429" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">keys</text>
+<path d="M189.0,231.0 C244.0,231.0 195.0,168.0 250.0,168.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="219.5" y="202.5" text-anchor="middle" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="12" font-weight="500" fill="#1c2429" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">turbo</text>
+<path d="M502.0,114.6 C557.0,114.6 485.0,141.0 540.0,141.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M502.0,129.1 C557.0,129.1 485.0,241.0 540.0,241.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M502.0,143.7 C557.0,143.7 485.0,341.0 540.0,341.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M502.0,158.3 C557.0,158.3 485.0,441.0 540.0,441.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M502.0,172.9 C557.0,172.9 485.0,521.0 540.0,521.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M502.0,187.4 C557.0,187.4 485.0,591.0 540.0,591.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M809.0,127.3 C864.0,127.3 785.0,127.3 840.0,127.3" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M801.0,227.3 C856.0,227.3 785.0,154.7 840.0,154.7" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M940.0,100.0 C940.0,10.0 376.0,10.0 376.0,100.0" fill="none" stroke="#5d6a72" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="658.0" y="35.5" text-anchor="middle" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="12" font-weight="500" fill="#1c2429" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">collision, passed</text>
+<path d="M809.0,154.7 C864.0,154.7 785.0,290.4 840.0,290.4" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M801.0,254.7 C856.0,254.7 785.0,310.8 840.0,310.8" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M809.0,341.0 C864.0,341.0 785.0,331.2 840.0,331.2" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M766.0,441.0 C821.0,441.0 785.0,351.6 840.0,351.6" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M1049.0,321.0 C1104.0,321.0 1065.0,301.0 1120.0,301.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="1084.5" y="314.0" text-anchor="middle" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="12" font-weight="500" fill="#1c2429" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">RGBOut</text>
+<path d="M727.0,521.0 C782.0,521.0 1065.0,521.0 1120.0,521.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M758.0,591.0 C813.0,591.0 1065.0,591.0 1120.0,591.0" fill="none" stroke="#5d6a72" stroke-width="1.6" marker-end="url(#arrow)"/>
+<g transform="translate(20,100)">
+<rect width="192" height="82" rx="7" fill="#e6eef6" stroke="#2f6fb0" stroke-width="1.5"/>
+<rect width="192" height="28" rx="6" fill="#c5d7e9"/>
+<text x="96.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Keyboard (TOP_KBD)</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">8 = flap, 0 = pause</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">NumLk = god mode</text>
+</g>
+<g transform="translate(20,200)">
+<rect width="169" height="62" rx="7" fill="#e6eef6" stroke="#2f6fb0" stroke-width="1.5"/>
+<rect width="169" height="28" rx="6" fill="#c5d7e9"/>
+<text x="84.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Switches SW[1:0]</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">turbo speed</text>
+</g>
+<g transform="translate(20,560)">
+<rect width="175" height="62" rx="7" fill="#ffffff" stroke="#6c7a82" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="87.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">clk + resetN</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">go to every block</text>
+</g>
+<g transform="translate(250,100)">
+<rect width="252" height="102" rx="7" fill="#f6ede3" stroke="#b26a12" stroke-width="1.5"/>
+<rect width="252" height="28" rx="6" fill="#e9d5bd"/>
+<text x="126.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Game state</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">game_controller (FSM)</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">speed_controller</text>
+<text x="12" y="91" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">score_counter, boss_detect</text>
+</g>
+<g transform="translate(540,100)">
+<rect width="269" height="82" rx="7" fill="#e4f0ed" stroke="#1c8068" stroke-width="1.5"/>
+<rect width="269" height="28" rx="6" fill="#bfdbd5"/>
+<text x="134.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Fish</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">fish_move physics</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">fish_bit_map, flap animation</text>
+</g>
+<g transform="translate(540,200)">
+<rect width="261" height="82" rx="7" fill="#e4f0ed" stroke="#1c8068" stroke-width="1.5"/>
+<rect width="261" height="28" rx="6" fill="#bfdbd5"/>
+<text x="130.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Pipes x3</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">single_pipe_move, gap_mover</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">pipe_brick_bit_map</text>
+</g>
+<g transform="translate(540,300)">
+<rect width="269" height="82" rx="7" fill="#e4f0ed" stroke="#1c8068" stroke-width="1.5"/>
+<rect width="269" height="28" rx="6" fill="#bfdbd5"/>
+<text x="134.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Background</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">back_ground_draw (reef)</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">background_object_block_t x2</text>
+</g>
+<g transform="translate(540,400)">
+<rect width="226" height="82" rx="7" fill="#eeeaf6" stroke="#7550b5" stroke-width="1.5"/>
+<rect width="226" height="28" rx="6" fill="#d8ceea"/>
+<text x="113.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Score and screens</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">numbers_bit_map</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">start, pause, game-over</text>
+</g>
+<g transform="translate(540,490)">
+<rect width="187" height="62" rx="7" fill="#eeeaf6" stroke="#7550b5" stroke-width="1.5"/>
+<rect width="187" height="28" rx="6" fill="#d8ceea"/>
+<text x="93.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">best_score_display</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">best score digits</text>
+</g>
+<g transform="translate(540,560)">
+<rect width="218" height="62" rx="7" fill="#f6ede3" stroke="#b26a12" stroke-width="1.5"/>
+<rect width="218" height="28" rx="6" fill="#e9d5bd"/>
+<text x="109.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Audio</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">audio_selector + audio</text>
+</g>
+<g transform="translate(840,100)">
+<rect width="200" height="82" rx="7" fill="#f6ede3" stroke="#b26a12" stroke-width="1.5"/>
+<rect width="200" height="28" rx="6" fill="#e9d5bd"/>
+<text x="100.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Hit and pass detect</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">collision_controller</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">pipe passed pulse</text>
+</g>
+<g transform="translate(840,270)">
+<rect width="209" height="102" rx="7" fill="#f6e9eb" stroke="#b04558" stroke-width="1.5"/>
+<rect width="209" height="28" rx="6" fill="#e9cbd0"/>
+<text x="104.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">objects_mux</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">priority mux of every</text>
+<text x="12" y="71" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">drawing request,</text>
+<text x="12" y="91" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">dark-mode shading</text>
+</g>
+<g transform="translate(1120,150)">
+<rect width="235" height="62" rx="7" fill="#ffffff" stroke="#6c7a82" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="117.5" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">pixelX/Y, startOfFrame</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">go to every sprite block</text>
+</g>
+<g transform="translate(1120,270)">
+<rect width="166" height="62" rx="7" fill="#f6e9eb" stroke="#b04558" stroke-width="1.5"/>
+<rect width="166" height="28" rx="6" fill="#e9cbd0"/>
+<text x="83.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">vga_controller</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">timing, VGA port</text>
+</g>
+<g transform="translate(1120,490)">
+<rect width="160" height="62" rx="7" fill="#f6e9eb" stroke="#b04558" stroke-width="1.5"/>
+<rect width="160" height="28" rx="6" fill="#e9cbd0"/>
+<text x="80.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">HEX0-2 displays</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">best score</text>
+</g>
+<g transform="translate(1120,560)">
+<rect width="160" height="62" rx="7" fill="#f6e9eb" stroke="#b04558" stroke-width="1.5"/>
+<rect width="160" height="28" rx="6" fill="#e9cbd0"/>
+<text x="80.0" y="19" text-anchor="middle" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-weight="600" font-size="14.5" fill="#1c2429">Audio codec</text>
+<text x="12" y="51" font-family="'IBM Plex Mono',Consolas,Menlo,'DejaVu Sans Mono',monospace" font-size="14" font-weight="500" fill="#1c2429">melody out</text>
+</g>
+<rect x="20" y="663" width="14" height="14" rx="3" fill="#cbdbeb" stroke="#2f6fb0" stroke-width="2"/>
+<text x="40" y="674" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="12.5" fill="#1c2429">Inputs</text>
+<rect x="109.2" y="663" width="14" height="14" rx="3" fill="#ecdac4" stroke="#b26a12" stroke-width="2"/>
+<text x="129.2" y="674" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="12.5" fill="#1c2429">Control logic</text>
+<rect x="248.8" y="663" width="14" height="14" rx="3" fill="#c6dfd9" stroke="#1c8068" stroke-width="2"/>
+<text x="268.8" y="674" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="12.5" fill="#1c2429">Game objects</text>
+<rect x="381.20000000000005" y="663" width="14" height="14" rx="3" fill="#dcd3ec" stroke="#7550b5" stroke-width="2"/>
+<text x="401.20000000000005" y="674" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="12.5" fill="#1c2429">Score and screens</text>
+<rect x="549.6" y="663" width="14" height="14" rx="3" fill="#ebd0d5" stroke="#b04558" stroke-width="2"/>
+<text x="569.6" y="674" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="12.5" fill="#1c2429">Outputs</text>
+<rect x="646.0" y="663" width="14" height="14" rx="3" fill="#dadee0" stroke="#6c7a82" stroke-width="2"/>
+<text x="666.0" y="674" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="12.5" fill="#1c2429">Note</text>
+<line x1="720.8" y1="670" x2="746.8" y2="670" stroke="#5d6a72" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="752.8" y="674" font-family="'IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="12.5" fill="#5d6a72">feedback loop</text>
+</svg>
