@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flappy Fish - running the real RTL</title>
+<style>
+  :root { --bg:#0b1d2a; --panel:#12303f; --ink:#e7f3f7; --dim:#8fb3c1; --accent:#ffb347; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; background:var(--bg); color:var(--ink);
+         font:15px/1.5 system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; padding:16px; }
+  h1 { font-size:20px; margin:4px 0 2px; }
+  p.sub { margin:0 0 12px; color:var(--dim); text-align:center; max-width:680px; }
+  #wrap { width:100%; max-width:640px; }
+  canvas { width:100%; height:auto; aspect-ratio:4/3; background:#000; border-radius:8px;
+           image-rendering:pixelated; display:block; touch-action:manipulation; }
+  .bar { display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center; justify-content:space-between;
+         background:var(--panel); border-radius:8px; padding:8px 12px; margin-top:10px; }
+  .bar label { cursor:pointer; user-select:none; }
+  #hex { font:600 18px ui-monospace, monospace; letter-spacing:3px; color:var(--accent); }
+  #status { color:var(--dim); font-size:13px; }
+  kbd { background:#0b1d2a; border:1px solid #2c566b; border-radius:4px; padding:0 6px; font-size:13px; }
+  .help { color:var(--dim); font-size:13px; margin-top:10px; }
+</style>
+</head>
+<body>
+<h1>Flappy Fish</h1>
+<p class="sub">This is the actual SystemVerilog design (Technion lab project), simulated cycle by cycle with Verilator
+  and compiled to WebAssembly. The board's VGA, PS/2 keyboard and switches are emulated.</p>
+<div id="wrap">
+  <canvas id="screen" width="640" height="480" tabindex="0"></canvas>
+  <div class="bar">
+    <span>Best score <span id="hex">------</span></span>
+    <label><input type="checkbox" id="sw0"> SW0 (speed)</label>
+    <label><input type="checkbox" id="sw1"> SW1 (speed)</label>
+    <span id="status">loading...</span>
+  </div>
+  <div class="help">
+    <kbd>Space</kbd> / <kbd>&uarr;</kbd> / click = numpad&nbsp;8 (start, flap) &middot;
+    <kbd>P</kbd> / <kbd>0</kbd> = numpad&nbsp;0 (pause) &middot;
+    <kbd>G</kbd> = NumLock (god mode)
+  </div>
+</div>
+<script src="game.js"></script>
+<script>
+(async () => {
+  const status = document.getElementById('status');
+  const canvas = document.getElementById('screen');
+  const ctx = canvas.getContext('2d');
+  const img = ctx.createImageData(640, 480);
+  const hexEl = document.getElementById('hex');
+
+  const M = await FlappyFish();
+  M._sim_init();
+  const fbWords = M._sim_framebuffer() >> 2;
+
+  // PS/2 scan codes (bit 8 = E0 extended)
+  const KEYMAP = {
+    Space: 0x75, ArrowUp: 0x75, Digit8: 0x75, Numpad8: 0x75, KeyW: 0x75,
+    KeyP: 0x70, Digit0: 0x70, Numpad0: 0x70,
+    KeyG: 0x77, NumLock: 0x77,
+  };
+  const held = new Set();
+  function key(code, down) {
+    const sc = KEYMAP[code];
+    if (sc === undefined) return false;
+    if (down === held.has(code)) return true;       // ignore auto-repeat
+    down ? held.add(code) : held.delete(code);
+    M._sim_key(sc, down ? 1 : 0);
+    return true;
+  }
+  addEventListener('keydown', e => { if (key(e.code, true)) e.preventDefault(); });
+  addEventListener('keyup',   e => { if (key(e.code, false)) e.preventDefault(); });
+  canvas.addEventListener('pointerdown', () => { key('Space', true); });
+  addEventListener('pointerup', () => { key('Space', false); });
+
+  const sw = () => M._sim_set_switches((document.getElementById('sw0').checked ? 1 : 0) |
+                                       (document.getElementById('sw1').checked ? 2 : 0));
+  document.getElementById('sw0').onchange = sw;
+  document.getElementById('sw1').onchange = sw;
+
+  // active-low 7-segment patterns -> digit
+  const SEG = {0x40:'0',0x79:'1',0x24:'2',0x30:'3',0x19:'4',0x12:'5',0x02:'6',0x78:'7',0x00:'8',0x10:'9',0x7F:' '};
+  // ---- game loop -------------------------------------------------------------------------------
+  // 1. Game speed. The game advances one step per "start of frame" pulse of the VGA block. The board draws
+  //    ~72.8 frames/s, this simulation draws fewer, so (like a fixed-timestep game loop) every displayed frame
+  //    is preceded by as many game ticks as real time requires. The game always runs at the board's speed.
+  // 2. Smoothness vs. sharpness. Simulating the chip is the expensive part, and its cost is proportional to the
+  //    number of lines clocked through the VGA block. Picture quality comes first: the page runs at full resolution
+  //    whenever that reaches TARGET_FPS. Only on a machine slower than that does it ask the VGA block to simulate
+  //    every 2nd line (the page repeats it). Skipping more lines (?res=3, ?res=4) breaks thin details such as the
+  //    sardines, so it is never chosen automatically, and columns are never skipped: the scrolling background is
+  //    dithered and sampling every 2nd column makes it flicker.
+  const TICK_HZ = 31.5e6 / (832 * 520);   // = the board's frame rate (72.8 Hz)
+  const MAX_TICKS = 8;                    // 1 real + 7 extra pulses per displayed frame
+  const TARGET_FPS = 45;
+  // relative simulation cost per frame (full resolution = 1); updated from measurements
+  const MODES = [
+    { sy: 1, cost: 1.00, label: 'full resolution' },
+    { sy: 2, cost: 0.50, label: 'half vertical resolution' },
+    { sy: 3, cost: 0.36, label: '1/3 vertical resolution' },
+    { sy: 4, cost: 0.28, label: '1/4 vertical resolution' },
+  ];
+  const AUTO_MODES = 2;                   // full and half vertical resolution
+  const forced = new URLSearchParams(location.search).get('res');   // ?res=full|2|3|4 (testing)
+  const hasTicks = M._sim_has_ticks() === 1;
+
+  let mode = 0, wantMode = 0, wantCount = 0;
+  if (forced) mode = wantMode = { full: 0, '2': 1, '3': 2, '4': 3 }[forced] ?? 0;
+  if (hasTicks) M._sim_set_vstep(MODES[mode].sy);
+
+  let acc = 1, prev = performance.now();
+  let shown = 0, ticksDone = 0, statT = prev, simMs = 0, simN = 0, warm = 0;
+
+  function chooseMode() {
+    if (forced || simN === 0) return;
+    const full = (simMs / simN) / MODES[mode].cost;               // estimated ms per frame at full resolution
+    const overhead = 1.5;                                          // drawing the canvas, etc. (ms)
+    let best = AUTO_MODES - 1;
+    for (let i = 0; i < AUTO_MODES; i++) {
+      if (1000 / (full * MODES[i].cost + overhead) >= TARGET_FPS) { best = i; break; }
+    }
+    // switch only after two agreeing measurements, and move up in quality only with some margin
+    if (best === mode) { wantCount = 0; return; }
+    if (best < mode && 1000 / (full * MODES[best].cost + overhead) < TARGET_FPS * 1.15) return;
+    wantCount = (best === wantMode) ? wantCount + 1 : 1;
+    wantMode = best;
+    if (wantCount >= 2) { mode = best; M._sim_set_vstep(MODES[mode].sy); wantCount = 0; }
+  }
+
+  function loop(now) {
+    const dt = Math.min(Math.max(now - prev, 0), 100);   // ms; clamp after the tab slept
+    prev = now;
+    let n = 1;
+    if (hasTicks) {
+      acc += dt * TICK_HZ / 1000;
+      n = Math.min(Math.floor(acc), MAX_TICKS);
+      if (n < 1) { requestAnimationFrame(loop); return; }   // faster than the board: wait for the next tick
+      acc -= n;
+      if (acc > MAX_TICKS) acc = MAX_TICKS;                  // machine too slow to catch up, don't spiral
+      M._sim_set_extra_ticks(n - 1);
+    }
+    const t0 = performance.now();
+    M._sim_frame();
+    if (++warm > 15) { simMs += performance.now() - t0; simN++; }   // ignore JIT warm-up
+    img.data.set(new Uint8Array(M.HEAPU32.buffer, fbWords * 4, 640 * 480 * 4));
+    ctx.putImageData(img, 0, 0);
+    let s = '';
+    for (let i = 5; i >= 0; i--) s += SEG[M._sim_hex(i)] ?? '?';
+    hexEl.textContent = s.replace(/ /g, '\u00a0');
+    shown++; ticksDone += n;
+    if (now - statT >= 1000) {
+      const sec = (now - statT) / 1000;
+      status.textContent = (shown / sec).toFixed(0) + ' fps, game speed ' + Math.round(100 * ticksDone / sec / TICK_HZ) +
+                           '%' + (hasTicks ? ', ' + MODES[mode].label : '');
+      if (location.search.includes('debug')) document.title = status.textContent;   // for automated measurements
+      chooseMode();
+      shown = 0; ticksDone = 0; statT = now; simMs = 0; simN = 0;
+    }
+    requestAnimationFrame(loop);
+  }
+  status.textContent = 'running';
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
